@@ -5,31 +5,30 @@ AnMenh
 
 ## Purpose
 AnMenh is the identity layer of Harmony.
-It stores a user's destiny profile and delivers personalized insights.
+It stores a user's destiny profile and delivers highly personalized, modern insights based on Eastern astrology.
 
 ## Target User
-Vietnamese users interested in astrology, destiny, and daily guidance.
+Vietnamese Millennials and Gen Z interested in self-discovery, spiritual wellness, and daily guidance.
 
 ## Core Value
-Each user has ONE persistent destiny profile.
+Each user has **ONE** persistent destiny profile.
+Provide insights in a modern, "straight-talk" tone (phong cách trực diện, dễ hiểu, tránh từ ngữ Hán Việt phức tạp).
 
 ---
 
 ## Core Features (V1)
 
 ### 1. Account System
-- Register
-- Login
+- Register & Login (Email/Password)
 - Session authentication
 
 Fields:
 - email
-- password (hashed)
+- password_hash
 
 ---
 
 ### 2. Destiny Profile Creation
-
 Input:
 - birth_date (required)
 - birth_time (optional)
@@ -37,56 +36,55 @@ Input:
 
 Output:
 - element (ngũ hành)
-- zodiac
-- destiny summary
+- zodiac (con giáp)
+- destiny summary (tổng quan vận mệnh)
 
-Constraint:
-Profile creation must take < 30 seconds.
+Constraint: Profile creation must take < 30 seconds.
 
 ---
 
 ### 3. Dashboard
+Displays the daily personal energy:
+- Today's Energy Score (Điểm năng lượng)
+- Recommended Actions (Nên làm - e.g., "Tập trung làm việc một mình")
+- Avoid Actions (Tránh làm - e.g., "Tranh cãi với sếp")
+- Lucky Color (Màu cứu rỗi tâm trạng)
 
-Displays:
-- Today's energy score
-- Recommended actions
-- Avoid actions
-- Lucky color
-
-Updated daily.
+*Updated daily via AI using the modern tone.*
 
 ---
 
 ### 4. Daily Insight Engine
-
 System generates daily insight using:
-- destiny profile
-- current date
+- User's Destiny Profile
+- Current Date & Planetary/Lunar transits
 
-One insight per user per day.
+*One customized insight per user per day.*
 
 ---
 
 ### 5. Harmony Score (Gamification)
-
 Score increases when:
-- user logs in daily
-- user reads insight
-- user updates profile
+- User logs in daily
+- User reads insight
+- User updates profile
 
 ---
 
-### 6. Premium Lock (Preparation)
+## Strategic Features (V1.5 / V2)
 
-Certain insights marked as:
-- locked = premium
+### 1. Social Compatibility (Tương Hợp)
+- User can add friends via a share link.
+- Compare Destiny Profiles to see compatibility in Love, Work, and Friendship.
+- **Goal:** Drive viral growth (invite loops).
 
-No payment required in V1.
+### 2. A-La-Carte Monetization (Pay-per-report)
+- Premium insights are sold individually using "Harmony Coins" or direct payments.
+- Example: "Báo cáo tương hợp tình duyên chuyên sâu" or "Hỏi AI một câu về sự nghiệp".
 
 ---
 
 ## Non Goals (V1)
-
-- No AI chat
-- No mobile app
-- No complex astrology calculations
+- No complex traditional astrology charts (Keep it simple for Gen Z).
+- No mobile app (Web MVP first).
+- No subscription model (Freemium + a-la-carte later).

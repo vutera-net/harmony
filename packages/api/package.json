@@ -1,0 +1,14 @@
+{
+  "name": "@harmony/api",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@trpc/server": "*",
+    "@trpc/client": "*",
+    "@trpc/react-query": "*",
+    "zod": "*",
+    "superjson": "latest",
+    "@harmony/database": "workspace:*",
+    "@harmony/domain": "workspace:*"
+  }
+}

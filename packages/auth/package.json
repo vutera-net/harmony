@@ -1,0 +1,9 @@
+{
+  "name": "@harmony/auth",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "dependencies": {
+    "next-auth": "^4.24.5",
+    "@harmony/database": "workspace:*"
+  }
+}

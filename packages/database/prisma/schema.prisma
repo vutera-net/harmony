@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  passwordHash  String
+  createdAt     DateTime @default(now())
+
+  destinyProfile DestinyProfile?
+  harmonyScore   HarmonyScore?
+  
+  connectionsSent     Connection[] @relation("SentConnections")
+  connectionsReceived Connection[] @relation("ReceivedConnections")
+  premiumReports      PremiumReport[]
+}
+
+model DestinyProfile {
+  id         String   @id @default(uuid())
+  userId     String   @unique
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  birthDate  String   // format DD-MM-YYYY or ISO
+  birthTime  String?
+  gender     String
+  element    String   // Ngũ hành (Kim, Mộc...)
+  zodiac     String   // Con giáp
+  createdAt  DateTime @default(now())
+
+  dailyInsights DailyInsight[]
+}
+
+model DailyInsight {
+  id         String   @id @default(uuid())
+  profileId  String
+  profile    DestinyProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  date       String   // YYYY-MM-DD
+  energyScore Int
+  doList     Json
+  avoidList  Json
+  luckyColor String
+  isPremium  Boolean  @default(false)
+
+  @@unique([profileId, date])
+}
+
+model HarmonyScore {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  score       Int      @default(0)
+  lastUpdated DateTime @default(now())
+}
+
+model Connection {
+  id                 String   @id @default(uuid())
+  userId             String
+  friendUserId       String
+  status             String   // 'pending', 'accepted', 'rejected'
+  compatibilityScore Int?
+  createdAt          DateTime @default(now())
+
+  user       User @relation("SentConnections", fields: [userId], references: [id], onDelete: Cascade)
+  friendUser User @relation("ReceivedConnections", fields: [friendUserId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, friendUserId])
+}
+
+model PremiumReport {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reportType  String   // 'love', 'career', 'ai_chat'
+  content     Json
+  purchasedAt DateTime @default(now())
+}

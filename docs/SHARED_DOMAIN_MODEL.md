@@ -1,8 +1,12 @@
 # Shared Domain Model
 
 User
-    └── DestinyProfile
-            └── DailyInsight
+    ├── DestinyProfile
+    │       ├── DailyInsight (Daily personalized advice)
+    │       └── PremiumReport (A-la-carte deep insights)
+    │
+    ├── HarmonyScore (Gamification)
+    └── Connection (Social graph & Compatibility)
 
 Article
-    └── CTA → Profile Creation
+    └── CTA (Triggers emotional/curiosity metrics) → Profile Creation
