@@ -1,0 +1,1 @@
+Code cơ bản đã hoàn thành. Bây giờ hãy dừng việc code tính năng mới. Hãy viết tài liệu TEST_PLAN trong docs/. Trong đó liệt kê chi tiết các trường hợp kiểm thử (Test Cases) từ Unit Test đến UI Test. Đảm bảo mỗi mục test đều có check box [ ] để chúng ta theo dõi tiến độ kiểm thử."

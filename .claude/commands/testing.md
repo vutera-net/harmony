@@ -1,0 +1,1 @@
+Hãy thực hiện quy trình kiểm thử tự động theo docs/TEST_PLAN.md: 1. Sử dụng các bộ compiler/builder để quét và sửa toàn bộ các lỗi Type và Syntax. 2. Chia task cho các sub-agents thực hiện song song để tiết kiệm thời gian. 3. Liên tục cập nhật kết quả (pass/fail) bằng cách đánh dấu vào TEST_PLAN.md. Nếu có lỗi, hãy tự động sửa (auto-fix) và test lại.
