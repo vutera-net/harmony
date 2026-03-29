@@ -1,11 +1,11 @@
 import { z } from 'zod';
-import { router, publicProcedure } from '../trpc';
+import { router, publicProcedure, protectedProcedure } from '../trpc';
 import { calculateCompatibility } from '@harmony/domain';
 
 export const connectionRouter = router({
   
   // 1. Tìm người dùng bằng Email
-  searchUser: publicProcedure
+  searchUser: protectedProcedure
     .input(z.object({ email: z.string() }))
     .query(async ({ input, ctx }) => {
       const user = await ctx.prisma.user.findUnique({
@@ -22,51 +22,51 @@ export const connectionRouter = router({
     }),
 
   // 2. Tự động Kết Buộc 2 Sinh Mệnh (MVP Auto-Accept)
-  addConnection: publicProcedure
+  addConnection: protectedProcedure
     .input(z.object({
-      requesterId: z.string(), // ID gốc
-      targetId: z.string(),    // Bạn bè
+      friendUserId: z.string(),    // ID người được kết nối
     }))
     .mutation(async ({ input, ctx }) => {
+      const myId = ctx.session.user.id;
       // Vì là Auto-Accept MVP, tạo 1 record accepted luôn
       return await ctx.prisma.connection.create({
         data: {
-          requesterId: input.requesterId,
-          targetId: input.targetId,
+          userId: myId,
+          friendUserId: input.friendUserId,
           status: "accepted"
         }
       });
     }),
 
   // 3. Hiển thị danh sách Bạn Bè kèm điểm Chấm Tương Hợp
-  listConnections: publicProcedure
-    .input(z.object({ userId: z.string() }))
-    .query(async ({ input, ctx }) => {
+  listConnections: protectedProcedure
+    .query(async ({ ctx }) => {
+      const myId = ctx.session.user.id;
       
       // Lấy Profile của TÔI
       const myProfile = await ctx.prisma.destinyProfile.findUnique({
-        where: { userId: input.userId }
+        where: { userId: myId }
       });
 
       // Lấy danh sách kết nối
       const connections = await ctx.prisma.connection.findMany({
         where: { 
           OR: [
-            { requesterId: input.userId },
-            { targetId: input.userId }
+            { userId: myId },
+            { friendUserId: myId }
           ],
           status: "accepted"
         },
         include: {
-          requester: { include: { destinyProfile: true } },
-          target: { include: { destinyProfile: true } }
+          user: { include: { destinyProfile: true } },
+          friendUser: { include: { destinyProfile: true } }
         }
       });
 
       // Map về dữ liệu Friend + Tính điểm tương hợp Realtime
-      return connections.map((conn: any) => {
-        const isRequester = conn.requesterId === input.userId;
-        const friend = isRequester ? conn.target : conn.requester;
+      return connections.map((conn) => {
+        const isRequester = conn.userId === myId;
+        const friend = isRequester ? conn.friendUser : conn.user;
         const friendProfile = friend.destinyProfile;
 
         // Nếu cả 2 đều có Profile, Tính điểm!

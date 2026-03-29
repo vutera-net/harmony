@@ -24,8 +24,9 @@ export async function generateStaticParams() {
 }
 
 // 2. Chèn tự động thẻ Metadata (SEO - Title, Meta Description)
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const article = GET_ARTICLE(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = GET_ARTICLE(slug);
   if (!article) return {};
   return {
     title: `${article.title} | Harmony Tử Vi`,
@@ -33,8 +34,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = GET_ARTICLE(params.slug);
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = GET_ARTICLE(slug);
   
   if (!article) return notFound();
 

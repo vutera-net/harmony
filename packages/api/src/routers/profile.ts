@@ -1,11 +1,10 @@
 import { z } from 'zod';
-import { router, publicProcedure } from '../trpc';
+import { router, publicProcedure, protectedProcedure } from '../trpc';
 import { generateDestinyCore } from '@harmony/domain';
 
 export const profileRouter = router({
-  createProfile: publicProcedure
+  createProfile: protectedProcedure
     .input(z.object({
-      userId: z.string(),
       birthDate: z.string(),
       birthTime: z.string().optional(),
       gender: z.string(),
@@ -16,7 +15,7 @@ export const profileRouter = router({
 
       return await ctx.prisma.destinyProfile.create({
         data: {
-          userId: input.userId,
+          userId: ctx.session.user.id,
           birthDate: input.birthDate,
           birthTime: input.birthTime,
           gender: input.gender,
@@ -26,11 +25,10 @@ export const profileRouter = router({
       });
     }),
 
-  getMyProfile: publicProcedure
-    .input(z.object({ userId: z.string() }))
-    .query(async ({ input, ctx }) => {
+  getMyProfile: protectedProcedure
+    .query(async ({ ctx }) => {
       return await ctx.prisma.destinyProfile.findUnique({
-        where: { userId: input.userId },
+        where: { userId: ctx.session.user.id },
         include: { dailyInsights: true }
       });
     })

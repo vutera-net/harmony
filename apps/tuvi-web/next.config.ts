@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  transpilePackages: ["@harmony/api", "@harmony/auth", "@harmony/database", "@harmony/domain"],
 };
 
 export default nextConfig;

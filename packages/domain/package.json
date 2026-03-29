@@ -2,5 +2,12 @@
   "name": "@harmony/domain",
   "version": "1.0.0",
   "main": "src/index.ts",
-  "dependencies": {}
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "tsx": "^4.21.0",
+    "vitest": "^4.1.2"
+  }
 }

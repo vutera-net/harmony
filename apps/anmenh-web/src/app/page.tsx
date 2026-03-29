@@ -1,14 +1,27 @@
 import { redirect } from "next/navigation";
-// import { getServerSession } from "next-auth"; 
-// import { authOptions } from "@harmony/auth";
-// import { prisma } from "@harmony/database";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@harmony/auth";
+import { prisma } from "@harmony/database";
 
 export default async function IndexPage() {
-  // Logic thực tế sẽ là:
-  // 1. Kiểm tra session. Nếu ko có -> redirect("/api/auth/signin")
-  // 2. Kiểm tra prisma.DestinyProfile. Nếu ko có -> redirect("/onboarding")
-  // 3. Nếu có cả 2 -> redirect("/dashboard")
-  
-  // Tạm thời để dev UI: Redirect thẳng ra Onboarding để Demo Lớp Da
-  redirect("/onboarding");
+  const session = await getServerSession(authOptions);
+
+  // Chưa đăng nhập -> trang đăng nhập
+  if (!session?.user?.id) {
+    redirect("/auth/login");
+  }
+
+  // Đã đăng nhập, kiểm tra xem đã có profile chưa
+  const profile = await prisma.destinyProfile.findUnique({
+    where: { userId: session.user.id },
+  });
+
+  // Chưa có profile -> Onboarding
+  if (!profile) {
+    redirect("/onboarding");
+  }
+
+  // Đã có profile -> Dashboard
+  redirect("/dashboard");
 }
+

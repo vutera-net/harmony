@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@harmony/database';
+import { prisma, Prisma } from '@harmony/database';
 import { generateDailyInsight } from '@harmony/domain';
 
 // Cấu hình tăng giới hạn chạy hàm để quét DB đêm (Serverless)
@@ -31,16 +31,16 @@ export async function GET(request: Request) {
           where: { profileId_date: { profileId: p.id, date: today } },
           update: {
             energyScore: insight.energyScore,
-            doList: insight.doList as any,
-            avoidList: insight.avoidList as any,
+            doList: insight.doList as unknown as Prisma.InputJsonValue,
+            avoidList: insight.avoidList as unknown as Prisma.InputJsonValue,
             luckyColor: insight.luckyColor,
           },
           create: {
             profileId: p.id,
             date: today,
             energyScore: insight.energyScore,
-            doList: insight.doList as any,
-            avoidList: insight.avoidList as any,
+            doList: insight.doList as unknown as Prisma.InputJsonValue,
+            avoidList: insight.avoidList as unknown as Prisma.InputJsonValue,
             luckyColor: insight.luckyColor,
           }
         });

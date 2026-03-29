@@ -8,6 +8,8 @@
     "@trpc/react-query": "*",
     "zod": "*",
     "superjson": "latest",
+    "next-auth": "*",
+    "@harmony/auth": "workspace:*",
     "@harmony/database": "workspace:*",
     "@harmony/domain": "workspace:*"
   }
