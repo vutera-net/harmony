@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model User {
@@ -41,8 +41,8 @@ model DailyInsight {
   profile    DestinyProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   date       String   // YYYY-MM-DD
   energyScore Int
-  doList     Json
-  avoidList  Json
+  doList     String
+  avoidList  String
   luckyColor String
   isPremium  Boolean  @default(false)
 
@@ -76,6 +76,6 @@ model PremiumReport {
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   reportType  String   // 'love', 'career', 'ai_chat'
-  content     Json
+  content     String
   purchasedAt DateTime @default(now())
 }

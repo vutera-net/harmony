@@ -31,8 +31,8 @@ export const connectionRouter = router({
       // Vì là Auto-Accept MVP, tạo 1 record accepted luôn
       return await ctx.prisma.connection.create({
         data: {
-          requesterId: input.requesterId,
-          targetId: input.targetId,
+          userId: input.requesterId,
+          friendUserId: input.targetId,
           status: "accepted"
         }
       });
@@ -52,21 +52,21 @@ export const connectionRouter = router({
       const connections = await ctx.prisma.connection.findMany({
         where: { 
           OR: [
-            { requesterId: input.userId },
-            { targetId: input.userId }
+            { userId: input.userId },
+            { friendUserId: input.userId }
           ],
           status: "accepted"
         },
         include: {
-          requester: { include: { destinyProfile: true } },
-          target: { include: { destinyProfile: true } }
+          user: { include: { destinyProfile: true } },
+          friendUser: { include: { destinyProfile: true } }
         }
       });
 
       // Map về dữ liệu Friend + Tính điểm tương hợp Realtime
       return connections.map((conn: any) => {
-        const isRequester = conn.requesterId === input.userId;
-        const friend = isRequester ? conn.target : conn.requester;
+        const isRequester = conn.userId === input.userId;
+        const friend = isRequester ? conn.friendUser : conn.user;
         const friendProfile = friend.destinyProfile;
 
         // Nếu cả 2 đều có Profile, Tính điểm!

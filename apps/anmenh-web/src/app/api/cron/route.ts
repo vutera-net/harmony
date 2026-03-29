@@ -31,16 +31,16 @@ export async function GET(request: Request) {
           where: { profileId_date: { profileId: p.id, date: today } },
           update: {
             energyScore: insight.energyScore,
-            doList: insight.doList as any,
-            avoidList: insight.avoidList as any,
+            doList: JSON.stringify(insight.doList),
+            avoidList: JSON.stringify(insight.avoidList),
             luckyColor: insight.luckyColor,
           },
           create: {
             profileId: p.id,
             date: today,
             energyScore: insight.energyScore,
-            doList: insight.doList as any,
-            avoidList: insight.avoidList as any,
+            doList: JSON.stringify(insight.doList),
+            avoidList: JSON.stringify(insight.avoidList),
             luckyColor: insight.luckyColor,
           }
         });

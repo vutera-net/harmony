@@ -33,5 +33,20 @@ export const profileRouter = router({
         where: { userId: input.userId },
         include: { dailyInsights: true }
       });
-    })
+    }),
+
+  getDailyInsight: publicProcedure
+    .input(z.object({ userId: z.string(), date: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const profile = await ctx.prisma.destinyProfile.findUnique({
+        where: { userId: input.userId },
+        include: {
+          dailyInsights: {
+            where: { date: input.date },
+            take: 1
+          }
+        }
+      });
+      return profile?.dailyInsights[0] || null;
+    }),
 });
