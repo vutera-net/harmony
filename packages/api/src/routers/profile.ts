@@ -31,5 +31,19 @@ export const profileRouter = router({
         where: { userId: ctx.session.user.id },
         include: { dailyInsights: true }
       });
+    }),
+
+  getTodayInsight: protectedProcedure
+    .query(async ({ ctx }) => {
+      const today = new Date().toISOString().split('T')[0];
+      const profile = await ctx.prisma.destinyProfile.findUnique({
+        where: { userId: ctx.session.user.id },
+      });
+
+      if (!profile) return null;
+
+      return await ctx.prisma.dailyInsight.findUnique({
+        where: { profileId_date: { profileId: profile.id, date: today } },
+      });
     })
 });
