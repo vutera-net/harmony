@@ -1,111 +1,122 @@
 # Implementation Spec — AnMenh
 
 ## Tech Stack
+
 **Frontend:**
-- Next.js (App Router)
-- TailwindCSS
+- Next.js 16 (App Router), React 19
+- TailwindCSS v4
 
 **Backend:**
-- Next.js API routes / Server Actions
+- tRPC (end-to-end type-safe API) — handler tại `/api/trpc/[trpc]`
+- NextAuth v4 — Credentials Provider, JWT session
 
 **Database:**
-- PostgreSQL (via Prisma / Drizzle)
-
-**Auth:**
-- JWT session
+- Prisma v5 — SQLite (dev) / Neon PostgreSQL (prod)
 
 ---
 
-## Database Schema
+## Database Schema (Prisma)
 
-### `users`
+### `User`
 - `id` (uuid)
-- `email`
-- `password_hash`
-- `created_at`
+- `email` (unique)
+- `passwordHash`
+- `createdAt`
 
----
-
-### `destiny_profiles`
-- `id`
-- `user_id` (FK)
-- `birth_date`
-- `birth_time`
+### `DestinyProfile`
+- `id`, `userId` (FK → User)
+- `birthDate` (ISO string)
+- `birthTime` (optional)
 - `gender`
-- `element`
-- `zodiac`
-- `created_at`
+- `element` — Ngũ hành: Kim / Mộc / Thủy / Hỏa / Thổ
+- `zodiac` — Con giáp
+
+### `DailyInsight`
+- `id`, `profileId` (FK → DestinyProfile)
+- `date` (YYYY-MM-DD)
+- `energyScore` (int)
+- `doList` (JSON string — array of strings)
+- `avoidList` (JSON string — array of strings)
+- `luckyColor`
+- `isPremium` (boolean, default false)
+- **UNIQUE(profileId, date)**
+
+### `HarmonyScore`
+- `userId` (unique FK → User)
+- `score`, `lastUpdated`
+
+### `Connection`
+- `userId`, `friendUserId` (FK → User)
+- `status` — `pending` | `accepted` | `rejected`
+- `compatibilityScore` (int, optional)
+- **UNIQUE(userId, friendUserId)**
+
+### `PremiumReport`
+- `userId` (FK → User)
+- `reportType` — `love` | `career` | `ai_chat`
+- `content` (JSON string)
+- `purchasedAt`
 
 ---
 
-### `daily_insights`
-- `id`
-- `profile_id` (FK)
-- `date`
-- `energy_score`
-- `do_list` (json - arrays of modern strings)
-- `avoid_list` (json - arrays of modern strings)
-- `lucky_color`
-- `is_premium` (boolean)
+## tRPC API (appRouter)
 
-**UNIQUE(profile_id, date)**
+```
+appRouter
+├── auth.login(email, password)
+├── auth.register(email, password)
+├── profile.createProfile(userId, birthDate, birthTime, gender)
+├── profile.getMyProfile(userId)
+├── profile.getDailyInsight(userId, date)
+├── connection.searchUser(email)
+├── connection.addConnection(requesterId, targetId)
+└── connection.listConnections(userId)
+```
 
----
-
-### `harmony_scores`
-- `user_id` (FK)
-- `score`
-- `last_updated`
-
----
-
-### `connections` (For V1.5 Social Compatibility)
-- `id`
-- `user_id` (FK)
-- `friend_user_id` (FK)
-- `status` (pending, accepted)
-- `compatibility_score`
-- `created_at`
-
----
-
-### `premium_reports` (For V1.5 A-la-carte)
-- `id`
-- `user_id` (FK)
-- `report_type` (love, career, ai_chat)
-- `content` (json)
-- `purchased_at`
-
----
-
-## API & Server Actions Endpoints
-
-**Auth:**
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-
-**Profile:**
-- `POST /api/profile/create`
-- `GET /api/profile/me`
-
-**Insights:**
-- `GET /api/insight/today`
-
-**Social (V1.5):**
-- `POST /api/connections/request`
-- `GET /api/connections/list`
+Context được inject: `{ prisma: PrismaClient }`
 
 ---
 
 ## Insight Generation Logic
 
-**Pseudo:**
-```python
-if insight for today exists:
+```
+if insight for (profileId, today) exists:
     return cached insight
 else:
-    # Use AI with strict system prompt to ensure modern, "straight-talk" tone
-    generate insight template based on DestinyProfile + Current Transits
-    save to daily_insights
+    call GPT-4 mini với system prompt chứa DestinyProfile
+    → nếu không có OPENAI_API_KEY: return mock insight
+    save to DailyInsight
     return new insight
+```
+
+---
+
+## Cron Job
+
+`src/app/api/cron/route.ts` — chạy `00:01 UTC` hàng ngày, generate AI insight cho tất cả users. Cấu hình tại `vercel.json`.
+
+---
+
+## Folder Structure
+
+```
+src/
+├── app/
+│   ├── page.tsx              # Login / redirect
+│   ├── onboarding/page.tsx   # Tạo Destiny Profile
+│   ├── dashboard/page.tsx    # Daily energy, do/avoid, lucky color
+│   ├── connections/page.tsx  # Social compatibility
+│   └── api/
+│       ├── auth/[...nextauth]/route.ts
+│       ├── trpc/[trpc]/route.ts
+│       └── cron/route.ts
+├── trpc/                     # React client + TRPCProvider
+└── lib/
+    ├── api/                  # tRPC routers & context
+    ├── auth/                 # NextAuth config
+    ├── database/             # Prisma singleton
+    └── domain/
+        ├── astrology/engine.ts
+        ├── astrology/compatibility.ts
+        └── ai/insightGenerator.ts
 ```

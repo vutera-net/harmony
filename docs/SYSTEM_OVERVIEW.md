@@ -4,47 +4,76 @@
 Harmony is a trust-based ecosystem that combines the ancient philosophical depth of Eastern astrology (TuVi, BaZi) with modern AI. It provides users with a persistent destiny profile, high-end content, and deeply personalized social and life guidance.
 
 ## Architecture Philosophy
-**ONE MONOREPO — ONE BACKEND — MULTI APPS**
+**ONE REPO — THREE STANDALONE APPS**
 
-The entire Harmony source code is managed under a single Monorepo (Turborepo + pnpm workspaces) to guarantee type safety, code reusability across platforms, and strict separation of presentation layers from core business domain logic.
+Mỗi app là một Next.js project độc lập, không chia sẻ packages. Business logic và domain code được inline trực tiếp vào từng app (hiện tại chủ yếu trong `anmenh`).
 
 ```
 harmony/
 │
-├── apps/
-│   ├── harmony-web   ⭐ Landing (Brand / Trust Layer)
-│   ├── tuvi-web      ⭐ SEO / Content (Traffic Acquisition Layer)
-│   └── anmenh-web    ⭐ Web App (Product / Identity Layer)
-│
-├── packages/
-│   ├── api           ⭐ Shared API (Harmony Core Backend Engine)
-│   ├── domain        ⭐ Business logic (Astrology engines, Rules)
-│   ├── database      ⭐ Schemas & DB clients (Prisma/Drizzle)
-│   └── auth          ⭐ Unified session & identity management
+├── landing/    ⭐ Landing (Brand / Trust Layer)       → harmony.vutera.net
+├── tuvi/       ⭐ SEO / Content (Traffic Layer)       → tuvi.vutera.net
+└── anmenh/     ⭐ Web App (Product / Identity Layer)  → anmenh.vutera.net
 ```
+
+Mỗi app có `package.json`, `node_modules/`, `prisma/` riêng.
+
+---
 
 ## 1. Apps Breakdown
 
-### 1.1 `harmony-web` (The Trust Layer)
-- **Role:** The corporate homepage and primary brand anchor.
-- **Focus:** Articulating the philosophy behind Harmony, building user trust, showcasing the methodology (AI + Astrology), and acting as the gateway to the ecosystem.
-- **Tech Focus:** High-visual fidelity, animations (Framer Motion), static generation.
+### 1.1 `landing/` (The Trust Layer)
+- **Role:** Corporate homepage and primary brand anchor.
+- **Focus:** Philosophy, trust-building, gateway to the ecosystem.
+- **Tech:** Static/minimal Next.js, animations, dark-zen aesthetic.
 
-### 1.2 `tuvi-web` (The Traffic Layer)
-- **Role:** High-volume SEO engine publishing articles on horoscopes, compatibility, and astrology education.
-- **Focus:** Capturing zero-intent/low-intent organic search traffic.
-- **Tech Focus:** Extreme performance, Incremental Static Regeneration (ISR). Does NOT require authentication to view. Converts readers via emotional CTAs.
+### 1.2 `tuvi/` (The Traffic Layer)
+- **Role:** High-volume SEO engine — horoscopes, compatibility, astrology education.
+- **Focus:** Zero-intent organic traffic capture, ISR for performance.
+- **Tech:** Next.js with ISR, no auth required. CTA banners funneling to `anmenh`.
 
-### 1.3 `anmenh-web` (The Product Layer)
-- **Role:** The secure, personalized dashboard where a user engages with their Destiny Profile.
-- **Focus:** Daily energy scores, social compatibility loops, a-la-carte premium reports.
-- **Tech Focus:** Highly interactive (React state), heavily heavily authenticated, fetching dynamic data per user.
+### 1.3 `anmenh/` (The Product Layer)
+- **Role:** Secure, personalized dashboard for Destiny Profile engagement.
+- **Focus:** Daily energy scores, social compatibility, premium reports.
+- **Tech:** Next.js App Router, NextAuth, tRPC, Prisma SQLite (dev) / Neon PostgreSQL (prod).
 
-## 2. Packages Breakdown (The Core)
+---
 
-Rather than burying the API in `anmenh-web`, all intelligence lives in the Shared Layer:
+## 2. AnMenh Internal Structure (The Core)
 
-- **`packages/api`**: Exposes the Harmony Core routes (e.g., tRPC routers) to all 3 front-end apps.
-- **`packages/domain`**: Houses the strict calculations—destiny mapping, compatibility formulas, avoiding duplicated logic.
-- **`packages/database`**: Single source of truth for PostgreSQL migrations and types.
-- **`packages/auth`**: Ensures a user logged into `anmenh-web` can seamlessly have their identity recognized across subdomains (if required).
+Business logic previously in `packages/` is now inlined inside `anmenh/src/lib/`:
+
+```
+anmenh/src/lib/
+├── api/
+│   ├── index.ts          # tRPC appRouter
+│   ├── trpc.ts           # tRPC context & init
+│   └── routers/
+│       ├── auth.ts
+│       ├── profile.ts
+│       └── connection.ts
+├── auth/
+│   └── index.ts          # NextAuth config
+├── database/
+│   └── index.ts          # Prisma client singleton
+└── domain/
+    ├── astrology/
+    │   ├── engine.ts     # calculateZodiac, calculateElement
+    │   └── compatibility.ts  # Ngũ hành compatibility matrix
+    └── ai/
+        └── insightGenerator.ts  # GPT-4 mini, mock fallback
+```
+
+---
+
+## 3. Data Flow
+
+```
+User browser
+  → NextAuth session (JWT, cookie domain: .vutera.net)
+  → tRPC React Query client (/api/trpc/[trpc])
+  → tRPC router (src/lib/api/routers/)
+  → Domain logic (src/lib/domain/)
+  → Prisma (src/lib/database/)
+  → SQLite (dev) / Neon PostgreSQL (prod)
+```

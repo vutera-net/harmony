@@ -1,25 +1,57 @@
-# Technical Architecture Context (Context Load)
+# Technical Architecture Context
 
-> *File này được cố tình tạo ra để các trợ lý AI đọc lướt ở phiên làm việc sau, từ đó khởi tạo lập tức nhận thức hệ thống (AI Context Bootstrapping).*
+> *File này dành cho AI đọc để bootstrap context nhanh ở đầu mỗi phiên làm việc.*
 
 ## 1. Stack & Frameworks
-- **Manager:** pnpm workspaces + Turborepo (`turbo.json` format v2 `tasks`).
-- **Core Backend:** Node.js, chia ra 4 package `packages/api`, `packages/auth`, `packages/database`, `packages/domain`.
-- **Core Frontend:** Next.js 15 (App Router), Tailwind V4. Chia ra 3 App: `harmony-web`, `tuvi-web`, `anmenh-web`.
-- **API Engine:** tRPC (Server/React-Query) với `superjson` & Zod.
-- **ORM Config:** Prisma (`^5` fix tương thích Monorepo Edge), connect qua Postgres.
-- **Authentication:** NextAuth v4 (Credentials Provider chia sẻ cookie chéo domain `.vutera.net`).
-- **Domain/AI Logic:** ChatGPT-4 API thông qua cơ chế Fetch Serverless để giữ Edge-friendly. Code gọi AI nén trong `packages/domain/src/ai/insightGenerator.ts`.
-- **Cronjob:** Vercel Cronbot chỉ trỏ vào `anmenh-web/src/app/api/cron/route.ts` chạy lúc `00:01` hằng ngày.
 
-## 2. Các ứng dụng (Apps)
-1. **`harmony-web`**: Lõi Branding (Landing page tĩnh mộc mạc), thẩm mỹ Dark-Zen. (Đã hoàn thành UI page.tsx).
-2. **`tuvi-web`**: Trái tim SEO (Static Site Generation / ISR). Thẩm mỹ Editorial Light Theme (Sử dụng Tailwind Typography Noto Serif). Có component `CtaBanner` rải phễu kéo người xem sang `anmenh-web`.
-3. **`anmenh-web`**: Siêu ứng dụng chứa tRPC ReactProvider, NextAuth SessionProvider. Có luồng UI Wizard Onboarding thần tốc 3 bước. Màn hình Dashboard phân tách "Nên Làm" vs "Đừng Làm" bằng Straight-talk AI Insight.
+- **Cấu trúc:** 3 standalone Next.js apps (không monorepo, không Turborepo)
+- **Framework:** Next.js 16 (App Router), React 19, TypeScript strict
+- **Styling:** TailwindCSS v4
+- **API:** tRPC + Zod + SuperJSON + @tanstack/react-query
+- **ORM:** Prisma v5 — SQLite (dev) / Neon PostgreSQL (prod)
+- **Auth:** NextAuth v4 — Credentials Provider, JWT, cross-domain cookie `.vutera.net`
+- **AI:** GPT-4 mini qua native `fetch` (serverless-friendly). Mock fallback khi không có API key.
+- **Deploy:** Vercel (3 projects riêng trỏ cùng 1 GitHub repo)
 
-## 3. Work-in-progress / Next Steps
-- Cấu hình Social Compatibility (Tương Hợp Bạn Bè) bên mạng lõi An Mệnh.
-- Kịch bản Onboarding có thể bổ sung API Lấy/Mua bản báo cáo Premium.
-- Scale Cronjob từ chạy 100 users / lần sang Queueing nếu lượng users to hơn.
+## 2. Các ứng dụng
 
-*Dự án đã dựng đầy đủ dàn giáo, code sẵn logic cốt lõi. Chỉ cần viết thêm UI hoặc mở rộng DB Schema khi cần.*
+| App | Thư mục | URL | Vai trò |
+|-----|---------|-----|---------|
+| Landing | `landing/` | `harmony.vutera.net` | Branding, dark-zen static |
+| AnMenh | `anmenh/` | `anmenh.vutera.net` | SaaS core — auth, dashboard, onboarding |
+| TuVi | `tuvi/` | `tuvi.vutera.net` | SEO blog, traffic funnel |
+
+## 3. AnMenh — cấu trúc nội bộ
+
+```
+anmenh/
+├── src/
+│   ├── app/                  # Next.js App Router
+│   │   ├── page.tsx          # Login/redirect
+│   │   ├── onboarding/       # Tạo Destiny Profile
+│   │   ├── dashboard/        # Daily energy, do/avoid list
+│   │   ├── connections/      # Social compatibility
+│   │   └── api/
+│   │       ├── auth/[...nextauth]/   # NextAuth handler
+│   │       ├── trpc/[trpc]/          # tRPC handler
+│   │       └── cron/                 # Daily insight generator
+│   ├── trpc/                 # tRPC React client + provider
+│   └── lib/                  # Backend logic (inlined)
+│       ├── api/              # tRPC routers & context
+│       ├── auth/             # NextAuth config
+│       ├── database/         # Prisma client singleton
+│       └── domain/           # Astrology engine, AI, compatibility
+├── prisma/
+│   ├── schema.prisma
+│   ├── seed.ts
+│   └── dev.db                # SQLite (dev only, gitignored)
+└── .env                      # Local env (gitignored)
+```
+
+## 4. Work-in-progress / Next Steps
+
+- Hoàn thiện Social Compatibility UI (tương hợp bạn bè trong `anmenh`)
+- Onboarding flow mua báo cáo Premium
+- Scale cron job sang queue khi users tăng
+
+*Dàn giáo đầy đủ, logic cốt lõi đã có. Chỉ cần thêm UI hoặc mở rộng schema khi cần.*
