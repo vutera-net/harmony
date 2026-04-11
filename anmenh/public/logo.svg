@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4AF37"/>
+      <stop offset="50%" style="stop-color:#FFD700"/>
+      <stop offset="100%" style="stop-color:#D4AF37"/>
+    </linearGradient>
+    <linearGradient id="darkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="45" fill="url(#darkGrad)" stroke="url(#goldGrad)" stroke-width="2"/>
+  
+  <!-- Inner ring -->
+  <circle cx="50" cy="50" r="38" fill="none" stroke="url(#goldGrad)" stroke-width="1" opacity="0.6"/>
+  
+  <!-- Compass cardinal points -->
+  <g fill="url(#goldGrad)" font-family="serif" font-weight="bold" font-size="12" text-anchor="middle">
+    <text x="50" y="18">B</text>
+    <text x="50" y="88">N</text>
+    <text x="18" y="55">Đ</text>
+    <text x="82" y="55">T</text>
+  </g>
+  
+  <!-- Center symbol - stylized "A" -->
+  <g transform="translate(50, 50)">
+    <path d="M0,-15 L-10,12 L-3,12 L0,6 L3,12 L10,12 Z" fill="url(#goldGrad)"/>
+    <rect x="-3" y="0" width="6" height="10" fill="url(#goldGrad)"/>
+  </g>
+  
+  <!-- Decorative dots -->
+  <circle cx="50" cy="25" r="2" fill="#FFD700" opacity="0.8"/>
+  <circle cx="50" cy="75" r="2" fill="#FFD700" opacity="0.8"/>
+  <circle cx="25" cy="50" r="2" fill="#FFD700" opacity="0.8"/>
+  <circle cx="75" cy="50" r="2" fill="#FFD700" opacity="0.8"/>
+</svg>
