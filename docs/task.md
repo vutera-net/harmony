@@ -1,0 +1,25 @@
+# Harmony Ecosystem Implementation Tasks
+
+- `[x]` 1. Hoàn thiện Ứng dụng TuVi (Traffic Engine v2.0)
+  - `[x]` 1.1 Giảm nội dung Tử Vi Hàng Ngày (`HoroscopeView.tsx`) với `ContentLock`
+  - `[x]` 1.2 Giảm nội dung Phong Thủy (`PhongThuyForm.tsx`) với `ContentLock`
+  - `[x]` 1.3 Giảm nội dung Xem Ngày Tốt (`NgayTotForm.tsx`) với `ContentLock`
+  - `[x]` 1.4 Giảm nội dung Tử Vi Đẩu Số (`TuViChartDisplay.tsx`) với `ContentLock`
+  - `[x]` 1.5 Cài đặt Funnel Tracker GA4 (`analytics.ts`)
+  - `[x]` 1.6 Dọn dẹp code Stripe & Pricing cũ khỏi hệ thống
+- `[x]` 2. Tinh chỉnh Ứng dụng AnMenh (Core Product & Polish)
+  - `[x]` 2.1 Sửa lỗi Trụ Ngày Bát tự (trong `battu-logic.ts`)
+  - `[x]` 2.2 Nâng cấp UI `CanXuong.tsx` (Dương lịch display, bộ chọn thân thiện)
+  - `[x]` 2.3 `TuongHop.tsx`: Thêm auto-toggle giới tính & nhấn mạnh nhãn Âm lịch
+  - `[x]` 2.4 `BatTrach.tsx`: Nhấn mạnh nhãn Âm lịch
+  - `[x]` 2.5 Component `WaitlistModal.tsx` mới
+- `[x]` 3. Cổng SSO Tập Trung — `auth.vutera.net` (Plan B)
+  - `[x]` 3.1 Init Next.js app tại `auth/` folder
+  - `[x]` 3.2 Xây dựng trang Login/Register UI (`auth.vutera.net`)
+  - `[x]` 3.3 Cấu hình JWT + Cookie domain `.vutera.net`
+  - `[x]` 3.4 Auth middleware verify JWT cho TuVi & AnMenh
+  - `[x]` 3.5 Xây dựng Component `BridgeTransition.tsx` (Overlay TuVi → AnMenh)
+- `[x]` 4. Harmony Portal — `harmony-portal/`
+  - `[x]` 4.1 Init Next.js app tại `harmony-portal/` folder
+  - `[x]` 4.2 Two-column landing page (TuVi vs AnMenh)
+  - `[x]` 4.3 Tích hợp WaitlistModal Mobile App

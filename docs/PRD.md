@@ -103,14 +103,14 @@ orbit.vutera.net   ──┘
 
 - **Phase 1: Ổn định và Pivot TuVi v2.0 ✅:** Xóa bỏ hoàn toàn code Stripe/Pricing cũ khỏi TuVi. Hoàn thiện việc áp dụng Content Lock và CTA Funnel vào các module có sẵn.
 - **Phase 2: Cải thiện Core Feature trên AnMenh ✅:** Sửa lỗi Bát Tự (Trụ Ngày), nâng cấp UX Cân Xương, Tương Hợp, Bát Trạch. Xây dựng WaitlistModal cho Mobile App.
-- **Phase 3: Cổng Xác Thực Tập Trung `auth.vutera.net` (Đang triển khai):**
+- **Phase 3: Cổng Xác Thực Tập Trung `auth.vutera.net` (Đã hoàn thành ✅):**
   - Khởi tạo Next.js app tại `auth/` folder, deploy lên `auth.vutera.net`.
   - Xây dựng trang Login/Register tối giản, đẹp, cấu hình Auth.js v5 với Prisma + Neon.
   - Cấu hình JWT cookie domain-wide `.vutera.net`.
-  - Xóa bỏ auth riêng lẻ trong TuVi (nếu có), thay bằng verify JWT từ cookie chung.
+  - **Tối ưu hóa:** Toàn bộ URLs trong hệ thống được cấu hình qua biến môi trường (`NEXT_PUBLIC_AUTH_URL`, `NEXT_PUBLIC_TUVI_URL`, v.v.) giúp dễ dàng thay đổi domain (ví dụ: `nhohoai.vn`) hoặc chạy local test mà không cần sửa code.
   - Xây dựng `BridgeTransition` overlay (cầu nối UX từ TuVi → AnMenh).
-- **Phase 4: Harmony Portal (Hub Landing Page):**
-  - Khởi tạo `harmony-portal/` app tại `harmony.vutera.net` (hoặc `vutera.net`).
+- **Phase 4: Harmony Portal (Hub Landing Page) (Đã hoàn thành ✅):**
+  - Khởi tạo `harmony-portal/` app.
   - Trang chủ one-page điều hướng toàn hệ sinh thái, tích hợp WaitlistModal cho Mobile.
 - **Phase 5 (Tương lai): AnMenh Thương mại hóa & Nâng cấp OAuth:**
   - Kích hoạt Pricing Model trên AnMenh (Gói lẻ 1 lần hoặc định kỳ cao cấp).
