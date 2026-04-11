@@ -75,42 +75,46 @@ export default function TuongHop() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           {/* Người 1 */}
           <div className="p-6 rounded-2xl border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-900/30">
-            <h3 className="text-lg font-bold text-amber-600 dark:text-amber-500 flex items-center gap-2 mb-6">
+            <h3 className="text-lg font-extrabold text-amber-600 dark:text-amber-500 flex items-center gap-2 mb-6">
               <User size={18} /> Người Thứ Nhất
             </h3>
             <div className="space-y-6">
               <div>
-                <label className="block text-xs font-black uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-2">Năm sinh (Âm lịch)</label>
-                <input
-                  type="number"
-                  min="1900"
-                  max={currentYear}
-                  value={year1 === "" ? "" : year1}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    if (val === "") setYear1("");
-                    else setYear1(Number(val));
-                  }}
-                  className="w-full bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-600 rounded-xl px-4 py-3 text-stone-900 dark:text-white focus:outline-none focus:border-amber-500/50 transition-colors"
-                />
-                {typeof year1 === 'number' && year1 >= 1900 && year1 <= currentYear && (
-                  <p className="text-xs text-amber-600 dark:text-amber-500 mt-1 font-medium">
-                    {getYearCanChi(year1)}
-                  </p>
-                )}
+                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-amber-700/60 dark:text-amber-500/50 mb-3">Năm sinh (Âm lịch)</label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    min="1900"
+                    max={currentYear}
+                    value={year1 === "" ? "" : year1}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val === "") setYear1("");
+                      else setYear1(Number(val));
+                    }}
+                    className="w-full bg-white dark:bg-stone-800 border-2 border-stone-100 dark:border-stone-700 rounded-xl px-4 py-3 text-stone-900 dark:text-white focus:outline-none focus:border-amber-500/50 transition-colors font-bold"
+                  />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                    {typeof year1 === 'number' && year1 >= 1900 && year1 <= currentYear && (
+                      <span className="text-[10px] font-black text-amber-600 dark:text-amber-500 bg-amber-50 dark:bg-amber-900/40 px-2 py-1 rounded">
+                        {getYearCanChi(year1)}
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
               <div>
-                <label className="block text-xs font-black uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-2">Giới tính</label>
+                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500 mb-3">Giới tính</label>
                 <div className="flex gap-3">
                   <button 
                     onClick={() => handleGender1Change("male")}
-                    className={`flex-1 py-3 rounded-xl border-2 font-bold transition-all text-sm ${gender1 === "male" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900" : "bg-stone-50 dark:bg-stone-800 border-stone-200 dark:border-stone-600 text-stone-600 dark:text-stone-300"}`}
+                    className={`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest ${gender1 === "male" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}`}
                   >
                     Nam
                   </button>
                   <button 
                     onClick={() => handleGender1Change("female")}
-                    className={`flex-1 py-3 rounded-xl border-2 font-bold transition-all text-sm ${gender1 === "female" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900" : "bg-stone-50 dark:bg-stone-800 border-stone-200 dark:border-stone-600 text-stone-600 dark:text-stone-300"}`}
+                    className={`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest ${gender1 === "female" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}`}
                   >
                     Nữ
                   </button>
@@ -121,42 +125,46 @@ export default function TuongHop() {
 
           {/* Người 2 */}
           <div className="p-6 rounded-2xl border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-900/30">
-            <h3 className="text-lg font-bold text-amber-600 dark:text-amber-500 flex items-center gap-2 mb-6">
+            <h3 className="text-lg font-extrabold text-amber-600 dark:text-amber-500 flex items-center gap-2 mb-6">
               <User size={18} /> Người Thứ Hai
             </h3>
             <div className="space-y-6">
               <div>
-                <label className="block text-xs font-black uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-2">Năm sinh (Âm lịch)</label>
-                <input
-                  type="number"
-                  min="1900"
-                  max={currentYear}
-                  value={year2 === "" ? "" : year2}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    if (val === "") setYear2("");
-                    else setYear2(Number(val));
-                  }}
-                  className="w-full bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-600 rounded-xl px-4 py-3 text-stone-900 dark:text-white focus:outline-none focus:border-amber-500/50 transition-colors"
-                />
-                {typeof year2 === 'number' && year2 >= 1900 && year2 <= currentYear && (
-                  <p className="text-xs text-amber-600 dark:text-amber-500 mt-1 font-medium">
-                    {getYearCanChi(year2)}
-                  </p>
-                )}
+                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-amber-700/60 dark:text-amber-500/50 mb-3">Năm sinh (Âm lịch)</label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    min="1900"
+                    max={currentYear}
+                    value={year2 === "" ? "" : year2}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val === "") setYear2("");
+                      else setYear2(Number(val));
+                    }}
+                    className="w-full bg-white dark:bg-stone-800 border-2 border-stone-100 dark:border-stone-700 rounded-xl px-4 py-3 text-stone-900 dark:text-white focus:outline-none focus:border-amber-500/50 transition-colors font-bold"
+                  />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                    {typeof year2 === 'number' && year2 >= 1900 && year2 <= currentYear && (
+                      <span className="text-[10px] font-black text-amber-600 dark:text-amber-500 bg-amber-50 dark:bg-amber-900/40 px-2 py-1 rounded">
+                        {getYearCanChi(year2)}
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
               <div>
-                <label className="block text-xs font-black uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-2">Giới tính</label>
+                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500 mb-3">Giới tính</label>
                 <div className="flex gap-3">
                   <button 
                     onClick={() => handleGender2Change("male")}
-                    className={`flex-1 py-3 rounded-xl border-2 font-bold transition-all text-sm ${gender2 === "male" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900" : "bg-stone-50 dark:bg-stone-800 border-stone-200 dark:border-stone-600 text-stone-600 dark:text-stone-300"}`}
+                    className={`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest ${gender2 === "male" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}`}
                   >
                     Nam
                   </button>
                   <button 
                     onClick={() => handleGender2Change("female")}
-                    className={`flex-1 py-3 rounded-xl border-2 font-bold transition-all text-sm ${gender2 === "female" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900" : "bg-stone-50 dark:bg-stone-800 border-stone-200 dark:border-stone-600 text-stone-600 dark:text-stone-300"}`}
+                    className={`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest ${gender2 === "female" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}`}
                   >
                     Nữ
                   </button>

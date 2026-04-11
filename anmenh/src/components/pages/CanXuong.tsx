@@ -106,42 +106,71 @@ export default function CanXuong() {
             </div>
           )}
 
-          <div className="space-y-5">
-            {/* Year */}
-            <div>
-              <label className="text-xs font-bold uppercase tracking-widest text-stone-400 block mb-2">
-                Năm sinh (Âm lịch)
+          <div className="space-y-6">
+            {/* Solar Date Helper */}
+            <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/50">
+              <label className="text-[10px] font-black uppercase tracking-widest text-blue-600 dark:text-blue-400 block mb-2">
+                Chọn theo Ngày Dương lịch (để tự đổi sang Âm lịch)
               </label>
-              <input
-                type="number"
-                min={1900}
-                max={2030}
-                value={year === "" ? "" : year}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  if (val === "") setYear("");
-                  else setYear(parseInt(val));
-                }}
-                className="w-full bg-stone-50 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 rounded-xl px-4 py-3 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all dark:text-stone-100"
-              />
-              {typeof year === 'number' && year >= 1900 && year <= 2030 && (
-                <p className="mt-1.5 text-xs text-amber-600 dark:text-amber-400 font-medium">
-                  {getYearCanChi(year)}
-                </p>
-              )}
+              <div className="flex gap-2">
+                <input
+                  type="date"
+                  className="flex-1 bg-white dark:bg-stone-900 border border-blue-200 dark:border-blue-800 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 dark:text-stone-100"
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      const d = new Date(e.target.value);
+                      const { solarToLunar } = require("@/lib/lunar-logic");
+                      const lunar = solarToLunar(d);
+                      setYear(lunar.year);
+                      setMonth(lunar.month);
+                      setDay(lunar.day);
+                    }
+                  }}
+                />
+              </div>
             </div>
 
-            {/* Day + Month (Vn style: Day first) */}
+            <div className="w-full h-px bg-stone-100 dark:bg-stone-700 my-2" />
+
+            {/* Year */}
+            <div>
+              <label className="text-[10px] font-black uppercase tracking-widest text-stone-400 block mb-2">
+                Năm sinh (Âm lịch)
+              </label>
+              <div className="relative">
+                <input
+                  type="number"
+                  min={1900}
+                  max={2030}
+                  value={year === "" ? "" : year}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === "") setYear("");
+                    else setYear(parseInt(val));
+                  }}
+                  className="w-full bg-stone-50 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 rounded-xl px-4 py-3 text-sm focus:border-amber-500 outline-none transition-all dark:text-stone-100"
+                />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                  {typeof year === 'number' && year >= 1900 && year <= 2030 && (
+                    <span className="text-[10px] font-bold text-amber-600 dark:text-amber-500 bg-amber-50 dark:bg-amber-900/30 px-2 py-1 rounded">
+                      {getYearCanChi(year)}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Day + Month */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-xs font-bold uppercase tracking-widest text-stone-400 block mb-2">
+                <label className="text-[10px] font-black uppercase tracking-widest text-stone-400 block mb-2">
                   Ngày sinh (Âm lịch)
                 </label>
                 <div className="relative">
                   <select
                     value={safeDay}
                     onChange={(e) => setDay(parseInt(e.target.value))}
-                    className="w-full appearance-none bg-stone-50 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 rounded-xl px-4 py-3 focus:border-amber-500 outline-none transition-all pr-8 dark:text-stone-100"
+                    className="w-full appearance-none bg-stone-50 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 rounded-xl px-4 py-3 text-sm focus:border-amber-500 outline-none transition-all pr-8 dark:text-stone-100"
                   >
                     {Array.from({ length: maxDays }, (_, i) => (
                       <option key={i + 1} value={i + 1}>Ngày {i + 1}</option>
@@ -151,14 +180,14 @@ export default function CanXuong() {
                 </div>
               </div>
               <div>
-                <label className="text-xs font-bold uppercase tracking-widest text-stone-400 block mb-2">
+                <label className="text-[10px] font-black uppercase tracking-widest text-stone-400 block mb-2">
                   Tháng sinh (Âm lịch)
                 </label>
                 <div className="relative">
                   <select
                     value={month}
                     onChange={(e) => setMonth(parseInt(e.target.value))}
-                    className="w-full appearance-none bg-stone-50 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 rounded-xl px-4 py-3 focus:border-amber-500 outline-none transition-all pr-8 dark:text-stone-100"
+                    className="w-full appearance-none bg-stone-50 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 rounded-xl px-4 py-3 text-sm focus:border-amber-500 outline-none transition-all pr-8 dark:text-stone-100"
                   >
                     {Array.from({ length: 12 }, (_, i) => (
                       <option key={i + 1} value={i + 1}>Tháng {i + 1}</option>
@@ -171,14 +200,14 @@ export default function CanXuong() {
 
             {/* Hour */}
             <div>
-              <label className="text-xs font-bold uppercase tracking-widest text-stone-400 block mb-2">
+              <label className="text-[10px] font-black uppercase tracking-widest text-stone-400 block mb-2">
                 Giờ sinh
               </label>
               <div className="relative">
                 <select
                   value={hourIdx}
                   onChange={(e) => setHourIdx(parseInt(e.target.value))}
-                  className="w-full appearance-none bg-stone-50 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 rounded-xl px-4 py-3 focus:border-amber-500 outline-none transition-all pr-8 dark:text-stone-100"
+                  className="w-full appearance-none bg-stone-50 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 rounded-xl px-4 py-3 text-sm focus:border-amber-500 outline-none transition-all pr-8 dark:text-stone-100"
                 >
                   {HOURS.map((h, i) => (
                     <option key={i} value={i}>Giờ {h}</option>

@@ -66,7 +66,7 @@ export function calculateBatTu(date: Date): BatTuResult {
   // 3. Trụ Ngày
   const jd = jdFromDate(dd, mm, yy);
   const dayCanIdx = (jd + 9) % 10;
-  const dayChiIdx = (jd + 9) % 12;
+  const dayChiIdx = (jd + 1) % 12;
   const dayCan = CAN[dayCanIdx];
   const dayChi = CHI[dayChiIdx];
   

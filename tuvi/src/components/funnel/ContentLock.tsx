@@ -25,8 +25,10 @@ function trackLockClick(context: string) {
   }
 }
 
+import React, { useState } from 'react'
 import { useSessionMemory } from '@/hooks/useSessionMemory'
 import { getCanChiYear } from '@/data/can-chi'
+import BridgeTransition from '@/components/common/BridgeTransition'
 
 export function ContentLock({
   items,
@@ -34,6 +36,7 @@ export function ContentLock({
   buttonText = 'Mở khóa luận giải cá nhân',
   className = '',
 }: ContentLockProps) {
+  const [isBridging, setIsBridging] = useState(false)
   const { memory } = useSessionMemory()
   const canChi = memory?.birthYear ? getCanChiYear(memory.birthYear).full : null
   
@@ -44,12 +47,29 @@ export function ContentLock({
   if (memory?.gender) hrefParams.set('gender', memory.gender)
 
   const href = `${ANMENH_URL}/bridge?${hrefParams.toString()}`
+
+  const handleCTAClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    trackLockClick(context)
+    setIsBridging(true)
+  }
+
+  const handleBridgeComplete = () => {
+    window.location.href = href
+  }
+
   return (
     <div
       className={`relative overflow-hidden rounded-2xl border border-purple-100 bg-white ${className}`}
       // Trigger view tracking once when rendered
       ref={(el) => { if (el) trackLockView(context) }}
     >
+      <BridgeTransition 
+        show={isBridging} 
+        onComplete={handleBridgeComplete} 
+        targetApp="AnMenh" 
+      />
+
       {/* Header */}
       <div className="flex items-center gap-2 border-b border-purple-100 bg-purple-50 px-5 py-3">
         <span className="text-base animate-pulse">🔒</span>
@@ -76,16 +96,14 @@ export function ContentLock({
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-white/60 to-white" />
       </div>
 
-      {/* CTA */}
       <div className="border-t border-purple-50 bg-purple-50/50 px-5 py-4 text-center">
-        <a
-          href={href}
-          onClick={() => trackLockClick(context)}
-          className="inline-block rounded-full px-6 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+        <button
+          onClick={handleCTAClick}
+          className="inline-block rounded-full px-6 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 cursor-pointer"
           style={{ background: 'linear-gradient(135deg, #7C3AED, #C41E3A)' }}
         >
           {buttonText} →
-        </a>
+        </button>
         <p className="mt-2 text-xs text-gray-400">Miễn phí · Không cần thẻ tín dụng</p>
       </div>
     </div>

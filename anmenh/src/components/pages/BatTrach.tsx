@@ -105,39 +105,43 @@ export default function BatTrach() {
 
           <div className="space-y-5">
             <div>
-              <label className="text-xs font-bold uppercase tracking-widest text-stone-400 block mb-2">
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-amber-700/60 dark:text-amber-500/50 block mb-3">
                 Năm sinh (Âm lịch)
               </label>
-              <input
-                type="number"
-                min={1900}
-                max={2030}
-                value={year === "" ? "" : year}
-                onChange={(e) => {
-                  const val = e.target.value;
-                  if (val === "") setYear("");
-                  else setYear(parseInt(val));
-                }}
-                className="w-full bg-stone-50 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 rounded-xl px-4 py-3 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all dark:text-stone-100"
-              />
-              {typeof year === 'number' && year >= 1900 && year <= 2030 && (
-                <p className="mt-1.5 text-xs text-amber-600 dark:text-amber-400 font-medium">
-                  {getYearCanChi(year)}
-                </p>
-              )}
+              <div className="relative">
+                <input
+                  type="number"
+                  min={1900}
+                  max={2030}
+                  value={year === "" ? "" : year}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === "") setYear("");
+                    else setYear(parseInt(val));
+                  }}
+                  className="w-full bg-white dark:bg-stone-700 border-2 border-stone-100 dark:border-stone-600 rounded-xl px-4 py-3 text-sm focus:border-amber-500 outline-none transition-all dark:text-stone-100 font-bold"
+                />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                  {typeof year === 'number' && year >= 1900 && year <= 2030 && (
+                    <span className="text-[10px] font-black text-amber-600 dark:text-amber-500 bg-amber-50 dark:bg-amber-900/30 px-2 py-1 rounded">
+                      {getYearCanChi(year)}
+                    </span>
+                  )}
+                </div>
+              </div>
             </div>
 
             <div>
-              <label className="text-xs font-bold uppercase tracking-widest text-stone-400 block mb-2">Giới tính</label>
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500 block mb-3">Giới tính</label>
               <div className="flex gap-3">
                 {(["male", "female"] as const).map((g) => (
                   <button
                     key={g}
                     onClick={() => setGender(g)}
-                    className={`flex-1 py-3 rounded-xl border-2 font-medium transition-all ${
+                    className={`flex-1 py-3 rounded-xl border-2 font-black transition-all text-sm uppercase tracking-widest ${
                       gender === g
-                        ? "bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 border-stone-900 dark:border-stone-100"
-                        : "bg-stone-50 dark:bg-stone-700 border-stone-200 dark:border-stone-600 text-stone-600 dark:text-stone-300"
+                        ? "bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 border-stone-900 dark:border-stone-100 shadow-lg shadow-stone-900/20"
+                        : "bg-white dark:bg-stone-700 border-stone-100 dark:border-stone-600 text-stone-400 dark:text-stone-500"
                     }`}
                   >
                     {g === "male" ? "Nam" : "Nữ"}
