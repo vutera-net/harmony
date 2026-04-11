@@ -1,6 +1,6 @@
 'use client'
 
-const ANMENH_URL = 'https://anmenh.vutera.net'
+import { buildAnMenhUrl } from '@/lib/urls'
 
 interface ContentLockProps {
   items: string[]
@@ -46,7 +46,7 @@ export function ContentLock({
   if (memory?.birthYear) hrefParams.set('birthYear', memory.birthYear.toString())
   if (memory?.gender) hrefParams.set('gender', memory.gender)
 
-  const href = `${ANMENH_URL}/bridge?${hrefParams.toString()}`
+  const href = buildAnMenhUrl('/bridge', Object.fromEntries(hrefParams))
 
   const handleCTAClick = (e: React.MouseEvent) => {
     e.preventDefault()

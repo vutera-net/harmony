@@ -10,7 +10,11 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+import { useSearchParams } from "next/navigation";
+
 export default function LoginForm() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("redirect") || "/";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -26,7 +30,7 @@ export default function LoginForm() {
         email,
         password,
         redirect: true,
-        callbackUrl: "/",
+        callbackUrl,
       });
       if (result?.error) {
         setError("Email hoặc mật khẩu không chính xác.");

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import LoginForm from "@/components/auth/LoginForm";
 
 export default function LoginPage() {
@@ -10,7 +10,9 @@ export default function LoginPage() {
         <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-accent/10 rounded-full blur-[120px]" />
       </div>
       
-      <LoginForm />
+      <Suspense fallback={<div className="text-white">Đang tải...</div>}>
+        <LoginForm />
+      </Suspense>
     </main>
   );
 }

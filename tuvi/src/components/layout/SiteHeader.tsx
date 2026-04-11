@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-
-const ANMENH_URL = 'https://anmenh.vutera.net'
+import { LogIn, User } from 'lucide-react'
+import { APP_URLS } from '@/lib/urls'
 
 const NAV_LINKS = [
   { href: '/lich', label: 'Lịch Vạn Niên' },
@@ -18,16 +18,21 @@ const NAV_LINKS = [
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
 
+  const loginUrl = `${APP_URLS.auth}/login?redirect=${encodeURIComponent(
+    typeof window !== 'undefined' ? window.location.href : APP_URLS.tuvi
+  )}`
+  const anmenhUrl = APP_URLS.anmenh
+
   return (
     <header className="sticky top-0 z-50 border-b border-red-100 bg-white shadow-sm">
-      {/* Ecosystem banner */}
+      {/* Ecosystem top-bar */}
       <div className="border-b border-amber-100 bg-amber-50 py-1.5 text-center text-xs text-amber-800">
         TuVi là một phần của hệ{' '}
-        <a href="https://www.vutera.net/harmony" className="font-semibold underline hover:text-amber-900">
+        <a href={APP_URLS.portal} className="font-semibold underline hover:text-amber-900">
           Harmony
         </a>
         {' '}—{' '}
-        <a href={ANMENH_URL} className="font-semibold underline hover:text-amber-900">
+        <a href={anmenhUrl} className="font-semibold underline hover:text-amber-900">
           Trải nghiệm sâu hơn tại AnMenh →
         </a>
       </div>
@@ -58,10 +63,19 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          {/* CTA */}
+          {/* Desktop CTAs */}
           <div className="hidden items-center gap-2 md:flex">
+            {/* Login button */}
             <a
-              href={ANMENH_URL}
+              href={loginUrl}
+              className="flex items-center gap-1.5 rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 hover:border-red-300 hover:text-red-700 transition-colors"
+            >
+              <LogIn size={15} />
+              Đăng nhập
+            </a>
+            {/* AnMenh CTA */}
+            <a
+              href={anmenhUrl}
               className="rounded-full px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:opacity-90"
               style={{ background: 'linear-gradient(135deg, #7C3AED, #C41E3A)' }}
             >
@@ -96,7 +110,13 @@ export function SiteHeader() {
             ))}
             <div className="mt-3 space-y-2 border-t pt-3">
               <a
-                href={ANMENH_URL}
+                href={loginUrl}
+                className="flex items-center justify-center gap-2 w-full rounded-full py-2.5 text-center text-sm font-semibold border border-gray-200 text-gray-700 hover:bg-gray-50"
+              >
+                <LogIn size={16} /> Đăng nhập / Đăng ký
+              </a>
+              <a
+                href={anmenhUrl}
                 className="block w-full rounded-full py-2.5 text-center text-sm font-semibold text-white"
                 style={{ background: 'linear-gradient(135deg, #7C3AED, #C41E3A)' }}
               >

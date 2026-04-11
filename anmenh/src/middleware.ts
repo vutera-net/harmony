@@ -3,6 +3,9 @@ import type { NextRequest } from 'next/server';
 
 const COOKIE_NAME = 'vutera-auth-session';
 
+// Paths that require authentication on AnMenh
+const PROTECTED_PATHS = ['/dashboard', '/premium'];
+
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get(COOKIE_NAME)?.value;
   const response = NextResponse.next();
@@ -10,16 +13,13 @@ export async function middleware(request: NextRequest) {
   if (token) {
     response.headers.set('x-vutera-authenticated', 'true');
   } else {
-    // If user tries to access protected premium pages on AnMenh without login
-    // we might want to redirect them to auth.vutera.net/login
     const { pathname } = request.nextUrl;
-    
-    // Example: protect dashboard or deep analysis pages
-    const protectedPaths = ['/dashboard', '/premium'];
-    if (protectedPaths.some(path => pathname.startsWith(path))) {
-       const loginUrl = new URL('https://auth.vutera.net/login', request.url);
-       loginUrl.searchParams.set('redirect', request.url);
-       return NextResponse.redirect(loginUrl);
+    if (PROTECTED_PATHS.some(path => pathname.startsWith(path))) {
+      // Use env var so domain is configurable for local dev / staging
+      const authUrl = process.env.NEXT_PUBLIC_AUTH_URL ?? 'https://auth.vutera.net';
+      const loginUrl = new URL('/login', authUrl);
+      loginUrl.searchParams.set('redirect', request.url);
+      return NextResponse.redirect(loginUrl);
     }
   }
 
@@ -27,7 +27,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  ],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)',],
 };

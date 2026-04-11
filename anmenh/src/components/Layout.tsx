@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Compass, Calendar as CalendarIcon, Home as HomeIcon, Sparkles, X, Mail, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { APP_URLS, buildLoginUrl } from "@/lib/urls";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -58,12 +59,20 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </Link>
           ))}
         </nav>
-        <button 
-          onClick={() => setShowWaitlist(true)}
-          className="btn-zen text-xs uppercase tracking-widest hidden sm:block"
-        >
-          Tải App
-        </button>
+        <div className="hidden md:flex items-center gap-4">
+          <a 
+            href={buildLoginUrl(typeof window !== "undefined" ? window.location.href : APP_URLS.anmenh)}
+            className="text-stone-500 hover:text-amber-600 transition-colors text-sm font-medium px-4 py-2"
+          >
+            Đăng nhập
+          </a>
+          <button 
+            onClick={() => setShowWaitlist(true)}
+            className="btn-zen text-xs uppercase tracking-widest hidden sm:block"
+          >
+            Tải App
+          </button>
+        </div>
       </header>
 
       <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-12 text-[var(--foreground)]">{children}</main>
