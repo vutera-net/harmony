@@ -6,10 +6,10 @@ import { Sparkles, Loader2, ShieldCheck } from "lucide-react";
 interface BridgeTransitionProps {
   show: boolean;
   onComplete?: () => void;
-  targetApp?: "TuVi" | "Auth" | "Harmony";
+  targetApp?: "TuVi" | "AnMenh" | "Auth" | "Harmony";
 }
 
-export default function BridgeTransition({ show, onComplete, targetApp = "TuVi" }: BridgeTransitionProps) {
+export default function BridgeTransition({ show, onComplete, targetApp = "AnMenh" }: BridgeTransitionProps) {
   const [step, setStep] = useState(0);
 
   const messages = [
