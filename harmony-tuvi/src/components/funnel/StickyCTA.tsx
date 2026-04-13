@@ -45,7 +45,7 @@ export function StickyCTA() {
       <a
         href={ANMENH_URL}
         onClick={trackClick}
-        className="flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:opacity-90 hover:shadow-xl"
+        className="group flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white shadow-[0_0_15px_rgba(196,30,58,0.5)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(124,58,237,0.6)] animate-[pulse_3s_ease-in-out_infinite]"
         style={{ background: 'linear-gradient(135deg, #7C3AED, #C41E3A)' }}
       >
         <span>🔮</span>

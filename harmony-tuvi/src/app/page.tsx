@@ -70,8 +70,7 @@ export default function HomePage() {
     <div>
       {/* Hero */}
       <section
-        className="relative overflow-hidden py-16 text-center text-white"
-        style={{ background: 'linear-gradient(135deg, #C41E3A 0%, #8B0000 100%)' }}
+        className="relative overflow-hidden py-16 text-center text-white bg-gradient-to-br from-[#C41E3A] via-[#E11D48] to-[#EA580C]"
       >
         <div className="absolute inset-0 opacity-10">
           <div className="text-[200px] leading-none">☯</div>
@@ -167,7 +166,7 @@ export default function HomePage() {
             <Link
               key={feature.href}
               href={feature.href}
-              className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition hover:shadow-md hover:-translate-y-0.5"
+              className="group rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5"
             >
               <div className="mb-3 text-3xl">{feature.icon}</div>
               <h3 className="mb-2 font-bold text-gray-800" style={{ color: feature.color }}>
@@ -194,7 +193,7 @@ export default function HomePage() {
             <Link
               key={z.name}
               href={`/tu-vi-hang-ngay?zodiac=${z.name.toLowerCase()}`}
-              className="flex flex-col items-center rounded-xl border border-gray-100 bg-white p-3 text-center shadow-sm transition hover:shadow-md"
+              className="flex flex-col items-center rounded-xl border border-gray-100 bg-white p-3 text-center shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1 hover:border-red-100"
             >
               <span className="text-3xl">{z.emoji}</span>
               <span className="mt-1 text-sm font-medium text-gray-700">{z.name}</span>
