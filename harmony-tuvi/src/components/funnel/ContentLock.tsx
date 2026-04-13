@@ -93,13 +93,13 @@ export function ContentLock({
         </ul>
 
         {/* Gradient overlay */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-white/60 to-white" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-white/80 to-white backdrop-blur-[1px]" />
       </div>
 
       <div className="border-t border-purple-50 bg-purple-50/50 px-5 py-4 text-center">
         <button
           onClick={handleCTAClick}
-          className="inline-block rounded-full px-6 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 cursor-pointer"
+          className="inline-block rounded-full px-6 py-2.5 text-sm font-semibold text-white shadow-[0_0_15px_rgba(124,58,237,0.3)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(196,30,58,0.5)] cursor-pointer"
           style={{ background: 'linear-gradient(135deg, #7C3AED, #C41E3A)' }}
         >
           {buttonText} →

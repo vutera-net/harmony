@@ -78,7 +78,7 @@ export function AnMenhCTA({ variant = 'banner', context = 'default', className =
         <a
           href={href}
           onClick={() => trackCTAClick('inline', context)}
-          className="mt-3 inline-block rounded-full px-4 py-1.5 text-xs font-semibold text-white transition hover:opacity-90"
+          className="mt-3 inline-block rounded-full px-4 py-1.5 text-xs font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-md"
           style={{ background: 'linear-gradient(135deg, #7C3AED, #C41E3A)' }}
         >
           {content.button}
@@ -106,7 +106,7 @@ export function AnMenhCTA({ variant = 'banner', context = 'default', className =
         <a
           href={href}
           onClick={() => trackCTAClick('card', context)}
-          className="mt-5 inline-block rounded-full bg-white px-6 py-2.5 text-sm font-semibold transition hover:bg-yellow-50"
+          className="mt-5 inline-block rounded-full bg-white px-6 py-2.5 text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-yellow-50"
           style={{ color: '#7C3AED' }}
         >
           {content.button}
@@ -132,7 +132,7 @@ export function AnMenhCTA({ variant = 'banner', context = 'default', className =
         <a
           href={ANMENH_URL}
           onClick={() => trackCTAClick('banner', context)}
-          className="shrink-0 rounded-full bg-white px-5 py-2.5 text-sm font-semibold transition hover:bg-yellow-50"
+          className="shrink-0 rounded-full bg-white px-5 py-2.5 text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-yellow-50"
           style={{ color: '#7C3AED' }}
         >
           {content.button}

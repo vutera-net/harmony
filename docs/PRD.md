@@ -119,3 +119,12 @@ orbit.vutera.net   ──┘
 ---
 *(PRD này sẽ đóng vai trò là kim chỉ nam cho sự phát triển của toàn bộ Hệ sinh thái Harmony từ thiết kế UI/UX đến kiến trúc hệ thống.)*
 
+---
+
+## 7. Cập Nhật UI/UX (UI/UX Changelog)
+*(Các thay đổi được áp dụng để tối ưu thẩm mỹ, tăng Premium feel)*
+
+- **TuVi App (harmony-tuvi)**:
+  - Bãi bỏ thư mục `tuvi/` dư thừa, dồn tập trung vào `harmony-tuvi/`.
+  - Cập nhật **Hero Banner**: Sử dụng Mesh Gradient (đỏ/cam/vàng) tạo cảm giác hiện đại hơn thay vì gradient tuyến tính cứng nhắc.
+  - Bổ sung **Micro-animations**: Các Funnel component như `StickyCTA`, `AnMenhCTA`, `ContentLock` và lưới `FEATURES` được thêm hiệu ứng hover (scale, shadow, glow), nhịp đập (pulse) và nảy (bounce) nhằm kích thích nhấp chuột (Trigger) mượt mà hơn.
