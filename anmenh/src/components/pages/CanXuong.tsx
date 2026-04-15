@@ -4,7 +4,6 @@ import { calculateCanXuong, getYearCanChi } from "@/lib/lunar-logic";
 import { Scale, Info, Sparkles, ChevronDown, FileText } from "lucide-react";
 import { useUser } from "@/context/UserContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { generatePremiumReport } from "@/lib/pdf-service";
 
 const HOURS = [
   "Tý (23h – 01h)", "Sửu (01h – 03h)", "Dần (03h – 05h)", "Mão (05h – 07h)",
@@ -229,7 +228,8 @@ export default function CanXuong() {
                   
                   {result && (
                     <button
-                      onClick={() => {
+                      onClick={async () => {
+                        const { generatePremiumReport } = await import("@/lib/pdf-service");
                         generatePremiumReport({
                           userName: profile?.name || "Guest",
                           birthDate: `${day}/${month}/${year}`,

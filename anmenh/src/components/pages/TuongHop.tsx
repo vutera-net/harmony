@@ -5,7 +5,6 @@ import { calculateTuongHop, TuongHopResult } from "@/lib/tuong-hop-logic";
 import { getYearCanChi } from "@/lib/lunar-logic";
 import { Heart, User, Sparkles, FileText } from "lucide-react";
 import { useUser } from "@/context/UserContext";
-import { generatePremiumReport } from "@/lib/pdf-service";
 
 export default function TuongHop() {
   const { profile } = useUser();
@@ -186,35 +185,36 @@ export default function TuongHop() {
            </button>
            {result && (
              <button
-               onClick={() => {
-                 generatePremiumReport({
-                   userName: `${profile?.name || "Người 1"} & Người 2`,
-                   birthDate: `${year1} & ${year2}`,
-                   sections: [
-                     {
-                       title: "Kết Quả Tương Hợp",
-                       content: result.interpretation,
-                       table: {
-                         header: ["Yếu tố", "Điểm", "Kết luận"],
-                         body: [
-                           ["Thiên Can", result.canScore, result.canText],
-                           ["Địa Chi", result.chiScore, result.chiText],
-                           ["Cung Phi", result.cungScore, result.cungText],
-                           ["Tổng Điểm", result.totalScore, "Điểm tổng hợp"],
-                         ],
-                       },
-                     },
-                     {
-                       title: "Chi Tiết Luận Giải",
-                       content: [
-                         `Thiên Can: ${result.canDesc}`,
-                         `Địa Chi: ${result.chiDesc}`,
-                         `Cung Phi: ${result.cungDesc}`,
-                       ],
-                     },
-                   ],
-                 });
-               }}
+                    onClick={async () => {
+                      const { generatePremiumReport } = await import("@/lib/pdf-service");
+                      generatePremiumReport({
+                        userName: `${profile?.name || "Người 1"} & Người 2`,
+                        birthDate: `${year1} & ${year2}`,
+                        sections: [
+                          {
+                            title: "Kết Quả Tương Hợp",
+                            content: result.interpretation,
+                            table: {
+                              header: ["Yếu tố", "Điểm", "Kết luận"],
+                              body: [
+                                ["Thiên Can", result.canScore, result.canText],
+                                ["Địa Chi", result.chiScore, result.chiText],
+                                ["Cung Phi", result.cungScore, result.cungText],
+                                ["Tổng Điểm", result.totalScore, "Điểm tổng hợp"],
+                              ],
+                            },
+                          },
+                          {
+                            title: "Chi Tiết Luận Giải",
+                            content: [
+                              `Thiên Can: ${result.canDesc}`,
+                              `Địa Chi: ${result.chiDesc}`,
+                              `Cung Phi: ${result.cungDesc}`,
+                            ],
+                          },
+                        ],
+                      });
+                    }}
                className="px-4 rounded-full bg-stone-100 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-600 transition-colors"
                title="Xuất báo cáo PDF"
              >

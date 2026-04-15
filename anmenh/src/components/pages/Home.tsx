@@ -41,12 +41,13 @@ export default function Home() {
   const handleSave = () => {
     const finalYear = typeof birthYearInput === "number" ? birthYearInput : 1990;
     if (nameInput.trim() && finalYear >= 1900 && finalYear <= 2030) {
-      saveProfile({
-        name: nameInput.trim(),
-        birthYear: finalYear,
-        gender: genderInput,
-        birthDate: `${finalYear}-01-01`,
-      });
+       saveProfile({
+         name: nameInput.trim(),
+         birthYear: finalYear,
+         gender: genderInput,
+         birthDate: `${finalYear}-01-01`,
+         plan: "FREE",
+       });
       setShowSetup(false);
     }
   };

@@ -4,7 +4,6 @@ import { Compass, Info, Sparkles, MapPin, CheckCircle, XCircle, FileText } from 
 import { useUser } from "@/context/UserContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { calculateBatTrach, getYearCanChi, type BatTrachResult } from "@/lib/lunar-logic";
-import { generatePremiumReport } from "@/lib/pdf-service";
 
 const DIRECTION_LABELS: Record<string, string> = {
   "Bắc": "N", "Nam": "S", "Đông": "E", "Tây": "W",
@@ -48,36 +47,37 @@ export default function BatTrach() {
       setResult(res);
     }
   }, [year, gender]);
-  const handleExportPDF = () => {
-    if (profile?.plan !== 'PREMIUM') {
-      alert('Tính năng xuất báo cáo PDF chi tiết chỉ dành cho thành viên Premium. Vui lòng nâng cấp gói để sử dụng.');
-      return;
-    }
-    
-    generatePremiumReport({
-      userName: profile?.name || \"Guest\",
-      birthDate: `${year}`,
-      sections: [
-        {
-          title: \"Phân Tích Bát Trạch\",
-          content: `Cung Phi: ${result?.cung} - ${result?.menh}\\n\\n${result?.description}`,
-          table: {
-            header: [\"Hướng\", \"Ý nghĩa\"],
-            body: [
-              [result?.sinhKhi, \"Sinh Khí (Tốt nhất)\"],
-              [result?.thienY, \"Thiên Y (Sức khỏe)\"],
-              [result?.dienNien, \"Diên Niên (Hạnh phúc)\"],
-              [result?.phucVi, \"Phục Vị (An tĩnh)\"],
-              [result?.tuyetMenh, \"Tuyệt Mệnh (Xấu nhất)\"],
-              [result?.nguQuy, \"Ngũ Quỷ (Tai họa)\"],
-              [result?.lucSat, \"Lục Sát (Thị phi)\"],
-              [result?.hoaHai, \"Họa Hại (Bệnh tật)\"],
-            ],
+    const handleExportPDF = async () => {
+      if (profile?.plan !== 'PREMIUM') {
+        alert('Tính năng xuất báo cáo PDF chi tiết chỉ dành cho thành viên Premium. Vui lòng nâng cấp gói để sử dụng.');
+        return;
+      }
+      
+      const { generatePremiumReport } = await import("@/lib/pdf-service");
+      generatePremiumReport({
+        userName: profile?.name || "Guest",
+        birthDate: `${year}`,
+        sections: [
+          {
+            title: "Phân Tích Bát Trạch",
+            content: `Cung Phi: ${result?.cung} - ${result?.menh}\n\n${result?.description}`,
+            table: {
+              header: ["Hướng", "Ý nghĩa"],
+              body: [
+                [result?.sinhKhi, "Sinh Khí (Tốt nhất)"],
+                [result?.thienY, "Thiên Y (Sức khỏe)"],
+                [result?.dienNien, "Diên Niên (Hạnh phúc)"],
+                [result?.phucVi, "Phục Vị (An tĩnh)"],
+                [result?.tuyetMenh, "Tuyệt Mệnh (Xấu nhất)"],
+                [result?.nguQuy, "Ngũ Quỷ (Tai họa)"],
+                [result?.lucSat, "Lục Sát (Thị phi)"],
+                [result?.hoaHai, "Họa Hại (Bệnh tật)"],
+              ],
+            },
           },
-        },
-      ],
-    });
-  };
+        ],
+      });
+    };
 
 
   const isGoodDirection = (label: string) => {
@@ -192,33 +192,9 @@ export default function BatTrach() {
                </button>
                {result && (
                  <button
-                   onClick={() => {
-                     generatePremiumReport({
-                       userName: profile?.name || "Guest",
-                       birthDate: `${year}`,
-                       sections: [
-                         {
-                           title: "Phân Tích Bát Trạch",
-                           content: `Cung Phi: ${result.cung} - ${result.menh}\n\n${result.description}`,
-                           table: {
-                             header: ["Hướng", "Ý nghĩa"],
-                             body: [
-                               [result.sinhKhi, "Sinh Khí (Tốt nhất)"],
-                               [result.thienY, "Thiên Y (Sức khỏe)"],
-                               [result.dienNien, "Diên Niên (Hạnh phúc)"],
-                               [result.phucVi, "Phục Vị (An tĩnh)"],
-                               [result.tuyetMenh, "Tuyệt Mệnh (Xấu nhất)"],
-                               [result.nguQuy, "Ngũ Quỷ (Tai họa)"],
-                               [result.lucSat, "Lục Sát (Thị phi)"],
-                               [result.hoaHai, "Họa Hại (Bệnh tật)"],
-                             ],
-                           },
-                         },
-                       ],
-                     });
-                   }}
-                   className="px-4 rounded-full bg-stone-100 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-600 transition-colors"
-                   title="Xuất báo cáo PDF"
+                    onClick={handleExportPDF}
+                    className="px-4 rounded-full bg-stone-100 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-600 transition-colors"
+                    title="Xuất báo cáo PDF"
                  >
                    <FileText size={20} />
                  </button>

@@ -7,6 +7,7 @@ export interface UserProfile {
   name: string;
   birthYear: number;
   gender: "male" | "female";
+  plan: "FREE" | "PREMIUM";
   // Keep birthDate for backward compat with CanXuong/BatTrach
   birthDate: string;
 }

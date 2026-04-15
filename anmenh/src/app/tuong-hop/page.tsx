@@ -1,4 +1,5 @@
 import TuongHop from "@/components/pages/TuongHop";
+import ClientOnly from "@/components/common/ClientOnly";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <TuongHop />;
+  return (
+    <ClientOnly>
+      <TuongHop />
+    </ClientOnly>
+  );
 }
