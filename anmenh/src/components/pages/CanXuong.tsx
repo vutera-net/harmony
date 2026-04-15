@@ -1,9 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { calculateCanXuong, getYearCanChi } from "@/lib/lunar-logic";
-import { Scale, Info, Sparkles, ChevronDown } from "lucide-react";
+import { Scale, Info, Sparkles, ChevronDown, FileText } from "lucide-react";
 import { useUser } from "@/context/UserContext";
 import { motion, AnimatePresence } from "framer-motion";
+import { generatePremiumReport } from "@/lib/pdf-service";
 
 const HOURS = [
   "Tý (23h – 01h)", "Sửu (01h – 03h)", "Dần (03h – 05h)", "Mão (05h – 07h)",
@@ -84,7 +85,7 @@ export default function CanXuong() {
         <div className="w-16 h-16 bg-stone-900 dark:bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl shadow-stone-900/10">
           <Scale className="text-amber-400 dark:text-amber-600" size={32} />
         </div>
-        <h2 className="text-4xl font-serif font-bold mb-4 dark:text-stone-50">Cân Xương Đoán Số</h2>
+        <h2 className="text-4xl font-serif font-bold mb-4 gold-gradient">Cân Xương Đoán Số</h2>
         <p className="text-stone-500 dark:text-stone-400">
           Dựa vào ngày giờ sinh để luận giải mức độ sang hèn, phúc lộc trong đời.
         </p>
@@ -92,7 +93,7 @@ export default function CanXuong() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
         {/* Input Form */}
-        <div className="bg-white/80 dark:bg-stone-800/80 backdrop-blur-md p-8 rounded-[2rem] border-2 border-stone-100 dark:border-stone-700 shadow-xl shadow-stone-900/5">
+        <div className="glass p-8 rounded-[2rem] border-2 shadow-xl shadow-stone-900/5">
           <h3 className="text-lg font-bold mb-6 flex items-center gap-2 dark:text-stone-50">
             <Info size={18} className="text-amber-600" />
             Thông tin ngày sinh
@@ -108,7 +109,7 @@ export default function CanXuong() {
 
           <div className="space-y-6">
             {/* Solar Date Helper */}
-            <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/50">
+                 <div className="p-4 rounded-xl bg-blue-50/50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/50">
               <label className="text-[10px] font-black uppercase tracking-widest text-blue-600 dark:text-blue-400 block mb-2">
                 Chọn theo Ngày Dương lịch (để tự đổi sang Âm lịch)
               </label>
@@ -217,13 +218,45 @@ export default function CanXuong() {
               </div>
             </div>
 
-            <button
-              onClick={handleCalculate}
-              disabled={year === "" || year < 1900 || year > 2030}
-              className="w-full btn-zen py-4 text-sm font-bold tracking-widest flex items-center justify-center gap-2 group disabled:opacity-50"
-            >
-              Luận Giải Vận Mệnh <Sparkles size={18} className="group-hover:rotate-12 transition-transform" />
-            </button>
+                <div className="flex gap-3 mt-6">
+                  <button
+                    onClick={handleCalculate}
+                    disabled={year === "" || year < 1900 || year > 2030}
+                    className="flex-1 btn-zen py-4 text-sm font-bold tracking-widest flex items-center justify-center gap-2 group disabled:opacity-50"
+                  >
+                    Luận Giải Vận Mệnh <Sparkles size={18} className="group-hover:rotate-12 transition-transform" />
+                  </button>
+                  
+                  {result && (
+                    <button
+                      onClick={() => {
+                        generatePremiumReport({
+                          userName: profile?.name || "Guest",
+                          birthDate: `${day}/${month}/${year}`,
+                          sections: [
+                            {
+                              title: "Cân Xương Đoán Số",
+                              content: `${result.title}: ${result.reading}\n\n${result.interpretation}`,
+                              table: {
+                                header: ["Chỉ số", "Giá trị"],
+                                body: [
+                                  ["Tổng Lượng Chỉ", result.total],
+                                  ["Lượng", result.luong],
+                                  ["Chỉ", result.chi],
+                                  ["Mệnh Cách", result.title],
+                                ],
+                              },
+                            },
+                          ],
+                        });
+                      }}
+                      className="px-4 rounded-full bg-stone-100 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-600 transition-colors"
+                      title="Xuất báo cáo PDF"
+                    >
+                      <FileText size={20} />
+                    </button>
+                  )}
+                </div>
           </div>
         </div>
 

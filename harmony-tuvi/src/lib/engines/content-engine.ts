@@ -7,6 +7,20 @@ import { DIA_CHI_INFO } from '@/data/dia-chi'
  */
 export class ContentEngine {
   /**
+   * Strip daily horoscope content for public use (Partial Insight).
+   * Keeps general overview but locks detailed life aspects.
+   */
+  static stripDailyContentForPublic(content: DailyHoroscopeContent): DailyHoroscopeContent {
+    return {
+      ...content,
+      tinhCam: 'Thông tin chi tiết về tình cảm chỉ dành cho thành viên Premium tại AnMenh Sanctuary.',
+      suNghiep: 'Chi tiết sự nghiệp và định hướng công việc được phân tích sâu trong AnMenh.',
+      taiChinh: 'Phân tích tài lộc chi tiết yêu cầu truy cập gói Premium.',
+      sucKhoe: 'Lời khuyên sức khỏe cá nhân hóa có sẵn tại AnMenh Sanctuary.',
+    };
+  }
+
+  /**
    * Generates daily horoscope content based on seed (date + slug)
    */
   static generateDailyContent(

@@ -1,7 +1,8 @@
 import { type NextRequest } from 'next/server'
-import { calculateBatTrach } from '@/lib/engines/bat-trach-engine'
+import { calculateBatTrach, stripBatTrachForPublic } from '@/lib/engines/bat-trach-engine'
 import { successResponse, errorResponse, serverErrorResponse } from '@/lib/api-response'
 import { cacheGet, cacheSet, cacheKeys, TTL } from '@/lib/cache'
+import type { BatTrachResult } from '@/types'
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,13 +20,19 @@ export async function POST(request: NextRequest) {
     }
 
     const cacheKey = cacheKeys.batTrach(birthYear, gender)
-    const cached = await cacheGet(cacheKey)
-    if (cached) return successResponse(cached)
+    let result = await cacheGet(cacheKey)
+    if (!result) {
+      result = calculateBatTrach(birthYear, gender)
+      await cacheSet(cacheKey, result, TTL.YEAR)
+    }
 
-    const result = calculateBatTrach(birthYear, gender)
+    const publicResult = stripBatTrachForPublic(result as BatTrachResult)
 
-    await cacheSet(cacheKey, result, TTL.YEAR)
-    return successResponse(result)
+    return successResponse({
+      result: publicResult,
+      requires_premium: true,
+      premium_link: 'https://anmenh.vutera.net/bridge?intent=phongthuy_battrach'
+    })
   } catch (err) {
     return serverErrorResponse(err)
   }

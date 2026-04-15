@@ -1,8 +1,7 @@
 'use client'
 
-import { useEffect } from 'react'
-
-const ANMENH_URL = 'https://anmenh.vutera.net'
+import { APP_URLS } from '@/lib/urls'
+import { useSessionMemory } from '@/hooks/useSessionMemory'
 
 type CTAContext = 'tuvi' | 'phongthuy' | 'ngaytot' | 'horoscope' | 'xemmenh' | 'default'
 type CTAVariant = 'banner' | 'inline' | 'card'
@@ -56,8 +55,6 @@ function trackCTAClick(variant: CTAVariant, context: CTAContext) {
   }
 }
 
-import { useSessionMemory } from '@/hooks/useSessionMemory'
-
 export function AnMenhCTA({ variant = 'banner', context = 'default', className = '' }: AnMenhCTAProps) {
   const content = CONTEXT_CONTENT[context]
   const { memory } = useSessionMemory()
@@ -68,7 +65,7 @@ export function AnMenhCTA({ variant = 'banner', context = 'default', className =
   if (memory?.birthYear) hrefParams.set('birthYear', memory.birthYear.toString())
   if (memory?.gender) hrefParams.set('gender', memory.gender)
 
-  const href = `${ANMENH_URL}/bridge?${hrefParams.toString()}`
+  const href = `${APP_URLS.anmenh}/bridge?${hrefParams.toString()}`
 
   if (variant === 'inline') {
     return (
@@ -130,7 +127,7 @@ export function AnMenhCTA({ variant = 'banner', context = 'default', className =
           <p className="mt-1 text-sm opacity-75">{content.sub}</p>
         </div>
         <a
-          href={ANMENH_URL}
+          href={APP_URLS.anmenh}
           onClick={() => trackCTAClick('banner', context)}
           className="shrink-0 rounded-full bg-white px-5 py-2.5 text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-yellow-50"
           style={{ color: '#7C3AED' }}

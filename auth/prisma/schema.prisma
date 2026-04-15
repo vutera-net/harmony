@@ -8,6 +8,11 @@ datasource db {
 
 // --- Auth Models (NextAuth v5 Standard) ---
 
+enum Plan {
+  FREE
+  PREMIUM
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -15,6 +20,7 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String?   // Hashed password for Credentials provider
+  plan          Plan      @default(FREE)
   accounts      Account[]
   sessions      Session[]
   createdAt     DateTime  @default(now())

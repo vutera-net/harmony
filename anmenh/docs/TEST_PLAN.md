@@ -179,13 +179,9 @@ Mỗi test case có checkbox `[ ]` để theo dõi tiến độ.
 | - | [ ] TC-UC-01 | Lưu hồ sơ mới | `localStorage.getItem("anmenh_profile")` có đúng dữ liệu |
 | - | [ ] TC-UC-02 | Đọc lại hồ sơ sau reload | profile được hydrate đúng từ localStorage |
 | - | [ ] TC-UC-03 | Xóa hồ sơ | `localStorage.getItem("anmenh_profile")` = null, profile = null |
-| - | [ ] TC-UC-04 | Migration: có key cũ "harmony_tuvi_profile_v2" | Tự động migrate sang "anmenh_profile", xóa key cũ |
-| - | [ ] TC-UC-05 | Migration: có key cũ "harmony_tuvi_profile" | Tương tự TC-UC-04 |
-| - | [ ] TC-UC-06 | Migration: có key cũ "tuvi_profile" | Tương tự TC-UC-04 |
 | - | [ ] TC-UC-07 | localStorage corrupt (JSON lỗi) | Không crash, profile = null |
 | - | [ ] TC-UC-08 | Profile cũ không có `birthYear` nhưng có `birthDate` | `birthYear` được suy ra từ `birthDate` |
 | - | [ ] TC-UC-09 | `saveProfile` tự đồng bộ `birthDate = {birthYear}-01-01` | birthDate luôn nhất quán |
-| - | [ ] TC-UC-10 | `clearProfile` xóa luôn tất cả OLD_KEYS | Không còn key cũ nào trong localStorage |
 | - | [ ] TC-UC-11 | `useUser()` ngoài Provider | Throw error "useUser must be used within UserProvider" |
 
 ---

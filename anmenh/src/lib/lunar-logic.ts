@@ -255,7 +255,7 @@ function getCanXuongReading(weight: number): {
       title: "Đại Phú Quý Số",
       reading: "Vinh hoa phú quý, hậu vận rực rỡ.",
       interpretation:
-        "Lượng Chỉ của bạn thuộc hàng đại phú quý. Tiền tài dồi dào, sự nghiệp thăng hoa như diều gặp gió. Phúc lộc song toàn, gia đình hòa thuận, con cháu hiếu thảo. Đây là mệnh cách nhận được nhiều ân huệ từ trời cao. Hậu vận ngày càng vẻ vang, tiếng thơm lưu truyền.",
+        "Lượng Chỉ của bạn thuộc hàng đại phú quý. Tiền tài dồi dào, sự nghiệp thăng hoa như diều gặp gió. Phúc lộc song toàn, gia đình hòa thuận, con cháu hiếu thảo. Đây là mệnh cách nhận được nhiều ân huệ từ trời cao. Hậu vận ngày càng vẻ vang, tiếng thơm lưu truyền. Bạn có khả năng xoay chuyển cục diện, biến khó khăn thành cơ hội, đạt tới đỉnh cao của danh vọng và vật chất.",
       level: "excellent",
     };
   }
@@ -264,7 +264,7 @@ function getCanXuongReading(weight: number): {
       title: "Thượng Thượng Số",
       reading: "Số phúc lộc dày, công danh sự nghiệp hanh thông.",
       interpretation:
-        "Phúc đức tích luỹ từ nhiều đời, vận trình thông suốt. Bạn có khả năng xây dựng sự nghiệp vững chắc, được quý nhân phù trợ trong lúc khó khăn. Tài lộc phong phú, tình duyên trọn vẹn. Tuổi trung niên sẽ là giai đoạn cực thịnh trong cuộc đời.",
+        "Phúc đức tích luỹ từ nhiều đời, vận trình thông suốt. Bạn có khả năng xây dựng sự nghiệp vững chắc, được quý nhân phù trợ trong lúc khó khăn. Tài lộc phong phú, tình duyên trọn vẹn. Tuổi trung niên sẽ là giai đoạn cực thịnh trong cuộc đời. Cuộc sống ít biến cố lớn, tinh thần lạc quan, luôn tìm thấy niềm vui trong công việc và cuộc sống gia đình.",
       level: "excellent",
     };
   }
@@ -273,7 +273,7 @@ function getCanXuongReading(weight: number): {
       title: "Phúc Lộc Tề Lai",
       reading: "Vận đến như nước chảy, tài lộc an nhàn.",
       interpretation:
-        "Cuộc đời bạn nhìn chung thuận lợi, tài lộc từ từ tích lũy theo năm tháng. Ở tuổi trung niên bắt đầu gặt hái thành quả. Tuy có lúc vất vả nhưng luôn có người tốt giúp đỡ. Gia đình ổn định, sức khỏe dồi dào, cuối đời an nhàn hưởng phúc.",
+        "Cuộc đời bạn nhìn chung thuận lợi, tài lộc từ từ tích lũy theo năm tháng. Ở tuổi trung niên bắt đầu gặt hái thành quả. Tuy có lúc vất vả nhưng luôn có người tốt giúp đỡ. Gia đình ổn định, sức khỏe dồi dào, cuối đời an nhàn hưởng phúc. Bạn không quá tham vọng nhưng lại thường xuyên gặp may mắn bất ngờ, cuộc sống an nhiên tự tại.",
       level: "good",
     };
   }
@@ -282,7 +282,7 @@ function getCanXuongReading(weight: number): {
       title: "Tự Thành Chí Phú",
       reading: "Tự lực cánh sinh, kiên trì ắt thành công.",
       interpretation:
-        "Bạn thuộc típ người phải tự thân vận động, ít nhờ cậy người khác. Thuở thiếu thời có thể khó khăn, nhưng ý chí kiên cường sẽ giúp bạn vượt qua tất cả. Trung vận bắt đầu ổn định, hậu vận về cơ bản an lành. Cần biết tiết kiệm và đầu tư đúng hướng.",
+        "Bạn thuộc típ người phải tự thân vận động, ít nhờ cậy người khác. Thuở thiếu thời có thể khó khăn, vất vả, nhưng ý chí kiên cường và sự chăm chỉ sẽ giúp bạn vượt qua tất cả. Trung vận bắt đầu ổn định, hậu vận về cơ bản an lành. Thành công của bạn là kết quả của mồ hôi và nước mắt, nên giá trị bền vững và nhận được sự kính trọng từ mọi người.",
       level: "good",
     };
   }
@@ -291,7 +291,7 @@ function getCanXuongReading(weight: number): {
       title: "Bình Thường Số",
       reading: "Bình hòa, đủ ăn đủ mặc, cuộc đời ít biến động.",
       interpretation:
-        "Vận mệnh theo hướng trung bình, không quá thăng hoa nhưng cũng không quá khó khăn. Cuộc sống bình lặng, giản dị. Tài lộc đủ chi tiêu nhưng không giàu có dư dả. Phúc lành ở chỗ ít phải tranh đấu căng thẳng, tâm hồn thanh thản. Nên trân trọng những điều nhỏ bé trong cuộc sống.",
+        "Vận mệnh theo hướng trung bình, không quá thăng hoa nhưng cũng không quá khó khăn. Cuộc sống bình lặng, giản dị. Tài lộc đủ chi tiêu nhưng không giàu có dư dả. Phúc lành lớn nhất của bạn là sự an yên, ít phải tranh đấu căng thẳng, tâm hồn thanh thản. Nếu biết tu tâm dưỡng tính và làm việc thiện, vận trình sẽ ngày càng khởi sắc.",
       level: "neutral",
     };
   }
@@ -300,7 +300,7 @@ function getCanXuongReading(weight: number): {
       title: "Tiểu Khổ Đại Sướng",
       reading: "Sớm gian khổ, muộn an nhàn, kiên trì là bí quyết.",
       interpretation:
-        "Thuở đầu đời thường gặp nhiều gian truân thử thách, nhưng đây là quá trình tôi luyện để trưởng thành. Sau tuổi 40, vận khí bắt đầu chuyển tốt dần. Biết nhẫn nại, chăm chỉ và trung thực là chìa khóa giúp bạn vượt qua khó khăn và tiến đến thành công.",
+        "Thuở đầu đời thường gặp nhiều gian truân thử thách, đôi khi cảm thấy bị bỏ lại phía sau. Tuy nhiên, đây chính là quá trình tôi luyện để bạn trở nên cứng cỏi và sâu sắc hơn. Sau tuổi 40, vận khí bắt đầu chuyển tốt rõ rệt. Biết nhẫn nại, chăm chỉ và giữ lòng trung thực là chìa khóa vàng giúp bạn mở ra cánh cửa hạnh phúc và thành đạt ở hậu vận.",
       level: "neutral",
     };
   }
@@ -308,7 +308,7 @@ function getCanXuongReading(weight: number): {
     title: "Thử Thách Số",
     reading: "Mệnh cách cần nỗ lực phi thường, phúc lộc đến sau gian khó.",
     interpretation:
-      "Cuộc đời chứa đựng nhiều thử thách và biến cố. Tuy nhiên, đây không phải điều bất hạnh - đây là cơ hội để bạn rèn giũa bản thân trở nên phi thường. Những người có số này nếu kiên trì không buông bỏ, cuối cùng sẽ đạt được điều người khác không thể. Cần chú ý sức khỏe và tránh xa các quyết định liều lĩnh.",
+      "Cuộc đời chứa đựng nhiều thử thách, biến cố và những ngã rẽ không ngờ. Tuy nhiên, đừng nản chí, vì những người có mệnh cách này khi vượt qua được nghịch cảnh sẽ đạt được những thành tựu vĩ đại mà người thường không thể chạm tới. Sự rèn luyện trong đau khổ sẽ tạo nên một nhân cách phi thường. Cần chú ý sức khỏe, tu tập tâm linh và lấy sự bao dung làm kim chỉ nam cho mọi hành động.",
     level: "challenging",
   };
 }

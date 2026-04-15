@@ -21,9 +21,21 @@ import { getIztroChartData } from './iztro-adapter'
 // ============================================================
 
 /**
+ * Strip a Tu Vi chart for public use (Partial Insight).
+ * Keeps basic identity but hides deep astrological patterns.
+ */
+export function stripChartForPublic(chart: TuViChart): TuViChart {
+  return {
+    ...chart,
+    // Only keep the first 4 palaces, others are empty/locked
+    palaces: chart.palaces.map((p, idx) => (idx < 4 ? p : { ...p, stars: [] })),
+    // Completely remove Major Periods (Deep Insight)
+    daiHan: [],
+  };
+}
+
+/**
  * Generate a complete Tu Vi chart.
- * Uses iztro as the core engine for all astrological calculations.
- * Falls back to a minimal skeleton if iztro fails (invalid date, edge cases).
  */
 export function generateTuViChart(
   label: string,

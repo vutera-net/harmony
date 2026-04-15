@@ -94,23 +94,49 @@ export default function Home() {
           <span>Vận trình {today.getFullYear()} {getYearCanChi(today.getFullYear())}</span>
         </div>
 
-        <h2 className="text-5xl md:text-7xl font-serif font-bold text-stone-950 dark:text-stone-50 mb-6 leading-[1.1]">
-          {profile ? `Hữu duyên, ${profile.name}` : "Thấu hiểu Vận Mệnh"}
-          <br />
-          <span className="gold-gradient">Kiến tạo Bình An</span>
-        </h2>
-        <p className="text-lg text-stone-600 dark:text-stone-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Ứng dụng phong thủy, tử vi theo triết lý Zen hiện đại. Đưa ra những lời khuyên sâu sắc,
-          giúp bạn đón lành tránh dữ và cân bằng dòng năng lượng trong cuộc sống.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/tu-vi" className="btn-zen flex items-center justify-center gap-2 group px-8 py-3">
-            Luận giải bản mệnh <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
-          <Link href="/bat-trach" className="px-8 py-3 rounded-full border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors">
-            Khám phá Phong thủy
-          </Link>
-        </div>
+        {profile ? (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="max-w-4xl mx-auto"
+          >
+            <h2 className="text-5xl md:text-7xl font-serif font-bold text-stone-950 dark:text-stone-50 mb-6 leading-[1.1]">
+              Hữu duyên, {profile.name}
+              <br />
+              <span className="gold-gradient">Hôm nay là ngày {dailyLuck?.energy === 5 ? "Rực Rỡ" : dailyLuck?.energy === 1 ? "Tĩnh Lặng" : "Hòa Hợp"}</span>
+            </h2>
+            <div className="flex justify-center gap-4 mb-10">
+              <div className="px-4 py-2 rounded-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-400 text-sm flex items-center gap-2">
+                <CircleDot size={14} className="text-amber-500" />
+                <span>Màu may mắn: <strong className="text-stone-900 dark:text-stone-100">{dailyLuck?.luckyColor}</strong></span>
+              </div>
+              <div className="px-4 py-2 rounded-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-400 text-sm flex items-center gap-2">
+                <Compass size={14} className="text-amber-500" />
+                <span>Hướng tốt: <strong className="text-stone-900 dark:text-stone-100">{dailyLuck?.luckyDirection}</strong></span>
+              </div>
+            </div>
+          </motion.div>
+        ) : (
+          <>
+            <h2 className="text-5xl md:text-7xl font-serif font-bold text-stone-950 dark:text-stone-50 mb-6 leading-[1.1]">
+              Thấu hiểu Vận Mệnh
+              <br />
+              <span className="gold-gradient">Kiến tạo Bình An</span>
+            </h2>
+            <p className="text-lg text-stone-600 dark:text-stone-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+              Ứng dụng phong thủy, tử vi theo triết lý Zen hiện đại. Đưa ra những lời khuyên sâu sắc,
+              giúp bạn đón lành tránh dữ và cân bằng dòng năng lượng trong cuộc sống.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/tu-vi" className="btn-zen flex items-center justify-center gap-2 group px-8 py-3">
+                Luận giải bản mệnh <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link href="/bat-trach" className="px-8 py-3 rounded-full border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors">
+                Khám phá Phong thủy
+              </Link>
+            </div>
+          </>
+        )}
       </section>
 
       {/* Daily Luck Dashboard */}
@@ -121,16 +147,21 @@ export default function Home() {
           transition={{ delay: 0.3 }}
           className="mb-16"
         >
-          <div className="rounded-[2.5rem] p-8 border border-amber-100 dark:border-amber-900/30 bg-gradient-to-br from-amber-50 to-stone-50 dark:from-stone-900 dark:to-stone-900/50 overflow-hidden relative">
+          <div className="rounded-[2.5rem] p-8 glass border-amber-100 dark:border-amber-900/30 overflow-hidden relative">
             {/* Decorative */}
-            <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-amber-100/50 dark:bg-amber-900/10 -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+            <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-amber-100/30 dark:bg-amber-900/10 -translate-y-1/2 translate-x-1/3 pointer-events-none blur-3xl" />
 
             <div className="relative">
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-500 mb-1">
-                    Tử Vi Hôm Nay
-                  </p>
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="text-xs font-bold uppercase tracking-widest text-amber-600 dark:text-amber-500">
+                      Tử Vi Hôm Nay
+                    </p>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-400 font-medium uppercase">
+                      {dailyLuck.energy >= 4 ? "Đại Cát" : dailyLuck.energy <= 2 ? "Hạn Nhẹ" : "Bình Hòa"}
+                    </span>
+                  </div>
                   <h3 className="text-2xl font-serif font-bold text-stone-950 dark:text-stone-50">
                     {dateStr}
                   </h3>
@@ -139,26 +170,29 @@ export default function Home() {
                   </p>
                 </div>
                 {/* Energy bar */}
-                <div className="flex flex-col items-center gap-2">
-                  <p className="text-xs font-bold uppercase tracking-widest text-stone-400">Năng lượng</p>
-                  <div className="flex gap-1">
+                <div className="flex flex-col items-center gap-2 bg-stone-50 dark:bg-stone-800/50 p-3 rounded-2xl border border-stone-100 dark:border-stone-700">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400">Năng lượng</p>
+                  <div className="flex gap-1.5">
                     {Array.from({ length: 5 }).map((_, i) => (
                       <div
                         key={i}
-                        className={`w-4 h-4 rounded-sm transition-all ${i < dailyLuck.energy
+                        className={`w-3 h-3 rounded-full transition-all ${i < dailyLuck.energy
                           ? energyColors[i]
                           : "bg-stone-200 dark:bg-stone-700"
                           }`}
                       />
                     ))}
                   </div>
-                  <span className="text-xs text-stone-400">{dailyLuck.energy}/5</span>
+                  <span className="text-xs font-bold text-stone-600 dark:text-stone-400">{dailyLuck.energy}/5</span>
                 </div>
               </div>
 
-              <p className="text-base text-stone-700 dark:text-stone-300 leading-relaxed italic mb-8 border-l-2 border-amber-400 pl-4">
-                "{dailyLuck.message}"
-              </p>
+              <div className="relative mb-8 group">
+                <div className="absolute -left-4 top-0 bottom-0 w-1 bg-amber-400 rounded-full" />
+                <p className="text-lg text-stone-700 dark:text-stone-300 leading-relaxed italic pl-6 transition-colors group-hover:text-stone-900 dark:group-hover:text-stone-100">
+                  "{dailyLuck.message}"
+                </p>
+              </div>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <LuckCard
@@ -389,9 +423,11 @@ export default function Home() {
 
 function LuckCard({ label, value, icon }: { label: string; value: string; icon: React.ReactNode }) {
   return (
-    <div className="bg-white dark:bg-stone-800 rounded-2xl p-4 border border-stone-100 dark:border-stone-700">
+    <div className="glass rounded-2xl p-4 border border-stone-100 dark:border-stone-700 transition-all hover:border-amber-200 dark:hover:border-amber-800 group">
       <div className="flex items-center gap-2 mb-2">
-        {icon}
+        <div className="p-1.5 rounded-lg bg-amber-50 dark:bg-amber-900/30 group-hover:scale-110 transition-transform">
+          {icon}
+        </div>
         <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400">{label}</span>
       </div>
       <p className="font-bold text-stone-900 dark:text-stone-100 text-sm">{value}</p>
@@ -412,14 +448,14 @@ function FeatureCard({
   return (
     <Link
       href={href}
-      className={`p-8 rounded-3xl border border-transparent bg-gradient-to-br ${color} hover:border-amber-200 dark:hover:border-amber-800 transition-all group block text-left relative hover:-translate-y-1`}
+      className={`p-8 rounded-[2rem] border border-transparent bg-gradient-to-br ${color} hover:border-amber-200 dark:hover:border-amber-800 transition-all group block text-left relative hover:-translate-y-1 shadow-sm`}
     >
       {badge && (
-        <span className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-widest bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-400 px-3 py-1 rounded-full">
+        <span className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-widest bg-white/80 dark:bg-stone-800/80 backdrop-blur-sm text-amber-700 dark:text-amber-400 px-3 py-1 rounded-full border border-amber-100 dark:border-amber-900/50">
           {badge}
         </span>
       )}
-      <div className="w-12 h-12 rounded-2xl bg-white dark:bg-stone-700 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-sm">
+      <div className="w-12 h-12 rounded-2xl bg-white dark:bg-stone-700 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-sm border border-stone-100 dark:border-stone-600">
         {icon}
       </div>
       <h3 className="text-xl font-bold mb-3 text-stone-900 dark:text-stone-100">{title}</h3>

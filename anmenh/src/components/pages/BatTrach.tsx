@@ -1,9 +1,10 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import { Compass, Info, Sparkles, MapPin, CheckCircle, XCircle } from "lucide-react";
+import { Compass, Info, Sparkles, MapPin, CheckCircle, XCircle, FileText } from "lucide-react";
 import { useUser } from "@/context/UserContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { calculateBatTrach, getYearCanChi, type BatTrachResult } from "@/lib/lunar-logic";
+import { generatePremiumReport } from "@/lib/pdf-service";
 
 const DIRECTION_LABELS: Record<string, string> = {
   "Bắc": "N", "Nam": "S", "Đông": "E", "Tây": "W",
@@ -47,6 +48,37 @@ export default function BatTrach() {
       setResult(res);
     }
   }, [year, gender]);
+  const handleExportPDF = () => {
+    if (profile?.plan !== 'PREMIUM') {
+      alert('Tính năng xuất báo cáo PDF chi tiết chỉ dành cho thành viên Premium. Vui lòng nâng cấp gói để sử dụng.');
+      return;
+    }
+    
+    generatePremiumReport({
+      userName: profile?.name || \"Guest\",
+      birthDate: `${year}`,
+      sections: [
+        {
+          title: \"Phân Tích Bát Trạch\",
+          content: `Cung Phi: ${result?.cung} - ${result?.menh}\\n\\n${result?.description}`,
+          table: {
+            header: [\"Hướng\", \"Ý nghĩa\"],
+            body: [
+              [result?.sinhKhi, \"Sinh Khí (Tốt nhất)\"],
+              [result?.thienY, \"Thiên Y (Sức khỏe)\"],
+              [result?.dienNien, \"Diên Niên (Hạnh phúc)\"],
+              [result?.phucVi, \"Phục Vị (An tĩnh)\"],
+              [result?.tuyetMenh, \"Tuyệt Mệnh (Xấu nhất)\"],
+              [result?.nguQuy, \"Ngũ Quỷ (Tai họa)\"],
+              [result?.lucSat, \"Lục Sát (Thị phi)\"],
+              [result?.hoaHai, \"Họa Hại (Bệnh tật)\"],
+            ],
+          },
+        },
+      ],
+    });
+  };
+
 
   const isGoodDirection = (label: string) => {
     if (!result) return false;
@@ -81,7 +113,7 @@ export default function BatTrach() {
         <div className="w-16 h-16 bg-stone-900 dark:bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl shadow-stone-900/10">
           <Compass className="text-amber-400 dark:text-amber-600" size={32} />
         </div>
-        <h2 className="text-4xl font-serif font-bold mb-4 dark:text-stone-50">La Bàn Bát Trạch</h2>
+        <h2 className="text-4xl font-serif font-bold mb-4 gold-gradient">La Bàn Bát Trạch</h2>
         <p className="text-stone-500 dark:text-stone-400">
           Xác định cung phi, mệnh quái và tìm hướng nhà, hướng bếp đại cát cho gia chủ.
         </p>
@@ -89,7 +121,7 @@ export default function BatTrach() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
         {/* Input */}
-        <div className="bg-white/80 dark:bg-stone-800/80 backdrop-blur-md p-8 rounded-[2rem] border-2 border-stone-100 dark:border-stone-700 shadow-xl shadow-stone-900/5">
+        <div className="glass p-8 rounded-[2rem] border-2 shadow-xl shadow-stone-900/5">
           <h3 className="text-lg font-bold mb-6 flex items-center gap-2 dark:text-stone-50">
             <Info size={18} className="text-amber-600" />
             Thông tin chủ sự
@@ -150,13 +182,48 @@ export default function BatTrach() {
               </div>
             </div>
 
-            <button
-              onClick={handleCalculate}
-              disabled={year === "" || year < 1900 || year > 2030}
-              className="w-full btn-zen py-4 text-sm font-bold tracking-widest flex items-center justify-center gap-2 group disabled:opacity-50"
-            >
-              Tra Cứu Hướng <Sparkles size={18} className="group-hover:rotate-12 transition-transform" />
-            </button>
+             <div className="flex gap-3">
+               <button
+                 onClick={handleCalculate}
+                 disabled={year === "" || year < 1900 || year > 2030}
+                 className="flex-1 btn-zen py-4 text-sm font-bold tracking-widest flex items-center justify-center gap-2 group disabled:opacity-50"
+               >
+                 Tra Cứu Hướng <Sparkles size={18} className="group-hover:rotate-12 transition-transform" />
+               </button>
+               {result && (
+                 <button
+                   onClick={() => {
+                     generatePremiumReport({
+                       userName: profile?.name || "Guest",
+                       birthDate: `${year}`,
+                       sections: [
+                         {
+                           title: "Phân Tích Bát Trạch",
+                           content: `Cung Phi: ${result.cung} - ${result.menh}\n\n${result.description}`,
+                           table: {
+                             header: ["Hướng", "Ý nghĩa"],
+                             body: [
+                               [result.sinhKhi, "Sinh Khí (Tốt nhất)"],
+                               [result.thienY, "Thiên Y (Sức khỏe)"],
+                               [result.dienNien, "Diên Niên (Hạnh phúc)"],
+                               [result.phucVi, "Phục Vị (An tĩnh)"],
+                               [result.tuyetMenh, "Tuyệt Mệnh (Xấu nhất)"],
+                               [result.nguQuy, "Ngũ Quỷ (Tai họa)"],
+                               [result.lucSat, "Lục Sát (Thị phi)"],
+                               [result.hoaHai, "Họa Hại (Bệnh tật)"],
+                             ],
+                           },
+                         },
+                       ],
+                     });
+                   }}
+                   className="px-4 rounded-full bg-stone-100 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-600 transition-colors"
+                   title="Xuất báo cáo PDF"
+                 >
+                   <FileText size={20} />
+                 </button>
+               )}
+             </div>
           </div>
         </div>
 

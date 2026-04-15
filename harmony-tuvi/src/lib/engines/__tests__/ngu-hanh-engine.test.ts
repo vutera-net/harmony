@@ -119,11 +119,9 @@ describe('Ngu Hanh Engine - Compatibility', () => {
     it('should have relationship type', () => {
       const result = checkYearCompatibility(1990, 'A', 1995, 'B')
       const validRelationships = [
-        'very_good',
-        'good',
-        'neutral',
-        'bad',
-        'very_bad',
+        'tuongSinh',
+        'tuongKhac',
+        'hoa',
       ]
       expect(validRelationships).toContain(result.relationship)
     })

@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { calculateTuongHop, TuongHopResult } from "@/lib/tuong-hop-logic";
 import { getYearCanChi } from "@/lib/lunar-logic";
-import { Heart, User, Sparkles } from "lucide-react";
+import { Heart, User, Sparkles, FileText } from "lucide-react";
 import { useUser } from "@/context/UserContext";
+import { generatePremiumReport } from "@/lib/pdf-service";
 
 export default function TuongHop() {
   const { profile } = useUser();
@@ -65,13 +66,13 @@ export default function TuongHop() {
         >
           <Heart className="text-amber-500" size={32} />
         </motion.div>
-        <h1 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-stone-900 dark:text-white">Xem Tuổi Tương Hợp</h1>
+        <h1 className="text-3xl md:text-4xl font-serif font-bold mb-4 gold-gradient">Xem Tuổi Tương Hợp</h1>
         <p className="text-stone-600 dark:text-stone-400 max-w-2xl mx-auto text-sm md:text-base">
           Phân tích sự hòa hợp giữa hai người dựa trên Thiên Can, Địa Chi và Cung Phi Bát Trạch để mang lại cái nhìn sâu sắc về nhân duyên.
         </p>
       </div>
 
-      <div className="bg-white/90 dark:bg-stone-800/80 backdrop-blur-md p-6 md:p-8 rounded-[2rem] border-2 border-stone-100 dark:border-stone-700 shadow-xl shadow-stone-900/5 mb-10">
+       <div className="glass p-6 md:p-8 rounded-[2rem] border-2 shadow-xl shadow-stone-900/5 mb-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           {/* Người 1 */}
           <div className="p-6 rounded-2xl border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-900/30">
@@ -174,14 +175,53 @@ export default function TuongHop() {
           </div>
         </div>
 
-        <button
-          onClick={handleCalculate}
-          disabled={year1 === "" || year2 === "" || year1 < 1900 || year1 > currentYear || year2 < 1900 || year2 > currentYear}
-          className="w-full btn-zen py-4 text-sm font-bold tracking-widest flex items-center justify-center gap-2 disabled:opacity-50"
-        >
-          <Heart size={18} />
-          XEM TƯƠNG HỢP
-        </button>
+         <div className="flex gap-3">
+           <button
+             onClick={handleCalculate}
+             disabled={year1 === "" || year2 === "" || year1 < 1900 || year1 > currentYear || year2 < 1900 || year2 > currentYear}
+             className="flex-1 btn-zen py-4 text-sm font-bold tracking-widest flex items-center justify-center gap-2 disabled:opacity-50"
+           >
+             <Heart size={18} />
+             XEM TƯƠNG HỢP
+           </button>
+           {result && (
+             <button
+               onClick={() => {
+                 generatePremiumReport({
+                   userName: `${profile?.name || "Người 1"} & Người 2`,
+                   birthDate: `${year1} & ${year2}`,
+                   sections: [
+                     {
+                       title: "Kết Quả Tương Hợp",
+                       content: result.interpretation,
+                       table: {
+                         header: ["Yếu tố", "Điểm", "Kết luận"],
+                         body: [
+                           ["Thiên Can", result.canScore, result.canText],
+                           ["Địa Chi", result.chiScore, result.chiText],
+                           ["Cung Phi", result.cungScore, result.cungText],
+                           ["Tổng Điểm", result.totalScore, "Điểm tổng hợp"],
+                         ],
+                       },
+                     },
+                     {
+                       title: "Chi Tiết Luận Giải",
+                       content: [
+                         `Thiên Can: ${result.canDesc}`,
+                         `Địa Chi: ${result.chiDesc}`,
+                         `Cung Phi: ${result.cungDesc}`,
+                       ],
+                     },
+                   ],
+                 });
+               }}
+               className="px-4 rounded-full bg-stone-100 dark:bg-stone-700 border border-stone-200 dark:border-stone-600 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-600 transition-colors"
+               title="Xuất báo cáo PDF"
+             >
+               <FileText size={20} />
+             </button>
+           )}
+         </div>
       </div>
 
       <AnimatePresence mode="wait">
@@ -193,7 +233,7 @@ export default function TuongHop() {
             className="space-y-8"
           >
             {/* Tổng Điểm */}
-            <div className="bg-white/90 dark:bg-stone-800/80 backdrop-blur-md p-8 md:p-12 rounded-[2rem] border-2 border-stone-100 dark:border-stone-700 shadow-xl shadow-stone-900/5 text-center relative overflow-hidden">
+             <div className="glass p-8 md:p-12 rounded-[2rem] border-2 shadow-xl shadow-stone-900/5 text-center relative overflow-hidden">
                <div className="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none">
                 <Heart size={300} />
               </div>
@@ -234,7 +274,7 @@ export default function TuongHop() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: idx * 0.1 }}
-                  className="p-8 rounded-2xl border border-stone-100 dark:border-stone-700 bg-white/70 dark:bg-stone-800/70 shadow-sm flex flex-col h-full"
+                   className="p-8 rounded-2xl border border-stone-100 dark:border-stone-700 glass shadow-sm flex flex-col h-full"
                 >
                   <h3 className="text-amber-600 dark:text-amber-500 font-black text-xs uppercase tracking-[0.2em] mb-4">{item.title}</h3>
                   <div className="flex justify-between items-center mb-6">

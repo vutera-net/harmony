@@ -2,8 +2,7 @@ import Link from 'next/link'
 import { getDayInfo } from '@/lib/engines/lunar-engine'
 import { THIEN_CAN, DIA_CHI } from '@/data/can-chi'
 import { MiniFunnel } from '@/components/funnel/MiniFunnel'
-
-const ANMENH_URL = 'https://anmenh.vutera.net'
+import { APP_URLS } from '@/lib/urls'
 
 const FEATURES = [
   {
@@ -96,7 +95,7 @@ export default function HomePage() {
               Lập Lá Số Tử Vi
             </Link>
             <a
-              href={ANMENH_URL}
+              href={APP_URLS.anmenh}
               className="rounded-full border-2 border-yellow-300 bg-transparent px-8 py-3 font-semibold text-yellow-200 transition hover:bg-yellow-400 hover:text-gray-900"
             >
               🔮 AnMenh — Cá nhân hóa

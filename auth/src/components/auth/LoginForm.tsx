@@ -72,10 +72,11 @@ export default function LoginForm() {
           )}
 
           <div className="space-y-2">
-            <label className="text-sm font-medium ml-1">Email</label>
+            <label htmlFor="email" className="text-sm font-medium ml-1">Email</label>
             <div className="relative">
               <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" size={18} />
               <input
+                id="email"
                 type="email"
                 required
                 value={email}
@@ -87,10 +88,11 @@ export default function LoginForm() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium ml-1">Mật khẩu</label>
+            <label htmlFor="password" className="text-sm font-medium ml-1">Mật khẩu</label>
             <div className="relative">
               <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" size={18} />
               <input
+                id="password"
                 type="password"
                 required
                 value={password}

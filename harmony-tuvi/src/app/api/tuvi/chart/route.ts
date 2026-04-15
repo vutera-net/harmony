@@ -1,8 +1,10 @@
 import { type NextRequest } from 'next/server'
-import { generateTuViChart } from '@/lib/engines/tuvi-engine'
+import { generateTuViChart, stripChartForPublic } from '@/lib/engines/tuvi-engine'
 import { solarToLunar } from '@/lib/engines/lunar-engine'
 import { successResponse, errorResponse, serverErrorResponse } from '@/lib/api-response'
 import { cacheGet, cacheSet, cacheKeys, TTL } from '@/lib/cache'
+import type { TuViChart } from '@/types'
+import { APP_URLS } from '@/lib/urls'
 
 export async function POST(request: NextRequest) {
   try {
@@ -41,13 +43,22 @@ export async function POST(request: NextRequest) {
     const cacheKey = cacheKeys.tuViChart(
       lunarDate.year, lunarDate.month, lunarDate.day, birthHour, gender
     )
-    const cached = await cacheGet(cacheKey)
-    if (cached) return successResponse(cached)
+    let chart = await cacheGet(cacheKey)
+    
+    if (!chart) {
+      chart = generateTuViChart(label ?? 'Lá số', gender, lunarDate, birthHour)
+      await cacheSet(cacheKey, chart, TTL.MONTH)
+    }
 
-    const chart = generateTuViChart(label ?? 'Lá số', gender, lunarDate, birthHour)
+    // For public API, always strip the chart
+    const publicChart = stripChartForPublic(chart as TuViChart)
 
-    await cacheSet(cacheKey, chart, TTL.MONTH)
-    return successResponse(chart)
+    return successResponse({
+      chart: publicChart,
+      requires_premium: true,
+      premium_link: `${APP_URLS.anmenh}/bridge?intent=tuvi_chart`
+    })
+
   } catch (err) {
     return serverErrorResponse(err)
   }

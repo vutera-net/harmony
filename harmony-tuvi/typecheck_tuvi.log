@@ -1,0 +1,2 @@
+src/app/api/phongthuy/battrach/route.ts(28,49): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'BatTrachResult'.
+src/app/api/tuvi/chart/route.ts(52,45): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'TuViChart'.

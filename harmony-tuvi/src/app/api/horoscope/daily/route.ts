@@ -23,6 +23,11 @@ export async function GET(req: NextRequest) {
   const zodiac = branches[branchIndex]
 
   const content = ContentEngine.generateDailyContent(dateStr, slug, zodiac)
+  const publicContent = ContentEngine.stripDailyContentForPublic(content)
 
-  return NextResponse.json({ data: content })
+  return NextResponse.json({ 
+    data: publicContent,
+    requires_premium: true,
+    premium_link: 'https://anmenh.vutera.net/bridge?intent=horoscope_daily'
+  })
 }

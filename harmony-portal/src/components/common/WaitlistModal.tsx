@@ -12,14 +12,29 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate API call
-    await new Promise(r => setTimeout(r, 1500));
-    setLoading(false);
-    setSubmitted(true);
+    setError(null);
+    try {
+      // Simulate API call
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (email === "error@example.com") {
+            reject(new Error("Email này không hợp lệ hoặc đã tồn tại."));
+          } else {
+            resolve(true);
+          }
+        }, 1500);
+      });
+      setSubmitted(true);
+    } catch (err: any) {
+      setError(err.message || "Có lỗi xảy ra. Vui lòng thử lại sau.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -80,6 +95,10 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
                         className="w-full bg-stone-50 dark:bg-stone-800 border-2 border-stone-100 dark:border-stone-700 rounded-2xl px-6 py-4 outline-none focus:border-amber-500 transition-all dark:text-white"
                       />
                     </div>
+                    {error && (
+                      <p className="text-red-500 text-sm text-center animate-shake">{error}</p>
+                    )}
+
                     <button
                       type="submit"
                       disabled={loading}

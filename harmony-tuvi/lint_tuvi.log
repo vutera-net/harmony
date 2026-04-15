@@ -1,0 +1,178 @@
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/jest.setup.ts
+  25:29  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/app/api/cron/daily-horoscope/route.ts
+  38:33  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  41:33  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/app/api/tuvi/export-pdf/route.ts
+  29:48  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/app/phong-thuy/menh-[nguhanh]/page.tsx
+   27:7  warning  'MENH_TO_SLUG' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  121:9  warning  'sinhBoi' is assigned a value but never used       @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/app/tu-vi-tuoi/[year]/page.tsx
+  25:51  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  26:51  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  42:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  43:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/app/tu-vi/[congiap]/nam-[year]/page.tsx
+  130:9  warning  'zodiacColor' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/components/blog/CtaBanner.tsx
+  35:13  error  Do not use an `<a>` element to navigate to `/tu-vi/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/components/calendar/CalendarView.tsx
+   6:8  warning  'Link' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+  23:5  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/components/calendar/CalendarView.tsx:23:5
+  21 |
+  22 |   useEffect(() => {
+> 23 |     setLoading(true)
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  24 |     fetch(`/api/calendar/month?year=${year}&month=${month}`)
+  25 |       .then((r) => r.json())
+  26 |       .then((res) => {  react-hooks/set-state-in-effect
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/components/common/BridgeTransition.tsx
+  37:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/components/common/BridgeTransition.tsx:37:7
+  35 |       };
+  36 |     } else {
+> 37 |       setStep(0);
+     |       ^^^^^^^ Avoid calling setState() directly within an effect
+  38 |     }
+  39 |   }, [show, onComplete, messages.length]);
+  40 |  react-hooks/set-state-in-effect
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/components/common/XemMenhForm.tsx
+  154:3   warning  'currentYear' is defined but never used  @typescript-eslint/no-unused-vars
+  155:3   warning  'currentName' is defined but never used  @typescript-eslint/no-unused-vars
+  172:36  error    A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/components/funnel/AnMenhCTA.tsx
+  3:10  warning  'useEffect' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/components/funnel/EcosystemBanner.tsx
+  13:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/components/funnel/EcosystemBanner.tsx:13:7
+  11 |   useEffect(() => {
+  12 |     if (!sessionStorage.getItem(STORAGE_KEY)) {
+> 13 |       setVisible(true)
+     |       ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  14 |     }
+  15 |   }, [])
+  16 |  react-hooks/set-state-in-effect
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/components/layout/SiteHeader.tsx
+  5:17  warning  'User' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/components/ngaytot/NgayTotForm.tsx
+  146:43  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  146:56  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/components/ngaytot/QuickDateCheck.tsx
+  9:40  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/components/tuvi/ChartCompareForm.tsx
+  285:31  warning  'score' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/data/dia-chi.ts
+  1:10  warning  'DIA_CHI' is defined but never used       @typescript-eslint/no-unused-vars
+  1:19  warning  'CON_GIAP' is defined but never used      @typescript-eslint/no-unused-vars
+  1:29  warning  'CHI_NGU_HANH' is defined but never used  @typescript-eslint/no-unused-vars
+  1:43  warning  'CHI_AM_DUONG' is defined but never used  @typescript-eslint/no-unused-vars
+  1:57  warning  'GIO_DIA_CHI' is defined but never used   @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/data/nap-am.ts
+  59:9  warning  'cycleIndex' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  62:9  warning  'pairIndex' is assigned a value but never used   @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/data/ngu-hanh.ts
+  1:24  warning  'NguHanhInfo' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/data/templates/daily-horoscope.ts
+  1:10  warning  'ZodiacSign' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/data/tuvi/chinh-tinh.ts
+  20:7  warning  'BRIGHTNESS_TU_VI' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/lib/engines/__tests__/lunar-engine.test.ts
+  15:15  warning  'SolarDate' is defined but never used  @typescript-eslint/no-unused-vars
+  15:26  warning  'LunarDate' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/lib/engines/date-selection-engine.ts
+   5:47  warning  'SolarDate' is defined but never used       @typescript-eslint/no-unused-vars
+   7:10  warning  'TRUC_LIST' is defined but never used       @typescript-eslint/no-unused-vars
+   8:10  warning  'SAO_28' is defined but never used          @typescript-eslint/no-unused-vars
+   9:10  warning  'isTamNuong' is defined but never used      @typescript-eslint/no-unused-vars
+   9:22  warning  'isNguyetKy' is defined but never used      @typescript-eslint/no-unused-vars
+   9:34  warning  'isSatChu' is defined but never used        @typescript-eslint/no-unused-vars
+   9:44  warning  'isThoiDia' is defined but never used       @typescript-eslint/no-unused-vars
+  41:3   warning  'ownerBirthYear' is defined but never used  @typescript-eslint/no-unused-vars
+  42:3   warning  'ownerGender' is defined but never used     @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/lib/engines/horoscope-generator.ts
+  6:15  warning  'LunarDate' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/lib/engines/iztro-adapter.ts
+  109:41  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  123:50  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  132:29  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  133:33  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/lib/engines/lunar-engine.ts
+    8:10  warning  'THIEN_CAN' is defined but never used        @typescript-eslint/no-unused-vars
+    8:21  warning  'DIA_CHI' is defined but never used          @typescript-eslint/no-unused-vars
+  256:5   warning  'b11' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  265:5   warning  'offset' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/lib/engines/ngu-hanh-engine.ts
+  7:10  warning  'NAP_AM_TABLE' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/lib/engines/tuvi-engine.ts
+  41:1  error  Parsing error: Identifier expected
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/lib/engines/tuvi-interpreter.ts
+  241:9  warning  'menhRating' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/lib/pdf/tuvi-pdf.tsx
+  1:50  warning  'Font' is defined but never used  @typescript-eslint/no-unused-vars
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/lib/prisma.ts
+  5:29  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/lib/seo/structured-data.ts
+   52:3   warning  'type' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  146:55  error    Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+
+/home/linh/.cline/worktrees/3a78c/base1/harmony-tuvi/src/middleware.ts
+  3:10  warning  'jwtVerify' is defined but never used        @typescript-eslint/no-unused-vars
+  5:7   warning  'SECRET' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+✖ 64 problems (23 errors, 41 warnings)
+

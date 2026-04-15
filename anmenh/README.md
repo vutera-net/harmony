@@ -53,7 +53,7 @@ An Mệnh được xây dựng trên triết lý thiết kế **Zen (Thiền)**:
 *   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
 *   **Animations:** [Framer Motion](https://www.framer.com/motion/)
 *   **Icons:** [Lucide React](https://lucide.dev/)
-*   **Storage:** LocalStorage (Client-side Persistence) với hệ thống migration key thông minh.
+*   **Storage:** LocalStorage (Client-side Persistence)
 
 ---
 

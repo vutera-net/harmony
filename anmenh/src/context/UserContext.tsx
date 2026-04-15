@@ -2,7 +2,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 const STORAGE_KEY = "anmenh_profile";
-const OLD_KEYS = ["harmony_tuvi_profile_v2", "harmony_tuvi_profile", "tuvi_profile"];
 
 export interface UserProfile {
   name: string;
@@ -24,20 +23,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<UserProfile | null>(null);
 
   useEffect(() => {
-    // Try new key first, then migration logic
-    let saved = localStorage.getItem(STORAGE_KEY);
-    
-    if (!saved) {
-      for (const oldKey of OLD_KEYS) {
-        const val = localStorage.getItem(oldKey);
-        if (val) {
-          saved = val;
-          // Clean up old keys as we encounter them
-          localStorage.removeItem(oldKey);
-          break;
-        }
-      }
-    }
+    const saved = localStorage.getItem(STORAGE_KEY);
     
     if (saved) {
       try {
@@ -66,7 +52,6 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const clearProfile = () => {
     setProfile(null);
     localStorage.removeItem(STORAGE_KEY);
-    OLD_KEYS.forEach(k => localStorage.removeItem(k));
   };
 
   return (

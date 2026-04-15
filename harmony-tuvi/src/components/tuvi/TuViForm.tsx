@@ -84,7 +84,7 @@ export function TuViForm() {
       })
       const data = await res.json()
       if (data.error) throw new Error(data.error)
-      setChart(data.data)
+      setChart(data.data.chart)
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Có lỗi xảy ra')
     } finally {

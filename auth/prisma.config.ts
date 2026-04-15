@@ -5,7 +5,11 @@ import * as path from 'path'
 // Load .env and .env.local for Prisma CLI
 function loadEnvFile(filename: string) {
   const filePath = path.join(process.cwd(), filename)
-  if (!fs.existsSync(filePath)) return
+  console.log(`Loading env file from: ${filePath}`)
+  if (!fs.existsSync(filePath)) {
+    console.log(`File ${filePath} does not exist`)
+    return
+  }
   const lines = fs.readFileSync(filePath, 'utf-8').split('\n')
   for (const line of lines) {
     const trimmed = line.trim()

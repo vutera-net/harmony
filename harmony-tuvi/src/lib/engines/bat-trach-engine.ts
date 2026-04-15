@@ -12,6 +12,19 @@ import {
 } from '@/data/phongthuy/bat-trach'
 
 /**
+ * Strip Bát Trạch result for public use (Partial Insight).
+ * Keeps basic cung menh but hides detailed bad directions.
+ */
+export function stripBatTrachForPublic(result: BatTrachResult): BatTrachResult {
+  return {
+    ...result,
+    // Hide bad directions to trigger curiosity for AnMenh Sanctuary
+    huongNhaXau: [], 
+    huongs: result.huongs.map(h => h.isTot ? h : { ...h, description: 'Thông tin chi tiết dành cho thành viên Premium' }),
+  };
+}
+
+/**
  * Calculate full Bát Trạch analysis for a person
  */
 export function calculateBatTrach(

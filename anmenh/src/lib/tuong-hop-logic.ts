@@ -116,26 +116,26 @@ export function calculateTuongHop(
   cungText = cungResult.text;
 
   if (cungScore >= 30) {
-    cungDesc = `Hai cung ${cung1} và ${cung2} kết hợp ra sao ${cungText}. Đây là cung đại cát, mang lại sức khỏe, tài lộc nhà cửa hưng vượng, con cái cái thành đạt.`;
+    cungDesc = `Hai cung ${cung1} và ${cung2} kết hợp tạo nên sao ${cungText}. Đây là cung đại cát, mang lại sức khỏe dồi dào, tài lộc hưng vượng và sự hòa hợp tuyệt đối. Vợ chồng tương trợ nhau phát triển, con cái thông minh, thành đạt, gia đình luôn tràn ngập tiếng cười.`;
   } else if (cungScore >= 20) {
-    cungDesc = `Hai cung ${cung1} và ${cung2} kết hợp ra sao ${cungText}. Gia đạo yên vui, vợ chồng hòa thuận, cuộc sống no đủ vững bền.`;
+    cungDesc = `Hai cung ${cung1} và ${cung2} kết hợp tạo nên sao ${cungText}. Gia đạo yên vui, vợ chồng hòa thuận, cuộc sống no đủ vững bền. Sự kết hợp này mang lại cảm giác an toàn và tin cậy, giúp nhau cùng tiến bộ trong cuộc sống và công việc.`;
   } else if (cungScore >= 10) {
-    cungDesc = `Hai cung ${cung1} và ${cung2} gặp sao ${cungText}. Dễ có thị phi hoặc trắc trở nhỏ trong gia đình. Cần tu dưỡng tính tình, khoan dung độ lượng.`;
+    cungDesc = `Hai cung ${cung1} và ${cung2} gặp sao ${cungText}. Dễ xảy ra những bất đồng nhỏ hoặc thị phi không đáng có trong gia đình. Cần tu dưỡng tâm tính, học cách lắng nghe và khoan dung độ lượng để duy trì sự bền vững của mối quan hệ.`;
   } else {
-    cungDesc = `Hai cung ${cung1} và ${cung2} phạm sao ${cungText}. Mang ý nghĩa xung khắc mạnh, hao tài tốn của hoặc bệnh tật. Nên hóa giải bằng phong thủy nhà ở (hướng bếp, hướng luân) và đặc biệt là sự chân thành tha thứ cho nhau.`;
+    cungDesc = `Hai cung ${cung1} và ${cung2} phạm sao ${cungText}. Mang ý nghĩa xung khắc mạnh, dễ dẫn đến hao tài tốn của hoặc ảnh hưởng sức khỏe. Cần hóa giải bằng cách điều chỉnh phong thủy nhà ở (hướng bếp, giường ngủ) và quan trọng nhất là dùng sự chân thành, thấu hiểu để hóa giải mâu thuẫn.`;
   }
 
   const totalScore = canScore + chiScore + cungScore;
   let interpretation = "";
 
   if (totalScore >= 80) {
-    interpretation = "Trời Sinh Một Cặp! Mức độ tương hợp cực kỳ cao, hai bạn sinh ra là để dành cho nhau. Cuộc sống hôn nhân sẽ ngập tràn hạnh phúc và tài lộc dồi dào.";
+    interpretation = "Trời Sinh Một Cặp! Mức độ tương hợp cực kỳ cao, hai bạn sinh ra là để dành cho nhau. Sự hòa hợp không chỉ nằm ở mệnh lý mà còn ở tâm hồn. Cuộc sống hôn nhân sẽ ngập tràn hạnh phúc, tài lộc dồi dào và cùng nhau thăng tiến vượt bậc trong sự nghiệp. Đây là mối lương duyên hiếm có, mang lại sự bình an và thịnh vượng cho cả hai gia đình.";
   } else if (totalScore >= 60) {
-    interpretation = "Tương hợp rất tốt. Dù có đôi lúc mâu thuẫn nhưng hai bạn luôn biết cách dung hòa và xây dựng gia đình êm ấm.";
+    interpretation = "Tương hợp rất tốt. Hai bạn có nhiều điểm chung về tư duy và giá trị sống. Dù có đôi lúc mâu thuẫn nhỏ do sự khác biệt về tính cách, nhưng sự thấu hiểu và yêu thương sẽ giúp hai bạn dễ dàng dung hòa, xây dựng một gia đình êm ấm, bền vững và cùng nhau vượt qua mọi sóng gió.";
   } else if (totalScore >= 40) {
-    interpretation = "Mức độ tương hợp trung bình. Cần nhiều sự cố gắng thấu hiểu và nhường nhịn từ cả hai phía để vượt qua các khúc mắc trong cuộc sống.";
+    interpretation = "Mức độ tương hợp trung bình. Cuộc sống hôn nhân sẽ có những giai đoạn thăng trầm. Cần nhiều sự cố gắng thấu hiểu, kiên nhẫn và nhường nhịn từ cả hai phía để vượt qua các khúc mắc. Khi hai bạn biết chấp nhận những khiếm khuyết của nhau, mối quan hệ sẽ trở nên sâu sắc và gắn kết hơn.";
   } else {
-    interpretation = "Có nhiều điểm xung khắc trong bản mệnh. Tuy nhiên, mệnh do trời định nhưng phận do người tạo. Cả hai cần sự nhẫn nại phi thường và tình yêu lớn lao để hóa giải những khác biệt.";
+    interpretation = "Có nhiều điểm xung khắc trong bản mệnh, dễ dẫn đến những bất đồng trong quan niệm sống. Tuy nhiên, mệnh do trời định nhưng phận do người tạo. Sự xung khắc chính là bài học để cả hai rèn luyện sự bao dung. Với tình yêu đủ lớn, sự chân thành và một chút hỗ trợ từ phong thủy, hai bạn hoàn toàn có thể chuyển hung thành cát, cùng nhau xây dựng tổ ấm.";
   }
 
   return {

@@ -355,6 +355,9 @@ function PalaceCell({
   const notableMinor = palace.minorStars.filter(
     (s) => NOTABLE_MINOR.has(s.name) || s.shortMeaning,
   )
+  
+  // Partial Insight Check: is this palace locked for public view?
+  const isLocked = palace.index >= 4 && palace.mainStars.length === 0;
 
   return (
     <button
@@ -365,13 +368,13 @@ function PalaceCell({
           : palace.isSoulPalace
             ? 'border-purple-300 bg-purple-50 hover:bg-purple-100'
             : 'border-gray-200 bg-white hover:bg-gray-50'
-      } ${isSelected ? 'ring-2 ring-amber-400 ring-offset-1 shadow-md' : ''}`}
+      } ${isSelected ? 'ring-2 ring-amber-400 ring-offset-1 shadow-md' : ''} ${isLocked ? 'opacity-60 bg-stone-50' : ''}`}
     >
       {/* Current Đại Vận dot */}
       {isCurrentDaiHan && (
         <span className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-red-500" />
       )}
-
+      
       {/* Palace name + badges */}
       <div className="flex items-start justify-between gap-0.5">
         <div className="min-w-0 flex-1">
@@ -398,7 +401,7 @@ function PalaceCell({
           </span>
         )}
       </div>
-
+      
       {/* Divider */}
       <div
         className={`my-1 h-px ${
@@ -409,9 +412,13 @@ function PalaceCell({
               : 'bg-gray-100'
         }`}
       />
-
+      
       {/* Main stars */}
-      {palace.mainStars.length === 0 ? (
+      {isLocked ? (
+        <div className="flex items-center gap-1 text-[10px] italic text-amber-600 font-medium">
+          <span className="h-1 w-1 rounded-full bg-amber-600" /> Khóa (Premium)
+        </div>
+      ) : palace.mainStars.length === 0 ? (
         <div className="text-[10px] italic text-gray-300">trống</div>
       ) : (
         <div className="space-y-0.5">
@@ -441,9 +448,9 @@ function PalaceCell({
           ))}
         </div>
       )}
-
+      
       {/* Notable minor stars */}
-      {notableMinor.length > 0 && (
+      {!isLocked && notableMinor.length > 0 && (
         <div className="mt-1 flex flex-wrap gap-0.5">
           {notableMinor.map((star) => (
             <span
@@ -465,4 +472,5 @@ function PalaceCell({
     </button>
   )
 }
+
 
