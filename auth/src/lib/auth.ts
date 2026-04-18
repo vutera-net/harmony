@@ -17,6 +17,27 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     }),
+    {
+      id: "zalo",
+      name: "Zalo",
+      type: "oauth",
+      authorization: {
+        url: "https://oauth.zalo.me/v4/permission",
+        params: { scope: "user_info.profile.basics,user_info.email" },
+      },
+      token: "https://oauth.zalo.me/v4/access_token",
+      userinfo: "https://graph.zalo.me/v2.0/me",
+      clientId: process.env.ZALO_CLIENT_ID,
+      clientSecret: process.env.ZALO_CLIENT_SECRET,
+      profile(profile) {
+        return {
+          id: profile.id,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+        };
+      },
+    },
     Credentials({
       name: "Credentials",
       credentials: {
