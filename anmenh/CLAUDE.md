@@ -80,3 +80,29 @@
 | Phase 3 | Premium UX - Thuat toan lich, Daily Luck, UI Polish | HOAN THANH |
 | Phase 4 | Bat Tu module, Radar Ngu Hanh, Xem tuoi tuong hop | HOAN THANH |
 | Phase 5 | Review & Polish - Dong bo UI, rebranding An Menh | HOAN THANH |
+| Phase 6 | TDD hoan chinh + ContentLock + Pricing UI + SSO | DANG THUC HIEN |
+
+---
+
+## Nhung gi con thieu (Phase 6 - Audit 2026-04-18)
+
+### P0 - Nghiep vu con thieu (Sanctuary chua day du)
+- **14 Sao Chinh + 12 Cung Tu Vi Dau So**: Hoan toan chua co. Chi co Bat Tu co ban.
+- **Dai Van / Tieu Van**: Chu ky 10 nam chua duoc tinh toan.
+
+### P1 - Ky thuat con thieu
+- **ContentLock UI**: Hien tai chi dung `alert()`. Can component gating that su.
+- **Pricing / Subscription page**: Chi co flag `FREE/PREMIUM` trong localStorage, khong co paywall UI, khong co trang `/pricing`.
+- **SSO that su**: App dang dung localStorage thuan tuy, chua ket noi `auth.vutera.net`.
+
+### P2 - Tests con pending (~40% chua pass)
+- Nhieu test case con `[ ]` trong `TEST_PLAN.md` (UserContext, Calendar nav, tuong-hop chi scores, responsive, dark mode, animations).
+- `getDailyLuck` (TC-DL-01 den TC-DL-04) chua co test nao.
+- Can chay `npm test` de xac nhan trang thai hien tai.
+
+### Thu tu uu tien de implement
+1. Chay va fix het test suite (P2 truoc de co baseline)
+2. ContentLock component (P1 - unblock paywall UX)
+3. Pricing page (P1 - unblock monetization)
+4. SSO ket noi auth.vutera.net (P1)
+5. 14 Sao Chinh + Dai Van / Tieu Van (P0 - phan nghiep vu lon nhat)
