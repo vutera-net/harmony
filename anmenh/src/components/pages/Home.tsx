@@ -13,6 +13,12 @@ import { getDailyLuck, getYearCanChi } from "@/lib/lunar-logic";
 export default function Home() {
   const { profile, saveProfile, clearProfile } = useUser();
   const [showSetup, setShowSetup] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
   const [nameInput, setNameInput] = useState("");
   const [birthYearInput, setBirthYearInput] = useState<number | "">(1990);
   const [genderInput, setGenderInput] = useState<"male" | "female">("male");
@@ -358,10 +364,10 @@ export default function Home() {
                 <div className="flex gap-3 pt-2">
                   {profile && (
                     <button
-                      onClick={() => { clearProfile(); setShowSetup(false); }}
+                      onClick={() => setShowDeleteConfirm(true)}
                       className="px-4 py-4 text-red-400 text-sm font-medium hover:text-red-600 transition-colors"
                     >
-                      Xóa hồ sơ
+                      Xóa tài khoản
                     </button>
                   )}
                   <button
@@ -376,9 +382,189 @@ export default function Home() {
                     className="flex-[2] btn-zen py-4 text-sm font-bold tracking-widest disabled:opacity-40"
                   >
                     Bắt đầu ✦
+        {showDeleteConfirm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] bg-stone-900/60 backdrop-blur-md flex items-center justify-center p-6"
+            role="dialog"
+            aria-modal="true"
+            onClick={(e) => e.target === e.currentTarget && setShowDeleteConfirm(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="bg-white dark:bg-stone-900 rounded-[2.5rem] p-8 max-w-sm w-full shadow-2xl border border-stone-100 dark:border-stone-700 text-center"
+            >
+              <div className="w-16 h-16 bg-red-50 dark:bg-red-900/20 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <UserCircle2 size={32} />
+              </div>
+              <h3 className="text-2xl font-serif font-bold mb-3 dark:text-stone-50">Xác nhận xóa tài khoản</h3>
+              <p className="text-stone-500 dark:text-stone-400 mb-8 text-sm leading-relaxed">
+                Hành động này sẽ xóa toàn bộ thông tin hồ sơ của bạn khỏi trình duyệt. Bạn có chắc chắn muốn tiếp tục?
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowDeleteConfirm(false)}
+                  className="flex-1 py-4 text-stone-500 dark:text-stone-400 font-medium hover:bg-stone-100 dark:hover:bg-stone-800 rounded-2xl transition-colors"
+                >
+                  Hủy bỏ
+                </button>
+                <button
+                  onClick={() => {
+                    clearProfile();
+                    setShowDeleteConfirm(false);
+                    setShowSetup(false);
+                  }}
+                  className="flex-1 py-4 bg-red-500 hover:bg-red-600 text-white font-bold rounded-2xl transition-all shadow-lg shadow-red-500/20"
+                >
+                  Xác nhận xóa
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {showDeleteConfirm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] bg-stone-900/60 backdrop-blur-md flex items-center justify-center p-6"
+            role="dialog"
+            aria-modal="true"
+            onClick={(e) => e.target === e.currentTarget && setShowDeleteConfirm(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="bg-white dark:bg-stone-900 rounded-[2.5rem] p-8 max-w-sm w-full shadow-2xl border border-stone-100 dark:border-stone-700 text-center"
+            >
+              <div className="w-16 h-16 bg-red-50 dark:bg-red-900/20 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <UserCircle2 size={32} />
+              </div>
+              <h3 className="text-2xl font-serif font-bold mb-3 dark:text-stone-50">Xác nhận xóa tài khoản</h3>
+              <p className="text-stone-500 dark:text-stone-400 mb-8 text-sm leading-relaxed">
+                Hành động này sẽ xóa toàn bộ thông tin hồ sơ của bạn khỏi trình duyệt. Bạn có chắc chắn muốn tiếp tục?
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowDeleteConfirm(false)}
+                  className="flex-1 py-4 text-stone-500 dark:text-stone-400 font-medium hover:bg-stone-100 dark:hover:bg-stone-800 rounded-2xl transition-colors"
+                >
+                  Hủy bỏ
+                </button>
+                <button
+                  onClick={() => {
+                    clearProfile();
+                    setShowDeleteConfirm(false);
+                    setShowSetup(false);
+                  }}
+                  className="flex-1 py-4 bg-red-500 hover:bg-red-600 text-white font-bold rounded-2xl transition-all shadow-lg shadow-red-500/20"
+                >
+                  Xác nhận xóa
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
                   </button>
+        {showDeleteConfirm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] bg-stone-900/60 backdrop-blur-md flex items-center justify-center p-6"
+            role="dialog"
+            aria-modal="true"
+            onClick={(e) => e.target === e.currentTarget && setShowDeleteConfirm(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="bg-white dark:bg-stone-900 rounded-[2.5rem] p-8 max-w-sm w-full shadow-2xl border border-stone-100 dark:border-stone-700 text-center"
+            >
+              <div className="w-16 h-16 bg-red-50 dark:bg-red-900/20 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <UserCircle2 size={32} />
+              </div>
+              <h3 className="text-2xl font-serif font-bold mb-3 dark:text-stone-50">Xác nhận xóa tài khoản</h3>
+              <p className="text-stone-500 dark:text-stone-400 mb-8 text-sm leading-relaxed">
+                Hành động này sẽ xóa toàn bộ thông tin hồ sơ của bạn khỏi trình duyệt. Bạn có chắc chắn muốn tiếp tục?
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowDeleteConfirm(false)}
+                  className="flex-1 py-4 text-stone-500 dark:text-stone-400 font-medium hover:bg-stone-100 dark:hover:bg-stone-800 rounded-2xl transition-colors"
+                >
+                  Hủy bỏ
+                </button>
+                <button
+                  onClick={() => {
+                    clearProfile();
+                    setShowDeleteConfirm(false);
+                    setShowSetup(false);
+                  }}
+                  className="flex-1 py-4 bg-red-500 hover:bg-red-600 text-white font-bold rounded-2xl transition-all shadow-lg shadow-red-500/20"
+                >
+                  Xác nhận xóa
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
                 </div>
               </div>
+        {showDeleteConfirm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] bg-stone-900/60 backdrop-blur-md flex items-center justify-center p-6"
+            role="dialog"
+            aria-modal="true"
+            onClick={(e) => e.target === e.currentTarget && setShowDeleteConfirm(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="bg-white dark:bg-stone-900 rounded-[2.5rem] p-8 max-w-sm w-full shadow-2xl border border-stone-100 dark:border-stone-700 text-center"
+            >
+              <div className="w-16 h-16 bg-red-50 dark:bg-red-900/20 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <UserCircle2 size={32} />
+              </div>
+              <h3 className="text-2xl font-serif font-bold mb-3 dark:text-stone-50">Xác nhận xóa tài khoản</h3>
+              <p className="text-stone-500 dark:text-stone-400 mb-8 text-sm leading-relaxed">
+                Hành động này sẽ xóa toàn bộ thông tin hồ sơ của bạn khỏi trình duyệt. Bạn có chắc chắn muốn tiếp tục?
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowDeleteConfirm(false)}
+                  className="flex-1 py-4 text-stone-500 dark:text-stone-400 font-medium hover:bg-stone-100 dark:hover:bg-stone-800 rounded-2xl transition-colors"
+                >
+                  Hủy bỏ
+                </button>
+                <button
+                  onClick={() => {
+                    clearProfile();
+                    setShowDeleteConfirm(false);
+                    setShowSetup(false);
+                  }}
+                  className="flex-1 py-4 bg-red-500 hover:bg-red-600 text-white font-bold rounded-2xl transition-all shadow-lg shadow-red-500/20"
+                >
+                  Xác nhận xóa
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
             </motion.div>
           </motion.div>
         )}
