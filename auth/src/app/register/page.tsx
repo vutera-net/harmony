@@ -3,21 +3,31 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Lock, User, UserPlus, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { registerAction } from "@/lib/actions/register";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<any>(null);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Registration logic would go here (e.g., API call to create user)
-    // For now, it's a placeholder
-    await new Promise(r => setTimeout(r, 1000));
+    setErrors(null);
+
+    const result = await registerAction({ name, email, password });
+
+    if (result.success) {
+      alert(result.message);
+      router.push("/login");
+    } else {
+      setErrors(result.error);
+    }
     setLoading(false);
-    alert("Tính năng đăng ký đang được hoàn thiện. Vui lòng thử lại sau.");
   };
 
   return (
@@ -55,6 +65,11 @@ export default function RegisterPage() {
           className="glass-card p-8 rounded-[2rem] border border-stone-200 dark:border-stone-800 shadow-xl"
         >
           <form onSubmit={handleSubmit} className="space-y-6">
+            {errors?.form && (
+              <div className="p-3 bg-red-100 border border-red-200 text-red-600 text-sm rounded-xl text-center">
+                {errors.form[0]}
+              </div>
+            )}
             <div className="space-y-2">
               <label className="text-sm font-medium ml-1">Họ và tên</label>
               <div className="relative">
@@ -65,9 +80,10 @@ export default function RegisterPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Nguyễn Văn A"
-                  className="w-full bg-stone-50 dark:bg-stone-900 border-2 border-stone-100 dark:border-stone-800 rounded-xl px-12 py-3.5 outline-none focus:border-accent transition-all"
+                  className={`w-full bg-stone-50 dark:bg-stone-900 border-2 ${errors?.name ? "border-red-500" : "border-stone-100 dark:border-stone-800"} rounded-xl px-12 py-3.5 outline-none focus:border-accent transition-all`}
                 />
               </div>
+              {errors?.name && <p className="text-red-500 text-xs mt-1 ml-1">{errors.name[0]}</p>}
             </div>
 
             <div className="space-y-2">
@@ -80,9 +96,10 @@ export default function RegisterPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="email@example.com"
-                  className="w-full bg-stone-50 dark:bg-stone-900 border-2 border-stone-100 dark:border-stone-800 rounded-xl px-12 py-3.5 outline-none focus:border-accent transition-all"
+                  className={`w-full bg-stone-50 dark:bg-stone-900 border-2 ${errors?.email ? "border-red-500" : "border-stone-100 dark:border-stone-800"} rounded-xl px-12 py-3.5 outline-none focus:border-accent transition-all`}
                 />
               </div>
+              {errors?.email && <p className="text-red-500 text-xs mt-1 ml-1">{errors.email[0]}</p>}
             </div>
 
             <div className="space-y-2">
@@ -95,9 +112,10 @@ export default function RegisterPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full bg-stone-50 dark:bg-stone-900 border-2 border-stone-100 dark:border-stone-800 rounded-xl px-12 py-3.5 outline-none focus:border-accent transition-all"
+                  className={`w-full bg-stone-50 dark:bg-stone-900 border-2 ${errors?.password ? "border-red-500" : "border-stone-100 dark:border-stone-800"} rounded-xl px-12 py-3.5 outline-none focus:border-accent transition-all`}
                 />
               </div>
+              {errors?.password && <p className="text-red-500 text-xs mt-1 ml-1">{errors.password[0]}</p>}
             </div>
 
             <button

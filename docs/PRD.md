@@ -73,7 +73,7 @@ Xây dựng một hệ sinh thái cung cấp giải pháp tra cứu phong thủy
 - **Backend & Database:** PostgreSQL (Neon Serverless) để lưu account, kết nối Prisma ORM. **Database được chia sẻ duy nhất** cho toàn hệ sinh thái (1 Neon instance, nhiều bảng phân prefix theo app).
 - **Caching:** Upstash Redis.
 - **Auth & SSO — Kiến Trúc Tập Trung (`auth.vutera.net`):**
-  - Một ứng dụng riêng biệt tại `auth.vutera.net` (Next.js + Auth.js v5 + Prisma) đóng vai trò là **cổng xác thực duy nhất** của toàn bộ hệ sinh thái Vutera (bao gồm Harmony, Orbit, Flow và các sản phẩm tương lai).
+  - Một ứng dụng riêng biệt tại `auth.vutera.net` (Next.js + Auth.js v5 + Prisma) đóng vai trò là **cổng xác thực duy nhất** của toàn bộ hệ sinh thái Vutera (bao gồm Harmony, Orbit, Flow và các sản phẩm tương lai). Hỗ trợ các phương thức đăng nhập phổ biến (Email, Google, Facebook, Zalo) để tối ưu hóa trải nghiệm người dùng phổ thông.
   - **Phương án hiện tại (Plan B — Shared Cookie):** `auth.vutera.net` issue JWT và lưu vào Cookie tại root domain `.vutera.net`. Tất cả app con (TuVi, AnMenh, Orbit...) đọc cookie này và verify JWT với cùng một `JWT_SECRET` chung.
   - **Lộ trình nâng cấp (Plan A — OAuth 2.0 PKCE):** Khi hệ sinh thái mở rộng và cần phân quyền per-app, sẽ nâng `auth.vutera.net` thành Authorization Server đầy đủ. Mỗi app đăng ký `client_id` riêng và thực hiện Authorization Code Flow chuẩn.
 

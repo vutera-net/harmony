@@ -4,7 +4,7 @@
 
 #### Prompt tạo mới
 ```
-Tôi muốn xây dựng một sản phẩm: CRM đơn giản giúp tôi quản lý các mối quan hệ với các doanh nghiệp mà tôi có các mối quan hệ với các nhân sự có quyền quyết định ở các doanh nghiệp này. Hãy thực hiện Deep Research (nghiên cứu chuyên sâu) từ internet về các best practices, cấu trúc dữ liệu và tính năng cần thiết cho loại sản phẩm này. Sau đó: 1. Viết kết quả nghiên cứu thành một Product Requirements Document (PRD) thật chi tiết và lưu vào file CLAUDE.md. 2. Dựa trên PRD, hãy tạo một Implementation Plan (Kế hoạch triển khai) chi tiết, bao gồm các check box [ ] ở từng mục nhỏ để theo dõi tiến độ code sau này. Lưu vào file docs/docs/IMPLEMENTATION_PLAN.md.
+Tôi muốn xây dựng một sản phẩm: CRM đơn giản giúp tôi quản lý các mối quan hệ với các doanh nghiệp mà tôi có các mối quan hệ với các nhân sự có quyền quyết định ở các doanh nghiệp này. Hãy thực hiện Deep Research (nghiên cứu chuyên sâu) từ internet về các best practices, cấu trúc dữ liệu và tính năng cần thiết cho loại sản phẩm này. Sau đó: 1. Viết kết quả nghiên cứu thành một Product Requirements Document (PRD) thật chi tiết và lưu vào file CLAUDE.md. 2. Dựa trên PRD, hãy tạo một Implementation Plan (Kế hoạch triển khai) chi tiết, bao gồm các check box [ ] ở từng mục nhỏ để theo dõi tiến độ code sau này. Lưu vào file docs/IMPLEMENTATION_PLAN.md.
 ```
 
 #### Prompt load từ antigravity
