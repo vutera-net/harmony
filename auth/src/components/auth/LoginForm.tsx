@@ -25,21 +25,25 @@ export default function LoginForm() {
     setLoading(true);
     setError("");
 
-    try {
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: true,
-        callbackUrl,
-      });
-      if (result?.error) {
-        setError("Email hoặc mật khẩu không chính xác.");
+      try {
+        const result = await signIn("credentials", {
+          email,
+          password,
+          redirect: true,
+          callbackUrl,
+        });
+        if (result?.error) {
+          if (result.error.includes("EMAIL_NOT_VERIFIED")) {
+            setError("Vui lòng xác nhận email của bạn trước khi đăng nhập.");
+          } else {
+            setError("Email hoặc mật khẩu không chính xác.");
+          }
+        }
+      } catch (err) {
+        setError("Đã có lỗi xảy ra. Vui lòng thử lại.");
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      setError("Đã có lỗi xảy ra. Vui lòng thử lại.");
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
