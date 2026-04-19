@@ -17,6 +17,7 @@ model User {
   password      String?   // Hashed password for Credentials provider
   accounts      Account[]
   sessions      Session[]
+  subscriptions PushSubscription[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
@@ -54,6 +55,18 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model PushSubscription {
+  id            String   @id @default(cuid())
+  userId        String
+  subscription  Json     // The push subscription object from the browser
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
 }
 
 // --- Harmony Ecosystem Models (Merged from TuVi) ---

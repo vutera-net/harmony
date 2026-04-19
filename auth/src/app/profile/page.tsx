@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import ProfileForm from "@/components/auth/ProfileForm";
 import ProfileHeader from "@/components/auth/ProfileHeader";
+import NotificationSettings from "@/components/auth/NotificationSettings";
 import { prisma } from "@/lib/prisma";
 
 export default async function ProfilePage() {
@@ -29,6 +30,7 @@ export default async function ProfilePage() {
         <div className="w-full max-w-md space-y-8">
           <ProfileHeader />
           <ProfileForm user={user} />
+          <NotificationSettings />
           
           <div className="text-center">
 
