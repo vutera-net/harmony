@@ -10,6 +10,7 @@ import { Breadcrumb } from '@/components/common/Breadcrumb'
 import { PersonalDoubtTrigger } from '@/components/funnel/PersonalDoubtTrigger'
 import { ContentLock } from '@/components/funnel/ContentLock'
 import { AnMenhCTA } from '@/components/funnel/AnMenhCTA'
+import { SEOTemplates } from '@/lib/seo/meta-helpers'\n
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://tuvi.vutera.net'
 
@@ -101,14 +102,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const canChi = getCanChiByYear(y)
   return {
-    title: `Tử Vi ${zodiac.name} Năm ${y} - Vận Hạn & Dự Báo ${canChi}`,
-    description: `Tử vi tuổi ${zodiac.name} năm ${y} (${canChi}): dự báo tổng quan, tình cảm, sự nghiệp, tài chính, sức khỏe. Vận hạn và lời khuyên cho tuổi ${zodiac.name}.`,
-    keywords: [
-      `tử vi ${zodiac.name.toLowerCase()} năm ${y}`,
-      `tuổi ${zodiac.name.toLowerCase()} năm ${y}`,
-      `${zodiac.name.toLowerCase()} năm ${y}`,
-      `vận ${zodiac.name.toLowerCase()} ${y}`,
-    ],
+    title: SEOTemplates.tuViNam.title(zodiac.name, y, canChi),
+    description: SEOTemplates.tuViNam.description(zodiac.name, y, canChi),
+    keywords: SEOTemplates.tuViNam.keywords(zodiac.name, y),
+
+
+
+
+
     alternates: {
       canonical: `/tu-vi/${congiap}/${year}`,
     },

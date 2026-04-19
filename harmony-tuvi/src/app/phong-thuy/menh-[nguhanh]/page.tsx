@@ -13,6 +13,7 @@ import { PersonalDoubtTrigger } from '@/components/funnel/PersonalDoubtTrigger'
 import { ContentLock } from '@/components/funnel/ContentLock'
 import { AnMenhCTA } from '@/components/funnel/AnMenhCTA'
 
+import { SEOTemplates } from '@/lib/seo/meta-helpers'\n
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://tuvi.vutera.net'
 
 // Slug → NguHanh mapping
@@ -91,15 +92,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const menhVi = NGU_HANH_VI[menh]
   return {
-    title: `Phong Thủy Mệnh ${menhVi} - Màu Sắc, Hướng Tốt, Bố Trí Nhà`,
-    description: `Người mệnh ${menhVi}: màu sắc may mắn, hướng nhà tốt, bố trí nội thất và các lưu ý phong thủy quan trọng theo Bát Trạch.`,
-    keywords: [
-      `phong thủy mệnh ${nguhanh}`,
-      `mệnh ${menhVi} hợp màu gì`,
-      `hướng nhà mệnh ${menhVi}`,
-      `người mệnh ${menhVi}`,
-      'phong thủy ngũ hành',
-    ],
+    title: SEOTemplates.phongThuyMenh.title(menhVi),
+    description: SEOTemplates.phongThuyMenh.description(menhVi),
+    keywords: SEOTemplates.phongThuyMenh.keywords(nguhanh, menhVi),
+
+
+
+
+
+
     alternates: {
       canonical: `/phong-thuy/menh-${nguhanh}`,
     },

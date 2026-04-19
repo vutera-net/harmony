@@ -114,6 +114,73 @@ export function generateMetaTitle(title: string, siteName = 'VUTERA Harmony'): s
   return formattedTitle
 }
 
+
+/**
+ * SEO Content Templates for Landing Pages
+ */
+export const SEOTemplates = {
+  tuViNam: {
+    title: (name: string, year: number, canChi: string) => 
+      `Tử Vi Tuổi ${name} Năm ${year}: Vận Hạn, Tài Lộc & Sự Nghiệp Chi Tiết`,
+    description: (name: string, year: number, canChi: string) => 
+      `Xem chi tiết tử vi tuổi ${name} năm ${year} (${canChi}). Dự báo chính xác về công danh, tình duyên, tài chính và sức khỏe. Bí kíp hóa giải vận hạn cho tuổi ${name}.`,
+    keywords: (name: string, year: number) => [
+      `tử vi ${name.toLowerCase()} năm ${year}`,
+      `tuổi ${name.toLowerCase()} năm ${year}`,
+      `${name.toLowerCase()} năm ${year}`,
+      `vận ${name.toLowerCase()} ${year}`,
+      'xem tử vi hàng năm',
+    ],
+  },
+  phongThuyMenh: {
+    title: (menhVi: string) => 
+      `Phong Thủy Mệnh ${menhVi}: Màu Sắc, Hướng Nhà & Cách Bố Trí Đại Cát`,
+    description: (menhVi: string) => 
+      `Khám phá phong thủy mệnh ${menhVi} chi tiết: Màu sắc may mắn, hướng nhà tốt, số điện thoại hợp mệnh và cách bố trí nội thất để thu hút tài lộc, bình an.`,
+    keywords: (menhSlug: string, menhVi: string) => [
+      `phong thủy mệnh ${menhSlug}`,
+      `mệnh ${menhVi} hợp màu gì`,
+      `hướng nhà mệnh ${menhVi}`,
+      `người mệnh ${menhVi}`,
+      'phong thủy ngũ hành',
+    ],
+  },
+  xemNgay: {
+    title: (month: number, year: number) => 
+      `Xem Ngày Tốt Tháng ${month} Năm ${year}: Chọn Ngày Đại Cát Để Thành Công`,
+    description: (month: number, year: number) => 
+      `Tra cứu ngày tốt tháng ${month} năm ${year} chi tiết. Lọc ngày đẹp theo tuổi để khởi công, cưới hỏi, khai trương, chuyển nhà mang lại may mắn.`,
+    keywords: (month: number, year: number) => [
+      `xem ngày tốt tháng ${month} năm ${year}`,
+      `ngày tốt tháng ${month}`,
+      `lịch vạn niên ${year}`,
+      'chọn ngày đẹp',
+    ],
+  },
+  tuViTuoi: {
+    title: (year: number) => 
+      `Xem Tử Vi Theo Năm Sinh ${year}: Luận Giải Vận Mệnh Trọn Đời`,
+    description: (year: number) => 
+      `Xem tử vi chi tiết cho người sinh năm ${year}. Luận giải về tính cách, sự nghiệp, tình duyên và vận hạn cuộc đời theo phong thủy chính thống.`,
+    keywords: (year: number) => [
+      `tử vi sinh năm ${year}`,
+      `tuổi ${year} mệnh gì`,
+      `xem vận mệnh năm ${year}`,
+    ],
+  },
+  yNghiaSao: {
+    title: (saoName: string) => 
+      `Ý Nghĩa Sao ${saoName}: Tác Động Đến Vận Mệnh & Cách Hóa Giải`,
+    description: (saoName: string) => 
+      `Tìm hiểu chi tiết ý nghĩa sao ${saoName} trong tử vi. Sao ${saoName} là cát tinh hay hung tinh? Ảnh hưởng đến cung mệnh và cách cải vận hiệu quả.`,
+    keywords: (saoName: string) => [
+      `ý nghĩa sao ${saoName}`,
+      `sao ${saoName} là gì`,
+      `tác động của sao ${saoName}`,
+    ],
+  },
+}
+
 /**
  * Generate keywords for Tu Vi content
  */

@@ -9,6 +9,7 @@ import { PersonalDoubtTrigger } from '@/components/funnel/PersonalDoubtTrigger'
 import { Badge } from '@/components/ui/Badge'
 import { Card } from '@/components/ui/Card'
 
+import { SEOTemplates } from '@/lib/seo/meta-helpers'\n
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://tuvi.vutera.net'
 
 const MONTHS_VI = [
@@ -40,9 +41,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const monthName = MONTHS_VI[m - 1]
   return {
-    title: `Ngày Tốt ${monthName} ${y} - Xem Ngày Hoàng Đạo, Hắc Đạo`,
-    description: `Tổng hợp các ngày tốt trong ${monthName} năm ${y}. Xem chi tiết ngày Hoàng đạo, Hắc đạo, trực và sao để chọn ngày khởi sự, cưới hỏi, khai trương thuận lợi.`,
-    keywords: [`ngày tốt ${monthName} ${y}`, `xem ngày ${monthName} ${y}`, `ngày hoàng đạo ${monthName} ${y}`],
+    title: SEOTemplates.xemNgay.title(m, y),
+    description: SEOTemplates.xemNgay.description(m, y),
+    keywords: SEOTemplates.xemNgay.keywords(m, y),
     alternates: {
       canonical: `/xem-ngay/${month}/${year}`,
     },

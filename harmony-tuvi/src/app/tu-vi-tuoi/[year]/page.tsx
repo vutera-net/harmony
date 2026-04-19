@@ -8,6 +8,7 @@ import { ContentLock } from '@/components/funnel/ContentLock'
 import { EcosystemBanner } from '@/components/funnel/EcosystemBanner'
 import { ExitIntentModal } from '@/components/funnel/ExitIntentModal'
 
+import { SEOTemplates } from '@/lib/seo/meta-helpers'\n
 interface Props {
   params: Promise<{ year: string }>
 }
@@ -26,8 +27,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const napAm = getNapAmByYear(parseInt(year)) as any
   
   return {
-    title: `Sinh Năm ${year} Là Tuổi Gì? - Xem Tử Vi Trọn Đời Tuổi ${canChi.full}`,
-    description: `Sinh năm ${year} là tuổi ${canChi.full}, mệnh ${napAm.napAm}. Khám phá tử vi trọn đời, màu sắc hợp mệnh, hướng tốt cho người sinh năm ${year}.`,
+    title: SEOTemplates.tuViTuoi.title(parseInt(year)),
+    description: SEOTemplates.tuViTuoi.description(parseInt(year)),
+    keywords: SEOTemplates.tuViTuoi.keywords(parseInt(year)),
   }
 }
 
