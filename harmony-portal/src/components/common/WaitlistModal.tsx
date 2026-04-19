@@ -16,10 +16,28 @@ export default function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate API call
-    await new Promise(r => setTimeout(r, 1500));
-    setLoading(false);
-    setSubmitted(true);
+    
+    try {
+      const authUrl = process.env.NEXT_PUBLIC_AUTH_URL ?? 'https://auth.vutera.net';
+      const response = await fetch(`${authUrl}/api/waitlist`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Có lỗi xảy ra. Vui lòng thử lại.');
+      }
+
+      setSubmitted(true);
+    } catch (error: any) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

@@ -23,6 +23,6 @@ loadEnvFile('.env.local')
 
 export default defineConfig({
   datasource: {
-    url: process.env.DATABASE_URL,
+    url: "postgresql://postgres:example@localhost:5432/harmony_auth",
   },
 })

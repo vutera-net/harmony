@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 // --- Auth Models (NextAuth v5 Standard) ---
@@ -70,6 +71,13 @@ model PushSubscription {
 }
 
 // --- Harmony Ecosystem Models (Merged from TuVi) ---
+
+model Waitlist {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
 
 model TuViChart {
   id        String   @id @default(cuid())
