@@ -110,7 +110,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `vận ${zodiac.name.toLowerCase()} ${y}`,
     ],
     alternates: {
-      canonical: `/tu-vi/${congiap}/nam-${year}`,
+      canonical: `/tu-vi/${congiap}/${year}`,
     },
   }
 }
@@ -150,7 +150,7 @@ export default async function TuViConGiapNamPage({ params }: Props) {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Trang chủ', item: BASE_URL },
     { name: 'Tử Vi', item: `${BASE_URL}/tu-vi` },
-    { name: `${zodiac.name} Năm ${y}`, item: `${BASE_URL}/tu-vi/${congiap}/nam-${y}` },
+    { name: `${zodiac.name} Năm ${y}`, item: `${BASE_URL}/tu-vi/${congiap}/${y}` },
   ])
 
   const AREAS = [
@@ -255,7 +255,7 @@ export default async function TuViConGiapNamPage({ params }: Props) {
             {YEARS.filter((yr) => yr !== y).map((yr) => (
               <Link
                 key={yr}
-                href={`/tu-vi/${congiap}/nam-${yr}`}
+                href={`/tu-vi/${congiap}/${yr}`}
                 className="rounded-full border px-4 py-1.5 text-sm font-medium transition hover:bg-red-50"
                 style={{ borderColor: 'var(--color-primary)', color: 'var(--color-primary)' }}
               >
@@ -272,7 +272,7 @@ export default async function TuViConGiapNamPage({ params }: Props) {
             {CONGIAP.map((z) => (
               <Link
                 key={z.slug}
-                href={`/tu-vi/${z.slug}/nam-${y}`}
+                href={`/tu-vi/${z.slug}/${y}`}
                 className={`flex flex-col items-center rounded-xl border p-2 text-center text-xs transition hover:shadow-md ${
                   z.slug === congiap ? 'border-red-300 bg-red-50' : 'border-gray-100 bg-white'
                 }`}
