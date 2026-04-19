@@ -3,8 +3,74 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { calculateTuongHop, TuongHopResult } from "@/lib/tuong-hop-logic";
 import { getYearCanChi } from "@/lib/lunar-logic";
-import { Heart, User, Sparkles } from "lucide-react";
+import { Heart, User, Sparkles, ArrowRightLeft } from "lucide-react";
 import { useUser } from "@/context/UserContext";
+
+function ComparisonChart({ result }: { result: TuongHopResult }) {
+  const rows = [
+    { 
+      label: "Mệnh", 
+      p1: result.p1.menh, 
+      p2: result.p2.menh, 
+      status: result.menhText, 
+      score: result.menhScore,
+      color: result.menhScore >= 15 ? "text-green-500" : result.menhScore >= 10 ? "text-amber-500" : "text-red-500"
+    },
+    { 
+      label: "Thiên Can", 
+      p1: result.p1.can, 
+      p2: result.p2.can, 
+      status: result.canText, 
+      score: result.canScore,
+      color: result.canScore >= 15 ? "text-green-500" : result.canScore >= 10 ? "text-amber-500" : "text-red-500"
+    },
+    { 
+      label: "Địa Chi", 
+      p1: result.p1.chi, 
+      p2: result.p2.chi, 
+      status: result.chiText, 
+      score: result.chiScore,
+      color: result.chiScore >= 25 ? "text-green-500" : result.chiScore >= 15 ? "text-amber-500" : "text-red-500"
+    },
+    { 
+      label: "Cung Phi", 
+      p1: result.p1.cung, 
+      p2: result.p2.cung, 
+      status: result.cungText, 
+      score: result.cungScore,
+      color: result.cungScore >= 25 ? "text-green-500" : result.cungScore >= 15 ? "text-amber-500" : "text-red-500"
+    },
+  ];
+
+  return (
+    <div className="bg-white/90 dark:bg-stone-800/80 backdrop-blur-md p-6 md:p-8 rounded-[2rem] border-2 border-stone-100 dark:border-stone-700 shadow-xl shadow-stone-900/5 mb-8 overflow-hidden">
+      <h3 className="text-center text-xs font-black tracking-[0.3em] text-stone-400 dark:text-stone-500 uppercase mb-8 flex items-center justify-center gap-2">
+        <ArrowRightLeft size={14} /> Biểu Đồ Đối Chiếu
+      </h3>
+      <div className="grid grid-cols-4 gap-4 items-center text-center">
+        <div className="text-[10px] font-black uppercase tracking-widest text-stone-400 dark:text-stone-500 hidden md:block">Yếu tố</div>
+        <div className="text-[10px] font-black uppercase tracking-widest text-amber-600 dark:text-amber-500 hidden md:block">Người 1</div>
+        <div className="text-[10px] font-black uppercase tracking-widest text-stone-400 dark:text-stone-500 hidden md:block">Đối chiếu</div>
+        <div className="text-[10px] font-black uppercase tracking-widest text-amber-600 dark:text-amber-500 hidden md:block">Người 2</div>
+        
+        {rows.map((row, idx) => (
+          <React.Fragment key={idx}>
+            <div className="text-sm font-bold text-stone-600 dark:text-stone-300 md:hidden text-left opacity-50">{row.label}</div>
+            <div className="p-3 rounded-xl bg-stone-50 dark:bg-stone-900/50 border border-stone-100 dark:border-stone-700 text-sm font-bold text-stone-800 dark:text-stone-200">
+              {row.p1}
+            </div>
+            <div className={`p-3 rounded-xl font-black text-xs uppercase tracking-tighter ${row.color} bg-white dark:bg-stone-800 border border-stone-100 dark:border-stone-700`}>
+              {row.status}
+            </div>
+            <div className="p-3 rounded-xl bg-stone-50 dark:bg-stone-900/50 border border-stone-100 dark:border-stone-700 text-sm font-bold text-stone-800 dark:text-stone-200">
+              {row.p2}
+            </div>
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function TuongHop() {
   const { profile } = useUser();
@@ -108,13 +174,13 @@ export default function TuongHop() {
                 <div className="flex gap-3">
                   <button 
                     onClick={() => handleGender1Change("male")}
-                    className={`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest ${gender1 === "male" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}`}
+                    className={\`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest \${gender1 === "male" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}\`}
                   >
                     Nam
                   </button>
                   <button 
                     onClick={() => handleGender1Change("female")}
-                    className={`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest ${gender1 === "female" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}`}
+                    className={\`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest \${gender1 === "female" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}\`}
                   >
                     Nữ
                   </button>
@@ -158,13 +224,13 @@ export default function TuongHop() {
                 <div className="flex gap-3">
                   <button 
                     onClick={() => handleGender2Change("male")}
-                    className={`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest ${gender2 === "male" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}`}
+                    className={\`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest \${gender2 === "male" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}\`}
                   >
                     Nam
                   </button>
                   <button 
                     onClick={() => handleGender2Change("female")}
-                    className={`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest ${gender2 === "female" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}`}
+                    className={\`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest \${gender2 === "female" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}\`}
                   >
                     Nữ
                   </button>
@@ -200,7 +266,7 @@ export default function TuongHop() {
               
               <h2 className="text-xs font-black tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-4">Kết Quả Độ Hòa Hợp</h2>
               <div className="flex items-center justify-center gap-2 mb-6">
-                <span className={`text-7xl md:text-8xl font-serif font-bold leading-none ${getScoreColor(result.totalScore)}`}>
+                <span className={\`text-7xl md:text-8xl font-serif font-bold leading-none \${getScoreColor(result.totalScore)}\`}>
                   {result.totalScore}
                 </span>
                 <span className="text-xl font-black text-stone-400 dark:text-stone-600 mb-4 tracking-tighter">/ 100</span>
@@ -209,22 +275,26 @@ export default function TuongHop() {
               <div className="w-full max-w-sm mx-auto h-3 bg-stone-100 dark:bg-stone-950 rounded-full overflow-hidden mb-8 border border-stone-200 dark:border-stone-700">
                 <motion.div 
                   initial={{ width: 0 }}
-                  animate={{ width: `${result.totalScore}%` }}
+                  animate={{ width: \`\${result.totalScore}%\` }}
                   transition={{ duration: 1.2, ease: "circOut" }}
-                  className={`h-full shadow-lg ${getProgressBarColor(result.totalScore)}`} 
+                  className={\`h-full shadow-lg \${getProgressBarColor(result.totalScore)}\`} 
                 />
               </div>
 
               <div className="p-6 bg-amber-50/50 dark:bg-stone-900/50 rounded-2xl border border-amber-100 dark:border-stone-800 relative z-10 shadow-inner">
                  <p className="text-base md:text-lg text-stone-800 dark:text-stone-200 max-w-2xl mx-auto leading-relaxed font-medium italic">
-                  "{result.interpretation}"
-                </p>
+                  "\{result.interpretation}"
+                 </p>
               </div>
             </div>
 
+            {/* Biểu đồ đối chiếu */}
+            <ComparisonChart result={result} />
+
             {/* Chi tiết từng yếu tố */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
+                { title: "Mệnh", score: result.menhScore, status: result.menhText, desc: result.menhDesc },
                 { title: "Thiên Can", score: result.canScore, status: result.canText, desc: result.canDesc },
                 { title: "Địa Chi", score: result.chiScore, status: result.chiText, desc: result.chiDesc },
                 { title: "Cung Phi", score: result.cungScore, status: result.cungText, desc: result.cungDesc },
