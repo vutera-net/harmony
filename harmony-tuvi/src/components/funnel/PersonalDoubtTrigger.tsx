@@ -2,6 +2,7 @@
 
 import { trackCTAClick } from '@/lib/analytics'
 import { getCanChiYear } from '@/data/can-chi'
+import { getTriggerText } from '@/lib/funnel-constants'
 
 const ANMENH_URL = 'https://anmenh.vutera.net'
 
@@ -9,16 +10,8 @@ type TriggerVariant = 'subtle' | 'prominent'
 
 interface PersonalDoubtTriggerProps {
   variant?: TriggerVariant
-  context?: 'tuvi' | 'phongthuy' | 'ngaytot' | 'horoscope' | 'default'
+  context?: string
   className?: string
-}
-
-const CONTEXT_TEXT = {
-  tuvi: 'Kết quả này chỉ dựa trên ngày sinh — chưa xét giờ sinh. Độ chính xác có thể thay đổi đáng kể theo giờ sinh của bạn.',
-  phongthuy: 'Kết quả Bát Trạch mang tính tổng quan. Để biết hướng bố trí cụ thể theo từng phòng và căn nhà thực tế của bạn, cần thêm thông tin tại AnMenh.',
-  ngaytot: 'Danh sách ngày tốt này chưa lọc theo tuổi của bạn. Kết quả thực tế có thể khác nếu xét Tam Nương và Sát Chủ theo tuổi.',
-  horoscope: 'Dự báo này áp dụng chung cho tất cả người sinh năm đó. Dự báo cá nhân theo mệnh và giờ sinh có thể khác đáng kể.',
-  default: 'Kết quả này mang tính tổng quan theo năm sinh. Để chính xác hơn, cần thêm giờ sinh và thông tin cá nhân của bạn.',
 }
 
 import { useSessionMemory } from '@/hooks/useSessionMemory'
@@ -30,9 +23,9 @@ export function PersonalDoubtTrigger({
 }: PersonalDoubtTriggerProps) {
   const { memory } = useSessionMemory()
   const canChi = memory?.birthYear ? getCanChiYear(memory.birthYear).full : null
-  const yearText = canChi ? `Với tuổi ${canChi} (${memory?.birthYear}), ` : ''
+  const yearText = canChi ? \`Với tuổi \${canChi} (\${memory?.birthYear}), \` : ''
   
-  const text = `${yearText}${CONTEXT_TEXT[context]}`
+  const text = \`\${yearText}\${getTriggerText(context)}\`
   
   const hrefParams = new URLSearchParams()
   hrefParams.set('source', 'tuvi_doubt')
@@ -40,11 +33,11 @@ export function PersonalDoubtTrigger({
   if (memory?.birthYear) hrefParams.set('birthYear', memory.birthYear.toString())
   if (memory?.gender) hrefParams.set('gender', memory.gender)
 
-  const href = `${ANMENH_URL}/bridge?${hrefParams.toString()}`
+  const href = \`\${ANMENH_URL}/bridge?\${hrefParams.toString()}\`
 
   if (variant === 'prominent') {
     return (
-      <div className={`flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 ${className}`}>
+      <div className={\`flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 \${className}\`}>
         <span className="mt-0.5 shrink-0 text-lg">⚠️</span>
         <div>
           <p className="text-sm font-semibold text-amber-900">Lưu ý về độ chính xác</p>
@@ -63,7 +56,7 @@ export function PersonalDoubtTrigger({
 
   // subtle (default) — inline text callout
   return (
-    <p className={`text-xs text-gray-400 italic ${className}`}>
+    <p className={\`text-xs text-gray-400 italic \${className}\`}>
       * {text}{' '}
       <a 
         href={href} 

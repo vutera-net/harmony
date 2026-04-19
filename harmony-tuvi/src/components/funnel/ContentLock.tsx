@@ -1,6 +1,7 @@
 'use client'
 
 import { buildAnMenhUrl } from '@/lib/urls'
+import { getTriggerText } from '@/lib/funnel-constants'
 
 interface ContentLockProps {
   items: string[]
@@ -60,7 +61,7 @@ export function ContentLock({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl border border-purple-100 bg-white ${className}`}
+      className={\`relative overflow-hidden rounded-2xl border border-purple-100 bg-white \${className}\`}
       // Trigger view tracking once when rendered
       ref={(el) => { if (el) trackLockView(context) }}
     >
@@ -74,7 +75,7 @@ export function ContentLock({
       <div className="flex items-center gap-2 border-b border-purple-100 bg-purple-50 px-5 py-3">
         <span className="text-base animate-pulse">🔒</span>
         <span className="text-sm font-semibold text-purple-900">
-          {canChi ? `Luận giải riêng cho tuổi ${canChi}` : 'Phần dành riêng cho bạn'}
+          {canChi ? \`Luận giải riêng cho tuổi \${canChi}\` : 'Phần dành riêng cho bạn'}
         </span>
         <span className="ml-auto rounded-full bg-purple-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-purple-700">
           Premium
@@ -97,6 +98,9 @@ export function ContentLock({
       </div>
 
       <div className="border-t border-purple-50 bg-purple-50/50 px-5 py-4 text-center">
+        <p className="mb-3 text-xs text-gray-500 italic leading-relaxed">
+          {getTriggerText(context)}
+        </p>
         <button
           onClick={handleCTAClick}
           className="inline-block rounded-full px-6 py-2.5 text-sm font-semibold text-white shadow-[0_0_15px_rgba(124,58,237,0.3)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(196,30,58,0.5)] cursor-pointer"
