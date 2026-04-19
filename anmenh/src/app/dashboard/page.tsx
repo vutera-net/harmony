@@ -6,6 +6,7 @@ import DashboardHeader from "../../components/pages/Dashboard/DashboardHeader";
 import EnergyCard from "../../components/pages/Dashboard/EnergyCard";
 import ElementBalance from "../../components/pages/Dashboard/ElementBalance";
 import DailyAdvice from "../../components/pages/Dashboard/DailyAdvice";
+import LuckDetails from "../../components/pages/Dashboard/LuckDetails";
 import Layout from "../../components/Layout";
 
 export default function DashboardPage() {
@@ -26,6 +27,14 @@ export default function DashboardPage() {
           <div className="space-y-6">
             <ElementBalance data={energy.elementBalance} />
           </div>
+        </div>
+
+        <div className="mt-6">
+          <LuckDetails 
+            luckyHour={energy.luckyHour} 
+            luckyNumbers={energy.luckyNumbers} 
+            luckyColors={energy.luckyColors} 
+          />
         </div>
 
         {!profile && (
