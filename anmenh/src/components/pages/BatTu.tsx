@@ -146,52 +146,22 @@ export default function BatTu() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="p-8 rounded-2xl border border-stone-100 dark:border-stone-700 bg-white/70 dark:bg-stone-800/70 shadow-sm flex flex-col items-center justify-center min-h-[400px]">
                 <h3 className="text-lg font-serif font-bold mb-6 text-amber-600 dark:text-amber-500">Bản Đồ Ngũ Hành</h3>
-                <RadarChart data={result.nguHanhCount} />
+                <RadarChart data={result.nguHanhPercent} />
               </div>
               
               <div className="space-y-6">
                 <div className="p-8 rounded-2xl border border-stone-100 dark:border-stone-700 bg-white/70 dark:bg-stone-800/70 shadow-sm h-full">
-                  <h3 className="text-lg font-serif font-bold mb-8 text-amber-600 dark:text-amber-500 border-b border-stone-100 dark:border-stone-700 pb-4">Phân Tích Vượng Khuyết</h3>
+                  <h3 className="text-lg font-serif font-bold mb-8 text-amber-600 dark:text-amber-500 border-b border-stone-100 dark:border-stone-700 pb-4">Luận Giải Ngũ Hành</h3>
                   
                   <div className="space-y-8">
-                    <div>
-                      <h4 className="text-xs font-black text-stone-400 dark:text-stone-500 mb-4 uppercase tracking-widest">Ngũ Hành Thiếu (Khuyết)</h4>
-                      {result.khuyet.length > 0 ? (
-                        <div className="flex flex-wrap gap-2">
-                          {result.khuyet.map(h => (
-                            <span key={`k-${h}`} className={`px-4 py-1.5 rounded-lg text-sm font-bold border ${hanhColors[h]}`}>
-                              {h}
-                            </span>
-                          ))}
-                        </div>
-                      ) : (
-                        <p className="text-stone-500 dark:text-stone-400 text-sm italic">Bát tự tương đối đầy đủ các hành.</p>
-                      )}
-                    </div>
-                    
-                    <div>
-                      <h4 className="text-xs font-black text-stone-400 dark:text-stone-500 mb-4 uppercase tracking-widest">Ngũ Hành Thừa (Vượng)</h4>
-                      {result.vuong.length > 0 ? (
-                        <div className="flex flex-wrap gap-2">
-                          {result.vuong.map(h => (
-                            <span key={`v-${h}`} className={`px-4 py-1.5 rounded-lg text-sm font-bold border ${hanhColors[h]}`}>
-                              {h}
-                            </span>
-                          ))}
-                        </div>
-                      ) : (
-                        <p className="text-stone-500 dark:text-stone-400 text-sm italic">Các khí khá cân bằng.</p>
-                      )}
-                    </div>
-
                     <div className="p-5 bg-amber-50/50 dark:bg-stone-900/50 rounded-2xl border border-amber-100 dark:border-stone-800 shadow-inner">
                       <h4 className="text-sm font-bold text-amber-700 dark:text-amber-500 mb-3 flex items-center gap-2">
                         <Sparkles size={16} /> Lời khuyên cải vận (Dụng Thần)
                       </h4>
                       <p className="text-sm text-stone-700 dark:text-stone-400 leading-relaxed font-medium">
                         {result.khuyet.length > 0 
-                          ? `Bản mệnh đang khuyết ${result.khuyet.join(", ")}. Trong cuộc sống hàng ngày nên bổ sung các yếu tố thuộc hành này qua màu sắc trang phục, hướng làm việc hoặc nghề nghiệp để cân bằng năng lượng.`
-                          : `Lá số khá cân bằng. Tuy nhiên, hành ${result.vuong.join(", ")} đang hơi vượng, nên hạn chế các màu sắc/hoạt động thuộc hành này để tránh năng lượng bị thái quá.`}
+                          ? `Bản mệnh đang khuyết ${result.khuyet.join(\", \")}. Trong cuộc sống hàng ngày nên bổ sung các yếu tố thuộc hành này qua màu sắc trang phục, hướng làm việc hoặc nghề nghiệp để cân bằng năng lượng.`
+                          : `Lá số khá cân bằng. Tuy nhiên, hành ${result.vuong.join(\", \")} đang hơi vượng, nên hạn chế các màu sắc/hoạt động thuộc hành này để tránh năng lượng bị thái quá.`}
                       </p>
                     </div>
                   </div>
