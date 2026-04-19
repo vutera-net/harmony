@@ -10,10 +10,11 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const callbackUrl = searchParams.get("redirect") || "/";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,25 +26,28 @@ export default function LoginForm() {
     setLoading(true);
     setError("");
 
-      try {
-        const result = await signIn("credentials", {
-          email,
-          password,
-          redirect: true,
-          callbackUrl,
-        });
-        if (result?.error) {
-          if (result.error.includes("EMAIL_NOT_VERIFIED")) {
-            setError("Vui lòng xác nhận email của bạn trước khi đăng nhập.");
-          } else {
-            setError("Email hoặc mật khẩu không chính xác.");
-          }
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+        callbackUrl,
+      });
+
+      if (result?.error) {
+        if (result.error.includes("EMAIL_NOT_VERIFIED")) {
+          setError("Vui lòng xác nhận email của bạn trước khi đăng nhập.");
+        } else {
+          setError("Email hoặc mật khẩu không chính xác.");
         }
-      } catch (err) {
-        setError("Đã có lỗi xảy ra. Vui lòng thử lại.");
-      } finally {
-        setLoading(false);
+      } else if (result?.ok) {
+        router.push(callbackUrl);
       }
+    } catch (err) {
+      setError("Đã có lỗi xảy ra. Vui lòng thử lại.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

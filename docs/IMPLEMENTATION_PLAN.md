@@ -2,28 +2,34 @@
 
 Tài liệu này là bản lộ trình chi tiết để hoàn thiện hệ sinh thái Harmony, chuyển đổi từ các bản MVP sang sản phẩm hoàn chỉnh, tập trung vào luồng chuyển đổi (Funnel) từ TuVi sang AnMenh thông qua cổng xác thực tập trung.
 
-## 🟢 Giai đoạn 1: Hoàn thiện Cổng Xác Thực Tập Trung (`auth.vutera.net`)
+## 🟢 Giai đoạn 1: Hoàn thiện Cổng Xác thực Tập trung (`auth.vutera.net`)
 Mục tiêu: Xây dựng hệ thống Identity bền vững, bảo mật và đầy đủ tính năng cho toàn bộ ecosystem.
 
+### 1.0. Điều hướng Trang chủ (`/`)
+- [x] Triển khai logic điều hướng: 
+    - Chưa login $\rightarrow$ `/login`
+    - Đã login $\rightarrow$ `/profile`
+- [x] Ưu tiên xử lý `callbackUrl` để đảm bảo luồng chuyển hướng từ các app vệ tinh.
+
 ### 1.1. Mở rộng Phương thức Đăng nhập
-- [ ] Cấu hình Facebook OAuth Provider trong `src/lib/auth.ts`.
-- [ ] Cấu hình Zalo OAuth Provider trong `src/lib/auth.ts`.
-- [ ] Cập nhật UI `LoginForm.tsx` để tích hợp nút Đăng nhập Facebook và Zalo.
-- [ ] Kiểm tra luồng callback và tạo user tự động từ các Provider phổ biến.
+- [x] Cấu hình Facebook OAuth Provider trong `src/lib/auth.ts`.
+- [x] Cấu hình Zalo OAuth Provider trong `src/lib/auth.ts`.
+- [x] Cập nhật UI `LoginForm.tsx` để tích hợp nút Đăng nhập Facebook và Zalo.
+- [x] Kiểm tra luồng callback và tạo user tự động từ các Provider phổ biến.
 
 ### 1.2. Quản lý Mật khẩu & Bảo mật
-- [ ] Thiết kế luồng "Quên mật khẩu" (Forgot Password):
-    - [ ] Tạo API gửi email reset token.
-    - [ ] Xây dựng trang nhập mã/link reset mật khẩu.
-    - [ ] API cập nhật mật khẩu mới vào Database.
-- [ ] Triển khai Xác thực Email (Email Verification):
-    - [ ] Gửi mail xác nhận sau khi đăng ký.
-    - [ ] Middleware chặn truy cập các tính năng cao cấp nếu email chưa verify.
+- [x] Thiết kế luồng "Quên mật khẩu" (Forgot Password):
+    - [x] Tạo API gửi email reset token.
+    - [x] Xây dựng trang nhập mã/link reset mật khẩu.
+    - [x] API cập nhật mật khẩu mới vào Database.
+- [x] Triển khai Xác thực Email (Email Verification):
+    - [x] Gửi mail xác nhận sau khi đăng ký.
+    - [x] Middleware chặn truy cập các tính năng cao cấp nếu email chưa verify.
 
 ### 1.3. Quản lý Tài khoản (User Profile)
 - [ ] Xây dựng trang Profile cá nhân:
-    - [ ] Cho phép thay đổi tên hiển thị, email.
-    - [ ] Chức năng thay đổi mật khẩu.
+    - [x] Cho phép thay đổi tên hiển thị, email.
+    - [x] Chức năng thay đổi mật khẩu.
     - [ ] Nút Xóa tài khoản (Delete Account).
 
 ---

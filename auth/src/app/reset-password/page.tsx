@@ -1,3 +1,4 @@
+"use client";
 import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import ResetPasswordForm from "@/components/auth/ResetPasswordForm";
