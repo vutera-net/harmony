@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server';
 const COOKIE_NAME = 'vutera-auth-session';
 
 // Paths that require authentication and email verification on AnMenh
-const PROTECTED_PATHS = ['/dashboard', '/premium'];
+const PROTECTED_PATHS = ['/dashboard', '/premium', '/bridge'];
 
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get(COOKIE_NAME)?.value;
