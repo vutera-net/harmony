@@ -28,6 +28,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const navItems = [
     { path: "/", label: "Trang chủ", icon: <HomeIcon size={20} />, exact: true },
+    { path: "/dashboard", label: "Dashboard", icon: <Sparkles size={20} />, exact: false },
     { path: "/calendar", label: "Xem ngày", icon: <CalendarIcon size={20} />, exact: false },
     { path: "/tu-vi", label: "Tử Vi", icon: <Sparkles size={20} />, exact: false },
     { path: "/bat-trach", label: "Hướng nhà", icon: <Compass size={20} />, exact: false },
