@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { motion } from "framer-motion";
 import { Mail, Lock, LogIn, Github, Chrome } from "lucide-react";
@@ -21,6 +21,16 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'funnel_login_start', {
+        callback_url: callbackUrl,
+        source: searchParams.get('source') || 'direct'
+      });
+    }
+  }, [callbackUrl, searchParams]);
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -41,6 +51,12 @@ export default function LoginForm() {
           setError("Email hoặc mật khẩu không chính xác.");
         }
       } else if (result?.ok) {
+        if (typeof window !== 'undefined' && window.gtag) {
+          window.gtag('event', 'funnel_login_complete', {
+            callback_url: callbackUrl,
+            source: searchParams.get('source') || 'direct'
+          });
+        }
         router.push(callbackUrl);
       }
     } catch (err) {
