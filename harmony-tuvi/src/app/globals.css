@@ -2,8 +2,12 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  --background: #FFF8F0;
-  --foreground: #2D2D2D;
+  --background: #f9f8f6;
+  --foreground: #1c1917;
+  --card-bg: #ffffff;
+  --card-border: #e7e5e4;
+  --muted: #78716c;
+  
   --color-primary: #C41E3A;
   --color-secondary: #DAA520;
   --color-kim: #C0C0C0;
@@ -16,9 +20,31 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-muted: var(--muted);
+  
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-kim: var(--color-kim);
+  --color-moc: var(--color-moc);
+  --color-thuy: var(--color-thuy);
+  --color-hoa: var(--color-hoa);
+  --color-tho: var(--color-tho);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-noto-serif);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f0e0c;
+    --foreground: #f5f5f4;
+    --card-bg: #1c1917;
+    --card-border: #292524;
+    --muted: #a8a29e;
+  }
 }
 
 body {
@@ -29,7 +55,7 @@ body {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--color-primary); border-radius: 3px; }
 
 /* Ngu Hanh element badges */
