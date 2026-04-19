@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import { Compass, Info, Sparkles, MapPin, CheckCircle, XCircle } from "lucide-react";
+import { Compass, Info, Sparkles, MapPin, CheckCircle, XCircle, Home } from "lucide-react";
 import { useUser } from "@/context/UserContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { calculateBatTrach, getYearCanChi, type BatTrachResult } from "@/lib/lunar-logic";
@@ -33,6 +33,31 @@ export default function BatTrach() {
   const [gender, setGender] = useState<"male" | "female">("male");
   const [result, setResult] = useState<BatTrachResult | null>(null);
   const [hoveredDir, setHoveredDir] = useState<string | null>(null);
+  const [houseAngle, setHouseAngle] = useState(0);
+
+  const getDirectionFromAngle = (angle: number) => {
+    const dirs = ["Bắc", "Đông Bắc", "Đông", "Đông Nam", "Nam", "Tây Nam", "Tây", "Tây Bắc"];
+    const index = Math.round(angle / 45) % 8;
+    return dirs[index < 0 ? index + 8 : index];
+  };
+
+  const getDirectionVerdict = (dir: string) => {
+    if (!result) return { text: \"\", status: \"neutral\" };
+    if (isGoodDirection(DIRECTION_LABELS[dir] || \"\")) {
+      const type = dir === result.sinhKhi ? \"Sinh Khí\" : 
+                   dir === result.thienY ? \"Thiên Y\" : 
+                   dir === result.dienNien ? \"Diên Niên\" : \"Phục Vị\";
+      return { text: `${type} - Rất Tốt`, status: \"good\" };
+    }
+    if (isBadDirection(DIRECTION_LABELS[dir] || \"\")) {
+      const type = dir === result.tuyetMenh ? \"Tuyệt Mệnh\" : 
+                   dir === result.nguQuy ? \"Ngũ Quỷ\" : 
+                   dir === result.lucSat ? \"Lục Sát\" : \"Họa Hại\";
+      return { text: `${type} - Xấu`, status: \"bad\" };
+    }
+    return { text: \"Trung bình\", status: \"neutral\" };
+  };
+
 
   useEffect(() => {
     if (profile) {
@@ -183,6 +208,7 @@ export default function BatTrach() {
                     const rad = (deg - 90) * (Math.PI / 180);
                     const radius = 100;
                     const x = 128 + radius * Math.cos(rad);
+                    {/* House Marker */}\n                    <motion.div\n                      animate={{ rotate: houseAngle }}\n                      transition={{ type: \"spring\", stiffness: 100, damping: 20 }}\n                      className=\"absolute inset-0 flex items-start justify-center pointer-events-none\"\n                      style={{ transformOrigin: \"center\" }}\n                    >\n                      <div className=\"-mt-2 w-8 h-8 rounded-full bg-white dark:bg-stone-900 border-2 border-amber-500 flex items-center justify-center shadow-lg z-20\">\n                        <Home size={14} className=\"text-amber-600 dark:text-amber-400\" />\n                      </div>\n                    </motion.div>\n
                     const y = 128 + radius * Math.sin(rad);
                     const good = isGoodDirection(label);
                     const bad = isBadDirection(label);
@@ -209,6 +235,7 @@ export default function BatTrach() {
                   })}
 
                   {/* Rotating needle */}
+                 {/* House Direction Checker */}\n                 <div className=\"mt-8 p-6 rounded-3xl bg-stone-50 dark:bg-stone-800/50 border-2 border-stone-100 dark:border-stone-700 shadow-inner\">\n                   <div className=\"flex items-center gap-2 mb-6\">\n                     <Home size={20} className=\"text-amber-600\" />\n                     <h4 className=\"font-bold text-sm uppercase tracking-widest dark:text-stone-200\">Kiểm tra hướng nhà</h4>\n                   </div>\n\n                   <div className=\"space-y-6\">\n                     <div className=\"flex items-center gap-4\">\n                       <input\n                         type=\"range\"\n                         min=\"0\"\n                         max=\"360\"\n                         value={houseAngle}\n                         onChange={(e) => setHouseAngle(parseInt(e.target.value))}\n                         className=\"flex-1 h-2 bg-stone-200 dark:bg-stone-700 rounded-lg appearance-none cursor-pointer accent-amber-600\"\n                       />\n                       <span className=\"text-sm font-black text-stone-600 dark:text-stone-400 w-12 text-right\">\n                         {houseAngle}°\n                       </span>\n                     </div>\n\n                     <div className=\"flex flex-col items-center justify-center p-4 rounded-2xl bg-white dark:bg-stone-900 border border-stone-100 dark:border-stone-700 transition-all\">\n                       <div className=\"text-[10px] font-black uppercase tracking-widest text-stone-400 mb-1\">\n                         Hướng nhà hiện tại\n                       </div>\n                       <AnimatePresence mode=\"wait\">\n                         <motion.div\n                           key={houseAngle}\n                           initial={{ opacity: 0, y: 5 }}\n                           animate={{ opacity: 1, y: 0 }}\n                           exit={{ opacity: 0, y: -5 }}\n                           className=\"flex items-center gap-2\"\n                         >\n                           <span className=\"text-xl font-serif font-bold text-stone-800 dark:text-stone-100\">\n                             {getDirectionFromAngle(houseAngle)}\n                           </span>\n                           <span className={`text-sm font-bold px-2 py-0.5 rounded-full ${\n                             getDirectionVerdict(getDirectionFromAngle(houseAngle)).status === \"good\"\n                               ? \"bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300\"\n                               : getDirectionVerdict(getDirectionFromAngle(houseAngle)).status === \"bad\"\n                               ? \"bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300\"\n                               : \"bg-stone-100 text-stone-600 dark:bg-stone-700 dark:text-stone-400\"\n                           }`}>\n                             {getDirectionVerdict(getDirectionFromAngle(houseAngle)).text}\n                           </span>\n                         </motion.div>\n                       </AnimatePresence>\n                     </div>\n                   </div>\n                 </div>\n
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <motion.div
                       initial={{ rotate: -180 }}
