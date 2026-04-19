@@ -4,6 +4,7 @@ import { TuViForm } from '@/components/tuvi/TuViForm'
 import { AnMenhCTA } from '@/components/funnel/AnMenhCTA'
 import { PersonalDoubtTrigger } from '@/components/funnel/PersonalDoubtTrigger'
 import { MiniFunnel } from '@/components/funnel/MiniFunnel'
+import { useABTest } from '@/hooks/useABTest'
 
 export const metadata: Metadata = {
   title: 'Lập Lá Số Tử Vi Đẩu Số',
@@ -12,6 +13,8 @@ export const metadata: Metadata = {
 }
 
 export default function TuViPage() {
+  const position = useABTest<'original' | 'top'>('anmenh_cta_position', ['original', 'top']) || 'original'
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
       <div className="mb-6 text-center">
@@ -27,13 +30,20 @@ export default function TuViPage() {
           ☯ So sánh 2 lá số →
         </Link>
       </div>
+
+      {position === 'top' && (
+        <div className="mb-8">
+          <AnMenhCTA context="tuvi" variant="banner" />
+        </div>
+      )}
+
       <TuViForm />
       <div className="mt-12">
         <MiniFunnel />
       </div>
       <div className="mt-8 space-y-4">
         <PersonalDoubtTrigger context="tuvi" variant="prominent" />
-        <AnMenhCTA context="tuvi" variant="banner" />
+        {position === 'original' && <AnMenhCTA context="tuvi" variant="banner" />}
       </div>
     </div>
   )
