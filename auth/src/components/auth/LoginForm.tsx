@@ -1,5 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
+
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
 import { signIn } from "next-auth/react";
 import { motion } from "framer-motion";
 import { Mail, Lock, LogIn, Github, Chrome } from "lucide-react";

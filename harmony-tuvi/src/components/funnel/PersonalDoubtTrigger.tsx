@@ -23,9 +23,9 @@ export function PersonalDoubtTrigger({
 }: PersonalDoubtTriggerProps) {
   const { memory } = useSessionMemory()
   const canChi = memory?.birthYear ? getCanChiYear(memory.birthYear).full : null
-  const yearText = canChi ? \`Với tuổi \${canChi} (\${memory?.birthYear}), \` : ''
+  const yearText = canChi ? `Với tuổi \${canChi} (\${memory?.birthYear}), ` : ''
   
-  const text = \`\${yearText}\${getTriggerText(context)}\`
+  const text = `\${yearText}\${getTriggerText(context)}`
   
   const hrefParams = new URLSearchParams()
   hrefParams.set('source', 'tuvi_doubt')
@@ -33,11 +33,11 @@ export function PersonalDoubtTrigger({
   if (memory?.birthYear) hrefParams.set('birthYear', memory.birthYear.toString())
   if (memory?.gender) hrefParams.set('gender', memory.gender)
 
-  const href = \`\${ANMENH_URL}/bridge?\${hrefParams.toString()}\`
+  const href = `\${ANMENH_URL}/bridge?\${hrefParams.toString()}`
 
   if (variant === 'prominent') {
     return (
-      <div className={\`flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 \${className}\`}>
+      <div className={`flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 \${className}`}>
         <span className="mt-0.5 shrink-0 text-lg">⚠️</span>
         <div>
           <p className="text-sm font-semibold text-amber-900">Lưu ý về độ chính xác</p>
@@ -56,7 +56,7 @@ export function PersonalDoubtTrigger({
 
   // subtle (default) — inline text callout
   return (
-    <p className={\`text-xs text-gray-400 italic \${className}\`}>
+    <p className={`text-xs text-gray-400 italic \${className}`}>
       * {text}{' '}
       <a 
         href={href} 

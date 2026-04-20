@@ -1,10 +1,5 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { TuViForm } from '@/components/tuvi/TuViForm'
-import { AnMenhCTA } from '@/components/funnel/AnMenhCTA'
-import { PersonalDoubtTrigger } from '@/components/funnel/PersonalDoubtTrigger'
-import { MiniFunnel } from '@/components/funnel/MiniFunnel'
-import { useABTest } from '@/hooks/useABTest'
+import TuViClientPage from './TuViClientPage'
 
 export const metadata: Metadata = {
   title: 'Lập Lá Số Tử Vi Đẩu Số',
@@ -13,38 +8,5 @@ export const metadata: Metadata = {
 }
 
 export default function TuViPage() {
-  const position = useABTest<'original' | 'top'>('anmenh_cta_position', ['original', 'top']) || 'original'
-
-  return (
-    <div className="mx-auto max-w-7xl px-4 py-8">
-      <div className="mb-6 text-center">
-        <h1 className="text-3xl font-bold text-gray-800">Lá Số Tử Vi Đẩu Số</h1>
-        <p className="mt-2 text-gray-600">
-          Nhập thông tin để lập lá số Tử Vi với 14 chính tinh, 12 cung đầy đủ
-        </p>
-        <Link
-          href="/so-sanh-la-so"
-          className="mt-3 inline-block rounded-full border px-4 py-1.5 text-sm font-medium transition hover:bg-red-50"
-          style={{ borderColor: 'var(--color-primary)', color: 'var(--color-primary)' }}
-        >
-          ☯ So sánh 2 lá số →
-        </Link>
-      </div>
-
-      {position === 'top' && (
-        <div className="mb-8">
-          <AnMenhCTA context="tuvi" variant="banner" />
-        </div>
-      )}
-
-      <TuViForm />
-      <div className="mt-12">
-        <MiniFunnel />
-      </div>
-      <div className="mt-8 space-y-4">
-        <PersonalDoubtTrigger context="tuvi" variant="prominent" />
-        {position === 'original' && <AnMenhCTA context="tuvi" variant="banner" />}
-      </div>
-    </div>
-  )
+  return <TuViClientPage />
 }

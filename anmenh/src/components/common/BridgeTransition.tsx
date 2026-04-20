@@ -16,7 +16,7 @@ export default function BridgeTransition({ show, onComplete, targetApp = "AnMenh
     "Truy xuất bản đồ sao cá nhân...",
     "Tính toán Can Chi & Ngũ Hành...",
     "Phân tích tương tác vận hạn...",
-    \`Đang thiết lập không gian \${targetApp}...\`,
+    `Đang thiết lập không gian ${targetApp}...`,
     "Đồng bộ hoàn tất. Mời bạn bước vào.",
   ];
 

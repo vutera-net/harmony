@@ -51,16 +51,16 @@ function getMenhCompatibility(m1: NguHanh, m2: NguHanh) {
     Hoa: "Kim",
   };
 
-  if (m1 === m2) {
-    return { score: 15, text: "Hòa Hợp", desc: \`Cùng mệnh \${m1}, hai người dễ tìm thấy tiếng nói chung và sự thấu hiểu sâu sắc.\` };
-  }
-  if (sinh[m1] === m2 || sinh[m2] === m1) {
-    return { score: 20, text: "Tương Sinh", desc: \`Mệnh \${m1} và \${m2} tương sinh, hỗ trợ cho nhau phát triển, mang lại nhiều may mắn và tài lộc.\` };
-  }
-  if (khac[m1] === m2 || khac[m2] === m1) {
-    return { score: 0, text: "Tương Khắc", desc: \`Mệnh \${m1} và \${m2} tương khắc, dễ nảy sinh mâu thuẫn hoặc cản trở nhau. Cần sự nhường nhịn và thấu hiểu.\` };
-  }
-  return { score: 10, text: "Bình Hòa", desc: \`Mệnh \${m1} và \${m2} bình hòa, không xung cũng không hợp, cuộc sống êm đềm.\` };
+    if (m1 === m2) {
+      return { score: 15, text: "Hòa Hợp", desc: `Cùng mệnh ${m1}, hai người dễ tìm thấy tiếng nói chung và sự thấu hiểu sâu sắc.` };
+    }
+    if (sinh[m1] === m2 || sinh[m2] === m1) {
+      return { score: 20, text: "Tương Sinh", desc: `Mệnh ${m1} và ${m2} tương sinh, hỗ trợ cho nhau phát triển, mang lại nhiều may mắn và tài lộc.` };
+    }
+    if (khac[m1] === m2 || khac[m2] === m1) {
+      return { score: 0, text: "Tương Khắc", desc: `Mệnh ${m1} và ${m2} tương khắc, dễ nảy sinh mâu thuẫn hoặc cản trở nhau. Cần sự nhường nhịn và thấu hiểu.` };
+    }
+    return { score: 10, text: "Bình Hòa", desc: `Mệnh ${m1} và ${m2} bình hòa, không xung cũng không hợp, cuộc sống êm đềm.` };
 }
 
 export function calculateTuongHop(
@@ -76,12 +76,14 @@ export function calculateTuongHop(
   const napAm1 = getNapAmByYear(year1);
   const napAm2 = getNapAmByYear(year2);
 
-  const cung1 = calculateBatTrach(year1, gender1).cung;
-  const cung2 = calculateBatTrach(year2, gender2).cung;
+  const res1 = calculateBatTrach(year1, gender1);
+  const res2 = calculateBatTrach(year2, gender2);
+  const cung_p1 = res1.cung;
+  const cung_p2 = res2.cung;
 
   // 1. Xét Mệnh (Max: 20 điểm)
   const menhComp = getMenhCompatibility(napAm1.nguHanh, napAm2.nguHanh);
-  const { menhScore, menhText, menhDesc } = menhComp;
+  const { score: menhScore, text: menhText, desc: menhDesc } = menhComp;
 
   // 2. Xét Thiên Can (Max: 20 điểm)
   let canScore = 10;
@@ -106,11 +108,11 @@ export function calculateTuongHop(
   if (canHop[can1] === can2) {
     canScore = 20;
     canText = "Tương Hợp";
-    canDesc = \`Thiên can \${can1} và \${can2} tương hợp, rất tốt. Vợ chồng tâm đầu ý hợp, dễ ăn nên làm ra.\`;
+    canDesc = `Thiên can ${can1} và ${can2} tương hợp, rất tốt. Vợ chồng tâm đầu ý hợp, dễ ăn nên làm ra.`;
   } else if (canKhac[can1]?.includes(can2) || canKhac[can2]?.includes(can1)) {
     canScore = 2; 
     canText = "Tương Khắc";
-    canDesc = \`Thiên can \${can1} và \${can2} mang tính xung khắc. Đôi khi dễ bất đồng quan điểm, cần sự nhường nhịn lớn từ cả hai phía.\`;
+    canDesc = `Thiên can ${can1} và ${can2} mang tính xung khắc. Đôi khi dễ bất đồng quan điểm, cần sự nhường nhịn lớn từ cả hai phía.`;
   }
 
   // 3. Xét Địa Chi (Max: 30 điểm)
@@ -142,18 +144,17 @@ export function calculateTuongHop(
   if (isTamHop || isLucHop) {
     chiScore = 30;
     chiText = isTamHop ? "Tam Hợp" : "Lục Hợp";
-    chiDesc = \`Địa chi \${chi1} và \${chi2} thuộc \${chiText}. Sự kết hợp này mang lại may mắn, gia đình đầm ấm, hậu thuẫn vững chắc cho nhau.\`;
+    chiDesc = `Địa chi ${chi1} và ${chi2} thuộc ${chiText}. Sự kết hợp này mang lại may mắn, gia đình đầm ấm, hậu thuẫn vững chắc cho nhau.`;
   } else if (isLucXung) {
     chiScore = 0;
     chiText = "Lục Xung";
-    chiDesc = \`Địa chi \${chi1} và \${chi2} nằm trong bộ Lục Xung. Tính cách có nhiều điểm đối lập, dễ xảy ra cãi vã. Cần lấy tình yêu thương và sự thấu hiểu làm trọng.\`;
+    chiDesc = `Địa chi ${chi1} và ${chi2} nằm trong bộ Lục Xung. Tính cách có nhiều điểm đối lập, dễ xảy ra cãi vã. Cần lấy tình yêu thương và sự thấu hiểu làm trọng.`;
   }
 
   // 4. Xét Cung Phi (Max: 30 điểm)
-  const cung1 = calculateBatTrach(year1, gender1).cung;
-  const cung2 = calculateBatTrach(year2, gender2).cung;
-
+  
   const cungMatrix: Record<CungPhi, Record<CungPhi, { text: string; score: number }>> = {
+
     "Càn": { "Càn": { text: "Phục Vị", score: 25 }, "Khảm": { text: "Lục Sát", score: 5 }, "Cấn": { text: "Thiên Y", score: 35 }, "Chấn": { text: "Ngũ Quỷ", score: 2 }, "Tốn": { text: "Họa Hại", score: 10 }, "Ly": { text: "Tuyệt Mệnh", score: 0 }, "Khôn": { text: "Diên Niên", score: 30 }, "Đoài": { text: "Sinh Khí", score: 40 } },
     "Khảm": { "Càn": { text: "Lục Sát", score: 5 }, "Khảm": { text: "Phục Vị", score: 25 }, "Cấn": { text: "Ngũ Quỷ", score: 2 }, "Chấn": { text: "Thiên Y", score: 35 }, "Tốn": { text: "Sinh Khí", score: 40 }, "Ly": { text: "Diên Niên", score: 30 }, "Khôn": { text: "Tuyệt Mệnh", score: 0 }, "Đoài": { text: "Họa Hại", score: 10 } },
     "Cấn": { "Càn": { text: "Thiên Y", score: 35 }, "Khảm": { text: "Ngũ Quỷ", score: 2 }, "Cấn": { text: "Phục Vị", score: 25 }, "Chấn": { text: "Lục Sát", score: 5 }, "Tốn": { text: "Tuyệt Mệnh", score: 0 }, "Ly": { text: "Họa Hại", score: 10 }, "Khôn": { text: "Sinh Khí", score: 40 }, "Đoài": { text: "Diên Niên", score: 30 } },
@@ -164,20 +165,20 @@ export function calculateTuongHop(
     "Đoài": { "Càn": { text: "Sinh Khí", score: 40 }, "Khảm": { text: "Họa Hại", score: 10 }, "Cấn": { text: "Diên Niên", score: 30 }, "Chấn": { text: "Tuyệt Mệnh", score: 0 }, "Tốn": { text: "Lục Sát", score: 5 }, "Ly": { text: "Ngũ Quỷ", score: 2 }, "Khôn": { text: "Thiên Y", score: 35 }, "Đoài": { text: "Phục Vị", score: 25 } },
   };
 
-  const cungResult = cungMatrix[cung1][cung2];
+  const cungResult = cungMatrix[cung_p1][cung_p2];
   const rawCungScore = cungResult.score;
   const cungScore = Math.round((rawCungScore / 40) * 30);
   const cungText = cungResult.text;
   
   let cungDesc = "";
   if (rawCungScore >= 30) {
-    cungDesc = \`Hai cung \${cung1} và \${cung2} kết hợp ra sao \${cungText}. Đây là cung đại cát, mang lại sức khỏe, tài lộc nhà cửa hưng vượng, con cái cái thành đạt.\`;
+    cungDesc = `Hai cung ${cung_p1} và ${cung_p2} kết hợp ra sao ${cungText}. Đây là cung đại cát, mang lại sức khỏe, tài lộc nhà cửa hưng vượng, con cái cái thành đạt.`;
   } else if (rawCungScore >= 20) {
-    cungDesc = \`Hai cung \${cung1} và \${cung2} kết hợp ra sao \${cungText}. Gia đạo yên vui, vợ chồng hòa thuận, cuộc sống no đủ vững bền.\`;
+    cungDesc = `Hai cung ${cung_p1} và ${cung_p2} kết hợp ra sao ${cungText}. Gia đạo yên vui, vợ chồng hòa thuận, cuộc sống no đủ vững bền.`;
   } else if (rawCungScore >= 10) {
-    cungDesc = \`Hai cung \${cung1} và \${cung2} gặp sao \${cungText}. Dễ có thị phi hoặc trắc trở nhỏ trong gia đình. Cần tu dưỡng tính tình, khoan dung độ lượng.\`;
+    cungDesc = `Hai cung ${cung_p1} và ${cung_p2} gặp sao ${cungText}. Dễ có thị phi hoặc trắc trở nhỏ trong gia đình. Cần tu dưỡng tính tình, khoan dung độ lượng.`;
   } else {
-    cungDesc = \`Hai cung \${cung1} và \${cung2} phạm sao \${cungText}. Mang ý nghĩa xung khắc mạnh, hao tài tốn của hoặc bệnh tật. Nên hóa giải bằng phong thủy nhà ở (hướng bếp, hướng luân) và đặc biệt là sự chân thành tha thứ cho nhau.\`;
+    cungDesc = `Hai cung ${cung_p1} và ${cung_p2} phạm sao ${cungText}. Mang ý nghĩa xung khắc mạnh, hao tài tốn của hoặc bệnh tật. Nên hóa giải bằng phong thủy nhà ở (hướng bếp, hướng luân) và đặc biệt là sự chân thành tha thứ cho nhau.`;
   }
 
   const totalScore = menhScore + canScore + chiScore + cungScore;
@@ -194,8 +195,8 @@ export function calculateTuongHop(
   }
 
   return {
-    p1: { can: can1, chi: chi1, menh: napAm1.napAm, nguHanh: napAm1.nguHanh, cung: cung1 },
-    p2: { can: can2, chi: chi2, menh: napAm2.napAm, nguHanh: napAm2.nguHanh, cung: cung2 },
+    p1: { can: can1, chi: chi1, menh: napAm1.napAm, nguHanh: napAm1.nguHanh, cung: cung_p1 },
+    p2: { can: can2, chi: chi2, menh: napAm2.napAm, nguHanh: napAm2.nguHanh, cung: cung_p2 },
     menhScore, menhText, menhDesc,
     canScore, canText, canDesc,
     chiScore, chiText, chiDesc,

@@ -15,10 +15,6 @@ export default function Home() {
   const [showSetup, setShowSetup] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-
   const [nameInput, setNameInput] = useState("");
   const [birthYearInput, setBirthYearInput] = useState<number | "">(1990);
   const [genderInput, setGenderInput] = useState<"male" | "female">("male");

@@ -8,7 +8,7 @@ import { ContentLock } from '@/components/funnel/ContentLock'
 import { EcosystemBanner } from '@/components/funnel/EcosystemBanner'
 import { ExitIntentModal } from '@/components/funnel/ExitIntentModal'
 
-import { SEOTemplates } from '@/lib/seo/meta-helpers'\n
+import { SEOTemplates } from '@/lib/seo/meta-helpers'
 interface Props {
   params: Promise<{ year: string }>
 }

@@ -10,7 +10,7 @@ const AUTH_SERVICE_URL = process.env.AUTH_SERVICE_URL || 'https://auth.vutera.ne
 export async function POST(req: NextRequest) {
   // Verify authorization
   const authHeader = req.headers.get('authorization')
-  if (CRON_SECRET && authHeader !== \`Bearer \${CRON_SECRET}\`) {
+  if (CRON_SECRET && authHeader !== `Bearer \${CRON_SECRET}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
@@ -50,10 +50,10 @@ export async function POST(req: NextRequest) {
 
     // Trigger daily notifications to users
     try {
-      await fetch(\`\${AUTH_SERVICE_URL}/api/notifications/trigger\`, {
+      await fetch(`\${AUTH_SERVICE_URL}/api/notifications/trigger`, {
         method: 'POST',
         headers: {
-          'Authorization': \`Bearer \${CRON_SECRET}\`,
+          'Authorization': `Bearer \${CRON_SECRET}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: \`Generated horoscopes for \${zodiacOrder.length} zodiacs on \${dateStr} and triggered notifications\`,
+      message: `Generated horoscopes for \${zodiacOrder.length} zodiacs on \${dateStr} and triggered notifications`,
       count: zodiacOrder.length,
     })
   } catch (error) {

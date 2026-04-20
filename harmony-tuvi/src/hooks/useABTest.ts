@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from 'react'
 
 export function useABTest<T extends string>(testId: string, variants: T[]) {

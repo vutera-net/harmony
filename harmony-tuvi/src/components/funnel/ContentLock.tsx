@@ -61,7 +61,7 @@ export function ContentLock({
 
   return (
     <div
-      className={\`relative overflow-hidden rounded-2xl border border-purple-100 bg-white \${className}\`}
+      className={`relative overflow-hidden rounded-2xl border border-purple-100 bg-white \${className}`}
       // Trigger view tracking once when rendered
       ref={(el) => { if (el) trackLockView(context) }}
     >
@@ -75,7 +75,7 @@ export function ContentLock({
       <div className="flex items-center gap-2 border-b border-purple-100 bg-purple-50 px-5 py-3">
         <span className="text-base animate-pulse">🔒</span>
         <span className="text-sm font-semibold text-purple-900">
-          {canChi ? \`Luận giải riêng cho tuổi \${canChi}\` : 'Phần dành riêng cho bạn'}
+          {canChi ? `Luận giải riêng cho tuổi \${canChi}` : 'Phần dành riêng cho bạn'}
         </span>
         <span className="ml-auto rounded-full bg-purple-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-purple-700">
           Premium

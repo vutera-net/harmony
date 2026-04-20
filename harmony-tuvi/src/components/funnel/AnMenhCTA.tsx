@@ -110,11 +110,11 @@ export function AnMenhCTA({ variant = 'banner', context = 'default', className =
   if (memory?.birthYear) hrefParams.set('birthYear', memory.birthYear.toString())
   if (memory?.gender) hrefParams.set('gender', memory.gender)
 
-  const href = \`${ANMENH_URL}/bridge?\${hrefParams.toString()}\`
+  const href = `${ANMENH_URL}/bridge?\${hrefParams.toString()}`
 
   if (variant === 'inline') {
     return (
-      <div className={\`my-4 rounded-xl border border-purple-100 bg-purple-50 p-4 \${className}\`}>
+      <div className={`my-4 rounded-xl border border-purple-100 bg-purple-50 p-4 \${className}`}>
         <p className='text-sm font-semibold text-purple-900'>{content.headline}</p>
         <p className='mt-1 text-xs text-purple-700'>{content.sub}</p>
         <a
@@ -132,7 +132,7 @@ export function AnMenhCTA({ variant = 'banner', context = 'default', className =
   if (variant === 'card') {
     return (
       <div
-        className={\`rounded-2xl p-6 text-white \${className}\`}
+        className={`rounded-2xl p-6 text-white \${className}`}
         style={{ background: 'linear-gradient(135deg, #7C3AED 0%, #C41E3A 100%)' }}
       >
         <div className='mb-1 text-xs font-medium uppercase tracking-wide opacity-75'>
@@ -160,7 +160,7 @@ export function AnMenhCTA({ variant = 'banner', context = 'default', className =
   // banner (default)
   return (
     <div
-      className={\`rounded-2xl p-6 text-white \${className}\`}
+      className={`rounded-2xl p-6 text-white \${className}`}
       style={{ background: 'linear-gradient(135deg, #7C3AED 0%, #C41E3A 100%)' }}
     >
       <div className='flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center'>

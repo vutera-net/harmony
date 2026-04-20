@@ -174,13 +174,13 @@ export default function TuongHop() {
                 <div className="flex gap-3">
                   <button 
                     onClick={() => handleGender1Change("male")}
-                    className={\`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest \${gender1 === "male" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}\`}
+                    className={`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest ${gender1 === "male" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}`}
                   >
                     Nam
                   </button>
                   <button 
                     onClick={() => handleGender1Change("female")}
-                    className={\`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest \${gender1 === "female" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}\`}
+                    className={`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest ${gender1 === "female" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}`}
                   >
                     Nữ
                   </button>
@@ -224,13 +224,13 @@ export default function TuongHop() {
                 <div className="flex gap-3">
                   <button 
                     onClick={() => handleGender2Change("male")}
-                    className={\`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest \${gender2 === "male" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}\`}
+                    className={`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest ${gender2 === "male" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}`}
                   >
                     Nam
                   </button>
                   <button 
                     onClick={() => handleGender2Change("female")}
-                    className={\`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest \${gender2 === "female" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}\`}
+                    className={`flex-1 py-3 rounded-xl border-2 font-black transition-all text-xs uppercase tracking-widest ${gender2 === "female" ? "bg-stone-900 dark:bg-stone-100 border-stone-900 dark:border-stone-100 text-white dark:text-stone-900 shadow-lg shadow-stone-900/20" : "bg-white dark:bg-stone-800 border-stone-100 dark:border-stone-700 text-stone-400 dark:text-stone-500"}`}
                   >
                     Nữ
                   </button>
@@ -266,7 +266,7 @@ export default function TuongHop() {
               
               <h2 className="text-xs font-black tracking-widest text-stone-400 dark:text-stone-500 uppercase mb-4">Kết Quả Độ Hòa Hợp</h2>
               <div className="flex items-center justify-center gap-2 mb-6">
-                <span className={\`text-7xl md:text-8xl font-serif font-bold leading-none \${getScoreColor(result.totalScore)}\`}>
+                <span className={`text-7xl md:text-8xl font-serif font-bold leading-none ${getScoreColor(result.totalScore)}`}>
                   {result.totalScore}
                 </span>
                 <span className="text-xl font-black text-stone-400 dark:text-stone-600 mb-4 tracking-tighter">/ 100</span>
@@ -275,15 +275,15 @@ export default function TuongHop() {
               <div className="w-full max-w-sm mx-auto h-3 bg-stone-100 dark:bg-stone-950 rounded-full overflow-hidden mb-8 border border-stone-200 dark:border-stone-700">
                 <motion.div 
                   initial={{ width: 0 }}
-                  animate={{ width: \`\${result.totalScore}%\` }}
+                  animate={{ width: `${result.totalScore}%` }}
                   transition={{ duration: 1.2, ease: "circOut" }}
-                  className={\`h-full shadow-lg \${getProgressBarColor(result.totalScore)}\`} 
+                  className={`h-full shadow-lg ${getProgressBarColor(result.totalScore)}`} 
                 />
               </div>
 
               <div className="p-6 bg-amber-50/50 dark:bg-stone-900/50 rounded-2xl border border-amber-100 dark:border-stone-800 relative z-10 shadow-inner">
                  <p className="text-base md:text-lg text-stone-800 dark:text-stone-200 max-w-2xl mx-auto leading-relaxed font-medium italic">
-                  "\{result.interpretation}"
+                  {result.interpretation}
                  </p>
               </div>
             </div>

@@ -159,9 +159,9 @@ export default function BatTu() {
                         <Sparkles size={16} /> Lời khuyên cải vận (Dụng Thần)
                       </h4>
                       <p className="text-sm text-stone-700 dark:text-stone-400 leading-relaxed font-medium">
-                        {result.khuyet.length > 0 
-                          ? `Bản mệnh đang khuyết ${result.khuyet.join(\", \")}. Trong cuộc sống hàng ngày nên bổ sung các yếu tố thuộc hành này qua màu sắc trang phục, hướng làm việc hoặc nghề nghiệp để cân bằng năng lượng.`
-                          : `Lá số khá cân bằng. Tuy nhiên, hành ${result.vuong.join(\", \")} đang hơi vượng, nên hạn chế các màu sắc/hoạt động thuộc hành này để tránh năng lượng bị thái quá.`}
+ {result.khuyet.length > 0 
+                           ? `Bản mệnh đang khuyết ${result.khuyet.join(", ")}. Trong cuộc sống hàng ngày nên bổ sung các yếu tố thuộc hành này qua màu sắc trang phục, hướng làm việc hoặc nghề nghiệp để cân bằng năng lượng.`
+                           : `Lá số khá cân bằng. Tuy nhiên, hành ${result.vuong.join(", ")} đang hơi vượng, nên hạn chế các màu sắc/hoạt động thuộc hành này để tránh năng lượng bị thái quá.`}
                       </p>
                     </div>
                   </div>

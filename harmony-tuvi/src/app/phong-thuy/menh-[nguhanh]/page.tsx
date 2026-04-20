@@ -13,7 +13,7 @@ import { PersonalDoubtTrigger } from '@/components/funnel/PersonalDoubtTrigger'
 import { ContentLock } from '@/components/funnel/ContentLock'
 import { AnMenhCTA } from '@/components/funnel/AnMenhCTA'
 
-import { SEOTemplates } from '@/lib/seo/meta-helpers'\n
+import { SEOTemplates } from '@/lib/seo/meta-helpers'
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://tuvi.vutera.net'
 
 // Slug → NguHanh mapping

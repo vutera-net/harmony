@@ -5,12 +5,13 @@ if (process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY !== process.env.VAPID_PUBLIC_KEY) {
   process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY || '';
 }
 
-webpush.setVapidDetails(
-  'harmony-app',
-  'mailto:admin@harmony.net',
-  process.env.VAPID_PUBLIC_KEY || '',
-  process.env.VAPID_PRIVATE_KEY || ''
-);
+if (process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
+  webpush.setVapidDetails(
+    'mailto:admin@harmony.net',
+    process.env.VAPID_PUBLIC_KEY,
+    process.env.VAPID_PRIVATE_KEY
+  );
+}
 
 export async function saveSubscription(userId: string, subscription: any) {
   return await prisma.pushSubscription.upsert({
@@ -39,7 +40,7 @@ export async function sendNotification(userId: string, title: string, options: a
   }
 
   try {
-    await webpush.sendNotification(userSub.subscription, JSON.stringify({
+    await webpush.sendNotification(userSub.subscription as any, JSON.stringify({
       title,
       ...options,
     }));

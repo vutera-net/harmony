@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
@@ -27,10 +27,13 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
-        <UserProvider>
-          <FunnelTracker />
-          <Layout>{children}</Layout>
-        </UserProvider>
+         <UserProvider>
+           <Suspense fallback={null}>
+             <FunnelTracker />
+           </Suspense>
+           <Layout>{children}</Layout>
+         </UserProvider>
+
       </body>
     </html>
   );

@@ -9,7 +9,7 @@ import { PersonalDoubtTrigger } from '@/components/funnel/PersonalDoubtTrigger'
 import { Badge } from '@/components/ui/Badge'
 import { Card } from '@/components/ui/Card'
 
-import { SEOTemplates } from '@/lib/seo/meta-helpers'\n
+import { SEOTemplates } from '@/lib/seo/meta-helpers'
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://tuvi.vutera.net'
 
 const MONTHS_VI = [
