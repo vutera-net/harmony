@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { APP_URLS } from '@shared/lib/urls'
+import { APP_URLS } from '../../lib/shared-urls'
 
 interface FooterSection {
   title: string

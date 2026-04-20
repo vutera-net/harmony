@@ -1,6 +1,6 @@
 'use client'
 
-import { SharedHeader, NavLink } from '@shared/components/layout'
+import { SharedHeader, NavLink } from '../shared/SharedHeader'
 
 const NAV_LINKS: NavLink[] = [
   { href: '/', label: 'Trang chủ' },

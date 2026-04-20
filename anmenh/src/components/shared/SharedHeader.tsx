@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { LogIn, Menu, X } from 'lucide-react'
-import { APP_URLS, buildLoginUrl } from '@shared/lib/urls'
+import { APP_URLS, buildLoginUrl } from '../../lib/shared-urls'
 
 export interface NavLink {
   href: string

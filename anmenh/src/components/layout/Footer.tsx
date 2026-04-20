@@ -1,4 +1,4 @@
-import { SharedFooter } from '@shared/components/layout'
+import { SharedFooter } from '../shared/SharedFooter'
 
 export function Footer() {
   return (
