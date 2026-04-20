@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { LogIn, Menu, X } from 'lucide-react'
 import { APP_URLS, buildLoginUrl } from '../../lib/shared-urls'
 
@@ -34,17 +34,20 @@ export function SharedHeader({
   cta
 }: SharedHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [loginUrl, setLoginUrl] = useState(buildLoginUrl())
 
-  const loginUrl = buildLoginUrl(
-    typeof window !== 'undefined' ? window.location.href : APP_URLS.tuvi
-  )
+  useEffect(() => {
+    setLoginUrl(buildLoginUrl(window.location.href))
+  }, [])
+
   const anmenhUrl = APP_URLS.anmenh
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white shadow-sm">
       {/* Ecosystem top-bar */}
       {showEcosystemBar && (
-        <div className="border-b border-amber-100 bg-amber-50 py-1.5 text-center text-xs text-amber-800">
+         <div className="border-b border-amber-100 bg-amber-50 py-1.5 text-center text-xs text-amber-800 dark:border-amber-800 dark:bg-amber-900/20 dark:text-amber-400">
+
           {appName.includes('Tử Vi') ? (
             <>
               TuVi là một phần của hệ{' '}

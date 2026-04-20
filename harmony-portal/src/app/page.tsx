@@ -8,27 +8,12 @@ export default function PortalPage() {
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
 
   return (
-    <main className="min-h-screen bg-stone-950 text-white overflow-hidden selection:bg-primary selection:text-white">
+    <div className="min-h-screen bg-stone-950 text-white overflow-hidden selection:bg-primary selection:text-white">
       {/* Background elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-red-900/10 rounded-full blur-[120px] animate-pulse" />
         <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-amber-900/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
-
-      <nav className="p-6 md:p-10 flex justify-between items-center relative z-10">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
-            <Compass className="text-stone-950" size={24} />
-          </div>
-          <span className="text-2xl font-bold tracking-tighter">HARMONY</span>
-        </div>
-        <button 
-          onClick={() => setIsWaitlistOpen(true)}
-          className="px-6 py-2.5 bg-white/5 border border-white/10 rounded-full text-sm font-semibold hover:bg-white/10 transition-all flex items-center gap-2"
-        >
-          <Smartphone size={16} /> MOBILE APP
-        </button>
-      </nav>
 
       <div className="flex flex-col md:flex-row min-h-[calc(100vh-160px)]">
         {/* Left Side: TuVi (Public) */}
@@ -88,16 +73,7 @@ export default function PortalPage() {
         </motion.div>
       </div>
 
-      <footer className="p-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-stone-600 text-xs gap-6">
-        <p>© 2026 Vutera Harmony Ecosystem. All rights reserved.</p>
-        <div className="flex gap-8">
-          <a href="#" className="hover:text-white transition-colors uppercase tracking-widest">Privacy</a>
-          <a href="#" className="hover:text-white transition-colors uppercase tracking-widest">Terms</a>
-          <a href="#" className="hover:text-white transition-colors uppercase tracking-widest flex items-center gap-1">VUTERA.NET <ExternalLink size={10} /></a>
-        </div>
-      </footer>
-
       <WaitlistModal isOpen={isWaitlistOpen} onClose={() => setIsWaitlistOpen(false)} />
-    </main>
+    </div>
   );
 }

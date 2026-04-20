@@ -1,0 +1,97 @@
+1. tuvi:
+1.1 npm run dev dang bi loi:
+browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+      <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} forbidden={undefined} ...>
+        <RedirectBoundary>
+          <RedirectErrorBoundary router={{...}}>
+            <Head>
+            <__next_root_layout_boundary__>
+              <SegmentViewNode type="layout" pagePath="layout.tsx">
+                <SegmentTrieNode>
+                <link>
+                <script>
+                <script>
+                <script>
+                <RootLayout>
+                  <html lang="vi" className="geist_a715...">
+                    <body className="flex min-h...">
+                      <SiteHeader>
+                        <SharedHeader appName="Harmony Tử Vi" appTagline="Luận mệnh ..." navLinks={[...]} ...>
+                          <header className="sticky top...">
+                            <div>
+                            <div className="mx-auto ma...">
+                              <div className="flex h-16 ...">
+                                <LinkComponent>
+                                <nav>
+                                <div className="hidden ite...">
+                                  <a
++                                   href="http://localhost:3001/login?redirect=http%3A%2F%2Flocalhost%3A3000%2F"
+-                                   href="http://localhost:3001/login?redirect=http%3A%2F%2Flocalhost%3A3000"
+                                    className="flex items-center gap-1.5 rounded-full border border-gray-200 px-4 py-2..."
+                                  >
+                                  ...
+                                ...
+                      ...
+            ...
+
+1.2 kiem tra darkmode: khi sang drak model dang hien thi ko duoc tot
+2. anmenh:
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <__next_root_layout_boundary__>
+      <SegmentViewNode type="layout" pagePath="layout.tsx">
+        <SegmentTrieNode>
+        <link>
+        <script>
+        <script>
+        <script>
+        <RootLayout>
+          <html lang="vi">
+            <body className="inter_5901...">
+              <UserProvider>
+                <Suspense>
+                <Layout>
+                  <div className="min-h-scre...">
+                    <Header>
+                      <SharedHeader appName="An Mệnh" appTagline="Gìn giữ né..." navLinks={[...]} logo={<div>} ...>
+                        <header className="sticky top...">
+                          <div>
+                          <div className="mx-auto ma...">
+                            <div className="flex h-16 ...">
+                              <LinkComponent>
+                              <nav>
+                              <div className="hidden ite...">
+                                <a
++                                 href="https://auth.vutera.net/login?redirect=http%3A%2F%2Flocalhost%3A3002%2F"
+-                                 href="https://auth.vutera.net/login?redirect=https%3A%2F%2Ftuvi.vutera.net"
+                                  className="flex items-center gap-1.5 rounded-full border border-gray-200 px-4 py-2 t..."
+                                >
+                                ...
+                              ...
+                    ...
+
+3. portal:header vs footer ko khop voi page
